@@ -1,0 +1,1 @@
+export { default as Lollipop } from "./src/lollipop/lollipop";

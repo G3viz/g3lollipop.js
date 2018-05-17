@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="shortcut icon" href="../favicon.ico">
+  <link rel="stylesheet" media="screen" href="../css/style.css" />
+  <style>
+    .warp {
+      margin-left: 40px;
+    }
+
+    #svg-panel {
+      border: 2px solid black;
+    }
+
+    .console {
+      display: block;
+      width: 900px;
+      height: 200px;
+      margin: 10px 0px;
+      background-color: rgb(233, 233, 233);
+      color: rgb(12, 12, 12);
+      overflow-y: scroll;
+      padding: 10px;
+      font: normal 12px Arial;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div id="ctrl-panel">
+      <span class="btn-group">
+        <button id="save-as-png">Save PNG</button>
+        <button id="save-as-svg">Save SVG</button>
+        <button id="next">Start</button>
+      </span>
+    </div>
+
+    <div class="console" id="info">
+    </div>
+
+    <div id="plot-panel">
+      <svg id="svg-panel">
+      </svg>
+    </div>
+  </div>
+
+  <!-- d3 related libraries -->
+  <script src="../node_modules/d3/build/d3.min.js"></script>
+  <script src="../build/g3-utils.min.js"></script>
+  <script src="../src/lollipop/lollipop.v1.js"></script>
+
+  <script>
+    var snvFile = "../../../../data/snv/TP53-msk_impact_2017-parsed.tsv";
+    var domainFile = "../../../../data/domain/TP53_pfam.json";
+
+    var cols = g3.utils.listPalettes();
+    var idx = 0,
+      total_cols = cols.length,
+      cur_col, info;
+    var lollipop;
+    var next_btn = document.getElementById("next"),
+      info_box = document.getElementById("info");
+
+    var snvOpt = {
+      x: "AA_Position",
+      y: "Protein_Change",
+      factor: "Mutation_Class",
+    };
+
+    var domainOpt = {
+      symbol: "hgnc_symbol",
+      name: "protein_name",
+      length: "length",
+      domainType: "pfam",
+      details: {
+        start: "pfam_start",
+        end: "pfam_end",
+        ac: "pfam_ac",
+        name: "pfam_id",
+      },
+    };
+
+    var q = d3.queue();
+    q.defer(d3.tsv, snvFile);
+    q.defer(d3.json, domainFile);
+
+    q.await(function (error, snvData, domainData) {
+      snvData.forEach(function (d) {
+        d[snvOpt.x] = +d[snvOpt.x];
+      });
+
+      next_btn.onclick = function (e) {
+        if (idx == 0) {
+          next_btn.innerHTML = "Next";
+        }
+
+        if (idx < total_cols) {
+          // remove all elememts in SVG
+          d3.select("svg").selectAll("*").remove();
+
+          lollipop = Lollipop("svg", "pie", 800);
+          lollipop.data.snvData = snvData;
+          lollipop.data.domainData = domainData;
+
+          lollipop.options.domainColorScheme = g3.utils.scaleOrdinal(cols[idx]);
+          lollipop.draw(snvOpt, domainOpt);
+
+          info = "Test " + (idx + 1) + "/" + total_cols + ": color scheme = " +
+            "<span style=\"color:firebrick;font-weight: bold;\">" +
+            cols[idx] + "</span><br>";
+          info_box.innerHTML += info;
+          info_box.scrollTop = info_box.scrollHeight;
+
+          idx++;
+          if (idx == total_cols) {
+            next_btn.innerHTML = "Done";
+            next_btn.disabled = true;
+          }
+        }
+      };
+
+      document.getElementById("save-as-png").onclick = function (e) {
+        g3.utils.output("svg").toPNG('out_png');
+      };
+
+      document.getElementById("save-as-svg").onclick = function (e) {
+        g3.utils.output('svg').toSVG('out_svg');
+      };
+    });
+  </script>
+</body>
+
+</html>

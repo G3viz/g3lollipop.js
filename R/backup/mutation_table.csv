@@ -1,0 +1,12 @@
+Mutation_Type,Mutation_Class,Short_Name
+Fusion,Other,Fusion
+Targeted_Region,Inframe,IF
+In_Frame_Del,Inframe,IF del
+In_Frame_Ins,Inframe,IF ins
+Missense_Mutation,Missense,Missense
+Frame_Shift_Del,Truncating,FS del
+Frame_Shift_Ins,Truncating,FS ins
+Nonsense_Mutation,Truncating,Nonsense
+Nonstop_Mutation,Truncating,Nonstop
+Splice_Region,Truncating,Splice
+Splice_Site,Truncating,Splice

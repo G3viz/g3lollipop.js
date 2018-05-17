@@ -1,0 +1,44 @@
+{
+    "name": "g3-lollipop",
+    "version": "0.0.1",
+    "description": "G3 (genes/genomes/genetics): lollipop diagram for visualizing gene-level mutation data",
+    "keywords": [
+        "Javascript",
+        "d3",
+        "G3 (genes/genomes/genetics)",
+        "lollipop digram",
+        "genome variation"
+    ],
+    "author": {
+        "name": "Xin Guo"
+    },
+    "license": "GNU-General-Public-License v3.0",
+    "main": "build/g3-lollipop.min.js",
+    "module": "build/g3-lollipop.min.js",
+    "jsnext:main": "index",
+    "homepage": "https://github.com/G3js/g3-lollipop",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/G3js/g3-lollipop.git"
+    },
+    "scripts": {
+        "assemble": "rm -rf build/g3-utils* build/g3-lollipop.* && rollup --config ./rollup.utils.config.js && rollup --config ./rollup.lollipop.config.js",
+        "build": "uglifyjs -b beautify=false build/g3-utils.js -c -m -o build/g3-utils.min.js && uglifyjs -b beautify=false build/g3-lollipop.js -c -m -o build/g3-lollipop.min.js",
+        "cssmin": "rm -rf css/style.min.css && uglifycss --ugly-comments css/style.css --output css/style.min.css",
+        "publish": "zip -j build/g3-lollipop-all.zip -- LICENSE README.md build/g3-lollipop-all.min.js css/style.min.css"
+    },
+    "dependencies": {
+        "blob": "0.0.4",
+        "d3": "^4.12.0",
+        "file-saver": "git+https://github.com/eligrey/FileSaver.js.git",
+        "uglifycss": "0.0.29"
+    },
+    "devDependencies": {
+        "eslint": "4",
+        "package-preamble": "0.1.0",
+        "rollup": "^0.52.0",
+        "rollup-plugin-node-resolve": "^3.3.0",
+        "tape": "4",
+        "uglify-es": "github:mishoo/UglifyJS2#harmony"
+    }
+}
