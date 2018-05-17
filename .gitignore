@@ -1,3 +1,9 @@
-node_modules/
+# R codes
 R/
+
+# run local sever for testing
 run_server.sh
+
+# Dependency directories
+node_modules/
+
