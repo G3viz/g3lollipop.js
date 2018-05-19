@@ -57,8 +57,7 @@
   </div>
 
   <script src="https://d3js.org/d3.v4.min.js"></script>
-  <script src="../build/g3-utils.min.js"></script>
-  <script src="../build/g3-lollipop.js"></script>
+  <script src="../dist/g3-lollipop.min.js"></script>
   <script>
     var snvFile = "../data/snv/TP53-msk_impact_2017-parsed.tsv";
     var domainFile = "../data/domain/TP53_pfam.json";
@@ -240,11 +239,11 @@
       };
 
       document.getElementById("save-as-png").onclick = function (e) {
-        g3.utils.output("svg").toPNG('out_png');
+        g3.output("svg").toPNG('out_png');
       };
 
       document.getElementById("save-as-svg").onclick = function (e) {
-        g3.utils.output('svg').toSVG('out_svg');
+        g3.output('svg').toSVG('out_svg');
       };
     });
   </script>

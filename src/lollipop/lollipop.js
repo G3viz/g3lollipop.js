@@ -1,5 +1,11 @@
 import d3 from "d3";
 
+import { getTextWidth, getUniqueID } from "../utils/utils";
+import { palettes, defaultPalette, getPalette, listPalettes, scaleOrdinal } from "../utils/color";
+import { default as output } from "../output/output";
+import { default as legend } from "../legend/legend";
+import { default as tooltip } from "../utils/tooltip";
+
 export default function Lollipop(target, chartType, width) {
     'ues strict';
 
@@ -41,7 +47,7 @@ export default function Lollipop(target, chartType, width) {
         chartType = ChartTypeDefault;
     }
 
-    var uniqueID = g3.utils.getUniqueID();
+    var uniqueID = getUniqueID();
     var options = {
         chartID: Prefix + "_" + uniqueID,
         className: "g3-chart",
@@ -98,7 +104,7 @@ export default function Lollipop(target, chartType, width) {
             fontsizeToRadius: 1.4,
             padding: 5,
         },
-        popColorScheme: g3.utils.scaleOrdinal("accent"),
+        popColorScheme: scaleOrdinal("accent"),
         yPaddingRatio: 1.1,
         popParams: {
             rMin: 2,
@@ -142,7 +148,7 @@ export default function Lollipop(target, chartType, width) {
             zoom: "main-viz-zoom",
         },
         domain: {
-            colorScheme: g3.utils.scaleOrdinal("category10"),
+            colorScheme: scaleOrdinal("category10"),
             margin: { top: 0, bottom: 0 },
             label: {
                 font: "normal 11px Arial",
@@ -178,8 +184,23 @@ export default function Lollipop(target, chartType, width) {
     var _domainH, _domainW, _mainH, _mainW, _svgH, _svgW;
 
     var _colorPanel = function (name) {
-        return d3.scaleOrdinal(g3.utils.getPalette(name));
+        return d3.scaleOrdinal(getPalette(name));
     };
+
+    var _appendValueToDomain = function (tickValues, value) {
+        if (value === undefined || tickValues.length <= 1 || tickValues[tickValues.length - 1] >= value)
+            return tickValues;
+
+        var interval = Math.abs(tickValues[1] - tickValues[0]);
+
+        if (Math.abs(value - tickValues[tickValues.length - 1]) > interval / 2) {
+            tickValues.push(value);
+        } else {
+            tickValues[tickValues.length - 1] = value;
+        }
+
+        return tickValues;
+    }
 
     // event handlers
     var _getDomainRectWidth = function (d) {
@@ -439,7 +460,7 @@ export default function Lollipop(target, chartType, width) {
             let _fontSize = Math.max(d._currentState.radius * lollipopOpt.popLabel.fontsizeToRadius, lollipopOpt.popLabel.minFontSize) + "px";
             let _font = lollipopOpt.popLabel["font-weight"] + " " + _fontSize + " " + lollipopOpt.popLabel["font-family"];
             // text length in dimention
-            let _txtLen = g3.utils.getTextWidth(_dominant.entry, _font);
+            let _txtLen = getTextWidth(_dominant.entry, _font);
 
             // note: y axis 0 is at top-left cornor
             let _txtH = d._currentState.radius + lollipopOpt.popLabel.padding + _txtLen;
@@ -469,7 +490,7 @@ export default function Lollipop(target, chartType, width) {
         // register legend
         if (!options.legend.show) return;
 
-        _lollipopLegend = g3.utils.legend(target, snvDataOpt.factor);
+        _lollipopLegend = legend(target, snvDataOpt.factor);
 
         if ((Object.keys(options.legend.margin)).length == 0) {
             options.legend.margin = {
@@ -584,7 +605,7 @@ export default function Lollipop(target, chartType, width) {
     var _calcPopTextFontSize = function (r, number, fontWeight, fontFamily) {
         let _w = r * 1.75;
         for (let _f = Math.ceil(_w); _f >= 0; _f--) {
-            let _textwidth = g3.utils.getTextWidth(number, fontWeight + " " + _f + "px " + fontFamily);
+            let _textwidth = getTextWidth(number, fontWeight + " " + _f + "px " + fontFamily);
             if (_textwidth <= _w) {
                 return _f + "px";
             }
@@ -869,7 +890,7 @@ export default function Lollipop(target, chartType, width) {
         _xRange = [0, domainData["length"]];
         _xScale = d3.scaleLinear().domain(_xRange).range([0, _domainW]);
         _xScaleOrig = d3.scaleLinear().domain(_xRange).range([0, _domainW]);
-        _xTicks = g3.utils.appendValueToDomain(_xScale.ticks(), domainData["length"], "aa");
+        _xTicks = _appendValueToDomain(_xScale.ticks(), domainData["length"], "aa");
         _xAxis = d3.axisBottom(_xScale).tickValues(_xTicks)
             .tickFormat(function (_) { return this.parentNode.nextSibling ? _ : _ + " aa"; });
     };
@@ -977,7 +998,7 @@ export default function Lollipop(target, chartType, width) {
 
     var _initTooltip = function () {
         if (options.tooltip) {
-            _popTooltip = g3.utils.tooltip().attr("class", "d3-tip").offset([8, 0])
+            _popTooltip = tooltip().attr("class", "d3-tip").offset([8, 0])
                 .direction(
                     function (d) {
                         if (d.count > _yRange[1] / 2) return "s";
@@ -1151,6 +1172,7 @@ export default function Lollipop(target, chartType, width) {
         }
 
         _calcOptions();
+
         // prepare data
         _prepareData();
 

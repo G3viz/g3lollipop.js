@@ -70,6 +70,3 @@ export function listPalettes() {
 export function scaleOrdinal(paletteName){
 	return d3.scaleOrdinal(getPalette(paletteName));
 }
-
-
-

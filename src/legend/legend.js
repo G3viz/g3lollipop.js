@@ -1,4 +1,5 @@
 import d3 from "d3";
+import { getTextWidth } from "../utils/utils";;
 
 export default function (target, title, series) {
     const Enabled = "enabled", Disabled = "disabled";
@@ -59,7 +60,7 @@ export default function (target, title, series) {
                     .attr("transform", "translate(" + margin.left + "," + (_height + margin.top) + ")"),
                 _lineHeight = 16;
 
-            let _titleLen = (title) ? g3.utils.getTextWidth(title, titleFont) : 0;
+            let _titleLen = (title) ? getTextWidth(title, titleFont) : 0;
 
             let _radioLeft = 12, _radioRight = 5, _radioRadius = 3,
                 _radioStrokeWidth = 1, _radioStroke = "grey";
@@ -124,7 +125,7 @@ export default function (target, title, series) {
             var _addOneLegend = function (d) {
                 let _g = d3.select(this);
                 let _text = d.value.label || d.key;
-                _updatePosition(g3.utils.getTextWidth(_text, labelFont));
+                _updatePosition(getTextWidth(_text, labelFont));
 
                 let _x = _curPos.x + _radioLeft + _radioRadius, _y = _curPos.y;
 

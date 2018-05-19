@@ -4,7 +4,14 @@
  *
  * Tooltips for d3.js SVG visualizations
  */
-// eslint-disable-next-line no-extra-semi
+/*
+https://github.com/eligrey/FileSaver.js
+probably a small bug or incompatible with D3.v3
+modify targetShape to d3.event.target as shown
+
+function getScreenBBox(targetShape) {
+    var targetel = target || d3.event.target; //targetShape
+*/
 import d3 from 'd3';
 // Public - constructs a new tooltip
 //

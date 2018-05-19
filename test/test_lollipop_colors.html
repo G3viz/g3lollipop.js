@@ -3,7 +3,7 @@
 
 <head>
   <link rel="shortcut icon" href="../favicon.ico">
-  <link rel="stylesheet" media="screen" href="../css/style.css" />
+  <link rel="stylesheet" media="screen" href="../css/style.min.css" />
   <style>
     .warp {
       margin-left: 40px;
@@ -47,13 +47,12 @@
   </div>
 
   <script src="https://d3js.org/d3.v4.min.js"></script>
-  <script src="../build/g3-utils.min.js"></script>
-  <script src="../build/g3-lollipop.js"></script>
+  <script src="../build/g3-lollipop.min.js"></script>
   <script>
     var snvFile = "../data/snv/TP53-msk_impact_2017-parsed.tsv";
     var domainFile = "../data/domain/TP53_pfam.json";
 
-    var cols = g3.utils.listPalettes();
+    var cols = g3.listPalettes();
     var idx = 0,
       total_cols = cols.length,
       cur_col, info;
@@ -98,11 +97,11 @@
           // remove all elememts in SVG
           d3.select("svg").selectAll("*").remove();
 
-          lollipop = Lollipop("svg", "pie", 800);
+          lollipop = g3.Lollipop("svg", "pie", 800);
           lollipop.data.snvData = snvData;
           lollipop.data.domainData = domainData;
 
-          lollipop.options.lollipopColorScheme = g3.utils.scaleOrdinal(cols[idx]);
+          lollipop.options.lollipopColorScheme = g3.scaleOrdinal(cols[idx]);
           lollipop.draw(snvOpt, domainOpt);
 
           info = "Test " + (idx + 1) + "/" + total_cols + ": color scheme = " +
@@ -120,11 +119,11 @@
       };
 
       document.getElementById("save-as-png").onclick = function (e) {
-        g3.utils.output("svg").toPNG('out_png');
+        g3.output("svg").toPNG('out_png');
       };
 
       document.getElementById("save-as-svg").onclick = function (e) {
-        g3.utils.output('svg').toSVG('out_svg');
+        g3.output('svg').toSVG('out_svg');
       };
     });
   </script>
