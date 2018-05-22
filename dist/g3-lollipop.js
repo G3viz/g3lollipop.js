@@ -445,6 +445,9 @@ function legend (target, title, series) {
                 };
             });
         },
+        destroy: function () {
+            d3.select(".g3-legend").selectAll("*").remove();
+        },
         draw: function () {
             series.forEach(d => d._status = true);
             //let _counter = series.length;
@@ -453,7 +456,7 @@ function legend (target, title, series) {
                 _width = +_svg.attr("width"),
                 _height = +_svg.attr("height"),
                 _totalW = _width - (margin.left || 0) - (margin.right || 0),
-                _wrap = _svg.append("g").attr("class", "g3 g3-legend")
+                _wrap = _svg.append("g").attr("class", "g3-legend")
                     .attr("transform", "translate(" + margin.left + "," + (_height + margin.top) + ")"),
                 _lineHeight = 16;
 
@@ -472,7 +475,7 @@ function legend (target, title, series) {
 
             // add title
             if (title) {
-                _wrap.append("g").attr("class", "g3 g3-legend-title")
+                _wrap.append("g").attr("class", "g3-legend-title")
                     .append("text")
                     .attr("x", _titleWidth - _titleInterval).attr("y", _lineHeight / 2)
                     .attr("text-anchor", "end")
@@ -516,7 +519,7 @@ function legend (target, title, series) {
             };
 
             var _legends = _wrap.append("g")
-                .attr("class", "g3 g3-legend-item-container")
+                .attr("class", "g3-legend-item-container")
                 .attr("transform", "translate(" + _titleWidth + ", 0)");
 
             var _addOneLegend = function (d) {
@@ -587,15 +590,15 @@ function getScreenBBox(targetShape) {
 // Public - constructs a new tooltip
 //
 // Returns a tip
-function tooltip() {
-  var direction   = d3TipDirection,
-      offset      = d3TipOffset,
-      html        = d3TipHTML,
-      rootElement = document.body,
-      node        = initNode(),
-      svg         = null,
-      point       = null,
-      target      = null;
+function tooltip () {
+  var direction = d3TipDirection,
+    offset = d3TipOffset,
+    html = d3TipHTML,
+    rootElement = document.body,
+    node = initNode(),
+    svg = null,
+    point = null,
+    target = null;
 
   function tip(vis) {
     svg = getSVGNode(vis);
@@ -607,20 +610,20 @@ function tooltip() {
   // Public - show the tooltip on the screen
   //
   // Returns a tip
-  tip.show = function() {
+  tip.show = function () {
     var args = Array.prototype.slice.call(arguments);
     if (args[args.length - 1] instanceof SVGElement) target = args.pop();
 
     var content = html.apply(this, args),
-        poffset = offset.apply(this, args),
-        dir     = direction.apply(this, args),
-        nodel   = getNodeEl(),
-        i       = directions.length,
-        coords,
-        scrollTop  = document.documentElement.scrollTop ||
-      rootElement.scrollTop,
-        scrollLeft = document.documentElement.scrollLeft ||
-      rootElement.scrollLeft;
+      poffset = offset.apply(this, args),
+      dir = direction.apply(this, args),
+      nodel = getNodeEl(),
+      i = directions.length,
+      coords,
+      scrollTop = document.documentElement.scrollTop ||
+        rootElement.scrollTop,
+      scrollLeft = document.documentElement.scrollLeft ||
+        rootElement.scrollLeft;
 
     nodel.html(content)
       .style('opacity', 1).style('pointer-events', 'all');
@@ -637,7 +640,7 @@ function tooltip() {
   // Public - hide the tooltip
   //
   // Returns a tip
-  tip.hide = function() {
+  tip.hide = function () {
     var nodel = getNodeEl();
     nodel.style('opacity', 0).style('pointer-events', 'none');
     return tip
@@ -651,12 +654,12 @@ function tooltip() {
   //
   // Returns tip or attribute value
   // eslint-disable-next-line no-unused-vars
-  tip.attr = function(n, v) {
+  tip.attr = function (n, v) {
     if (arguments.length < 2 && typeof n === 'string') {
       return getNodeEl().attr(n)
     }
 
-    var args =  Array.prototype.slice.call(arguments);
+    var args = Array.prototype.slice.call(arguments);
     d3.selection.prototype.attr.apply(getNodeEl(), args);
     return tip
   };
@@ -669,7 +672,7 @@ function tooltip() {
   //
   // Returns tip or style property value
   // eslint-disable-next-line no-unused-vars
-  tip.style = function(n, v) {
+  tip.style = function (n, v) {
     if (arguments.length < 2 && typeof n === 'string') {
       return getNodeEl().style(n)
     }
@@ -685,7 +688,7 @@ function tooltip() {
   //     sw(southwest), ne(northeast) or se(southeast)
   //
   // Returns tip or direction
-  tip.direction = function(v) {
+  tip.direction = function (v) {
     if (!arguments.length) return direction
     direction = v == null ? v : functor(v);
 
@@ -697,7 +700,7 @@ function tooltip() {
   // v - Array of [x, y] offset
   //
   // Returns offset or
-  tip.offset = function(v) {
+  tip.offset = function (v) {
     if (!arguments.length) return offset
     offset = v == null ? v : functor(v);
 
@@ -709,7 +712,7 @@ function tooltip() {
   // v - String value of the tip
   //
   // Returns html value or tip
-  tip.html = function(v) {
+  tip.html = function (v) {
     if (!arguments.length) return html
     html = v == null ? v : functor(v);
 
@@ -721,7 +724,7 @@ function tooltip() {
   // v - root element of the tooltip
   //
   // Returns root node of tip
-  tip.rootElement = function(v) {
+  tip.rootElement = function (v) {
     if (!arguments.length) return rootElement
     rootElement = v == null ? v : functor(v);
 
@@ -731,7 +734,7 @@ function tooltip() {
   // Public: destroys the tooltip and removes it from the DOM
   //
   // Returns a tip
-  tip.destroy = function() {
+  tip.destroy = function () {
     if (node) {
       getNodeEl().remove();
       node = null;
@@ -744,21 +747,21 @@ function tooltip() {
   function d3TipHTML() { return ' ' }
 
   var directionCallbacks = d3.map({
-        n:  directionNorth,
-        s:  directionSouth,
-        e:  directionEast,
-        w:  directionWest,
-        nw: directionNorthWest,
-        ne: directionNorthEast,
-        sw: directionSouthWest,
-        se: directionSouthEast
-      }),
-      directions = directionCallbacks.keys();
+    n: directionNorth,
+    s: directionSouth,
+    e: directionEast,
+    w: directionWest,
+    nw: directionNorthWest,
+    ne: directionNorthEast,
+    sw: directionSouthWest,
+    se: directionSouthEast
+  }),
+    directions = directionCallbacks.keys();
 
   function directionNorth() {
     var bbox = getScreenBBox(this);
     return {
-      top:  bbox.n.y - node.offsetHeight,
+      top: bbox.n.y - node.offsetHeight,
       left: bbox.n.x - node.offsetWidth / 2
     }
   }
@@ -766,7 +769,7 @@ function tooltip() {
   function directionSouth() {
     var bbox = getScreenBBox(this);
     return {
-      top:  bbox.s.y,
+      top: bbox.s.y,
       left: bbox.s.x - node.offsetWidth / 2
     }
   }
@@ -774,7 +777,7 @@ function tooltip() {
   function directionEast() {
     var bbox = getScreenBBox(this);
     return {
-      top:  bbox.e.y - node.offsetHeight / 2,
+      top: bbox.e.y - node.offsetHeight / 2,
       left: bbox.e.x
     }
   }
@@ -782,7 +785,7 @@ function tooltip() {
   function directionWest() {
     var bbox = getScreenBBox(this);
     return {
-      top:  bbox.w.y - node.offsetHeight / 2,
+      top: bbox.w.y - node.offsetHeight / 2,
       left: bbox.w.x - node.offsetWidth
     }
   }
@@ -790,7 +793,7 @@ function tooltip() {
   function directionNorthWest() {
     var bbox = getScreenBBox(this);
     return {
-      top:  bbox.nw.y - node.offsetHeight,
+      top: bbox.nw.y - node.offsetHeight,
       left: bbox.nw.x - node.offsetWidth
     }
   }
@@ -798,7 +801,7 @@ function tooltip() {
   function directionNorthEast() {
     var bbox = getScreenBBox(this);
     return {
-      top:  bbox.ne.y - node.offsetHeight,
+      top: bbox.ne.y - node.offsetHeight,
       left: bbox.ne.x
     }
   }
@@ -806,7 +809,7 @@ function tooltip() {
   function directionSouthWest() {
     var bbox = getScreenBBox(this);
     return {
-      top:  bbox.sw.y,
+      top: bbox.sw.y,
       left: bbox.sw.x - node.offsetWidth
     }
   }
@@ -814,7 +817,7 @@ function tooltip() {
   function directionSouthEast() {
     var bbox = getScreenBBox(this);
     return {
-      top:  bbox.se.y,
+      top: bbox.se.y,
       left: bbox.se.x
     }
   }
@@ -861,19 +864,19 @@ function tooltip() {
   //
   // Returns an Object {n, s, e, w, nw, sw, ne, se}
   function getScreenBBox(targetShape) {
-    var targetel   = target || d3.event.target; //targetShape
+    var targetel = target || d3.event.target; //targetShape
 
     while (targetel.getScreenCTM == null && targetel.parentNode != null) {
       targetel = targetel.parentNode;
     }
 
-    var bbox       = {},
-        matrix     = targetel.getScreenCTM(),
-        tbbox      = targetel.getBBox(),
-        width      = tbbox.width,
-        height     = tbbox.height,
-        x          = tbbox.x,
-        y          = tbbox.y;
+    var bbox = {},
+      matrix = targetel.getScreenCTM(),
+      tbbox = targetel.getBBox(),
+      width = tbbox.width,
+      height = tbbox.height,
+      x = tbbox.x,
+      y = tbbox.y;
 
     point.x = x;
     point.y = y;
@@ -899,7 +902,7 @@ function tooltip() {
 
   // Private - replace D3JS 3.X d3.functor() function
   function functor(v) {
-    return typeof v === 'function' ? v : function() {
+    return typeof v === 'function' ? v : function () {
       return v
     }
   }
@@ -953,8 +956,8 @@ function Lollipop(target, chartType, width) {
         margin: { left: 40, right: 20, top: 15, bottom: 25 },
         background: "transparent",
         transitionTime: 600,
-        legend: {
-            show: true,
+        legend: true,
+        legendOpt: {
             margin: {},
             interactive: true,
         },
@@ -1075,7 +1078,8 @@ function Lollipop(target, chartType, width) {
         _yUpperValueArray = [], _yValueMax,
         _xRange, _xScale, _xAxis, _xTicks, _domXAxis,
         _yRange, _yScale, _yAxis, _yValues, _domYAxis,
-        _popTooltip = null, //_domainTooltip = null,
+        _popTooltip = null,
+        _chartInit = false,
         _byFactor = false, _currentStates = {}, _lollipopLegend;
 
     var _domainBrush, _xScaleOrig, _domainZoom;
@@ -1382,12 +1386,12 @@ function Lollipop(target, chartType, width) {
 
     var _addLollipopLegend = function () {
         // register legend
-        if (!options.legend.show) return;
+        if (!options.legend) return;
 
         _lollipopLegend = legend(target, snvDataOpt.factor);
 
-        if ((Object.keys(options.legend.margin)).length == 0) {
-            options.legend.margin = {
+        if ((Object.keys(options.legendOpt.margin)).length == 0) {
+            options.legendOpt.margin = {
                 left: options.margin.left,
                 right: options.margin.right,
                 top: 2,
@@ -1395,8 +1399,8 @@ function Lollipop(target, chartType, width) {
             };
         }
 
-        _lollipopLegend.margin = options.legend.margin;
-        _lollipopLegend.interactive = options.legend.interactive;
+        _lollipopLegend.margin = options.legendOpt.margin;
+        _lollipopLegend.interactive = options.legendOpt.interactive;
 
         for (let _d in _currentStates) {
             _lollipopLegend.addSeries({
@@ -1978,6 +1982,8 @@ function Lollipop(target, chartType, width) {
         // chart animation transition time (ms)
         set transitionTime(_) { options.transitionTime = _; }, get transitionTime() { return options.transitionTime; },
 
+        set tooltip(_) { options.tooltip = _; }, get tooltip() { return options.tooltip; },
+
         // ylabel text
         set ylab(_) { lollipopOpt.ylab.text = _; }, get ylab() { return lollipopOpt.ylab.text; },
 
@@ -1988,9 +1994,9 @@ function Lollipop(target, chartType, width) {
         set axisLabelDy(_) { lollipopOpt.axisLabel.dy = _; }, get axisLabelDy() { return lollipopOpt.axisLabel.dy; },
 
         // legend settings (show legend or not / legend margin / interactive legend or not)
-        set showLegend(_) { options.legend.show = _; }, get showLegend() { return options.legend.show; },
-        set legendMargin(_) { options.legend.margin = _; }, get legendMargin() { return options.legend.margin; },
-        set legendInteractive(_) { options.legend.interactive = _; }, get legendInteractive() { return options.legend.interactive; },
+        set showLegend(_) { options.legend = _; }, get showLegend() { return options.legend; },
+        set legendMargin(_) { options.legendOpt.margin = _; }, get legendMargin() { return options.legendOpt.margin; },
+        set legendInteractive(_) { options.legendOpt.interactive = _; }, get legendInteractive() { return options.legendOpt.interactive; },
 
         // get lollipopTrack ID
         get lollipopTrackID() { return lollipopOpt.id; },
@@ -2048,6 +2054,41 @@ function Lollipop(target, chartType, width) {
         set zoom(_) { domainOpt.zoom = _; }, get zoom() { return domainOpt.zoom; },
     };
 
+    lollipop.setOptions = function (options) {
+        for (let _key in options) {
+            this.options[_key] = options[_key];
+        }
+    };
+
+    lollipop.getOptions = function (options) {
+        let _options = {};
+        let self = this;
+        options.forEach(function (opt) {
+            if (self.options[opt]) {
+                _options[opt] = self.options[opt];
+            }
+        });
+        return _options;
+    };
+
+    lollipop.destroy = function () {
+        _svg = d3.select(target);
+        _svg.attr("width", null).attr("height", null)
+            .attr("xmlns", null).attr("xmlns:xlink", null)
+            .classed(options.className, false)
+            .style("background-color", null);
+        _svg.selectAll("*").remove();
+
+        if (options.tooltip && _chartInit) {
+            _popTooltip.destroy();
+        }
+    };
+
+    lollipop.refresh = function () {
+        this.destroy();
+        this.draw(snvDataOpt, domainDataOpt);
+    };
+
     lollipop.data = {
         set snvData(_) { snvData = _; }, get snvData() { return snvData; },
         set domainData(_) { domainData = _; }, get domainData() { return domainData; },
@@ -2091,6 +2132,8 @@ function Lollipop(target, chartType, width) {
         if (domainOpt.brush) {
             _initBrush();
         }
+
+        _chartInit = true;
     };
 
     return lollipop;

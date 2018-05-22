@@ -48,6 +48,9 @@ export default function (target, title, series) {
                 };
             });
         },
+        destroy: function () {
+            d3.select(".g3-legend").selectAll("*").remove();
+        },
         draw: function () {
             series.forEach(d => d._status = true);
             //let _counter = series.length;
@@ -56,7 +59,7 @@ export default function (target, title, series) {
                 _width = +_svg.attr("width"),
                 _height = +_svg.attr("height"),
                 _totalW = _width - (margin.left || 0) - (margin.right || 0),
-                _wrap = _svg.append("g").attr("class", "g3 g3-legend")
+                _wrap = _svg.append("g").attr("class", "g3-legend")
                     .attr("transform", "translate(" + margin.left + "," + (_height + margin.top) + ")"),
                 _lineHeight = 16;
 
@@ -75,7 +78,7 @@ export default function (target, title, series) {
 
             // add title
             if (title) {
-                _wrap.append("g").attr("class", "g3 g3-legend-title")
+                _wrap.append("g").attr("class", "g3-legend-title")
                     .append("text")
                     .attr("x", _titleWidth - _titleInterval).attr("y", _lineHeight / 2)
                     .attr("text-anchor", "end")
@@ -119,7 +122,7 @@ export default function (target, title, series) {
             };
 
             var _legends = _wrap.append("g")
-                .attr("class", "g3 g3-legend-item-container")
+                .attr("class", "g3-legend-item-container")
                 .attr("transform", "translate(" + _titleWidth + ", 0)");
 
             var _addOneLegend = function (d) {

@@ -47,18 +47,17 @@
   </div>
 
   <script src="https://d3js.org/d3.v4.min.js"></script>
-  <script src="../dist/g3-lollipop.min.js"></script>
+  <script src="../dist/g3-lollipop.js"></script>
   <script>
     var snvFile = "../data/snv/TP53-msk_impact_2017-parsed.tsv";
     var domainFile = "../data/domain/TP53_pfam.json";
 
+    var idx = 0;
     var cols = g3.listPalettes();
-    var idx = 0,
-      total_cols = cols.length,
-      cur_col, info;
-    var lollipop;
-    var next_btn = document.getElementById("next"),
-      info_box = document.getElementById("info");
+    var len_col = cols.length;
+    var lollipop, info;
+    var next_btn = document.getElementById("next");
+    var info_box = document.getElementById("info");
 
     var snvOpt = {
       x: "AA_Position",
@@ -88,30 +87,26 @@
         d[snvOpt.x] = +d[snvOpt.x];
       });
 
+      lollipop = g3.Lollipop("svg", "pie", 800);
+      lollipop.data.snvData = snvData;
+      lollipop.data.domainData = domainData;
+
       next_btn.onclick = function (e) {
         if (idx == 0) {
           next_btn.innerHTML = "Next";
         }
 
-        if (idx < total_cols) {
-          // remove all elememts in SVG
-          d3.select("svg").selectAll("*").remove();
-
-          lollipop = g3.Lollipop("svg", "pie", 800);
-          lollipop.data.snvData = snvData;
-          lollipop.data.domainData = domainData;
-
+        if (idx < len_col) {
           lollipop.options.domainColorScheme = g3.scaleOrdinal(cols[idx]);
-          lollipop.draw(snvOpt, domainOpt);
+          lollipop.refresh(snvOpt, domainOpt);
+          info = "Test " + (idx + 1) + "/" + len_col + ": color scheme = " +
+            "<span style = \"color:firebrick;font-weight: bold;\">" + cols[idx] + "</span><br>";
 
-          info = "Test " + (idx + 1) + "/" + total_cols + ": color scheme = " +
-            "<span style=\"color:firebrick;font-weight: bold;\">" +
-            cols[idx] + "</span><br>";
           info_box.innerHTML += info;
           info_box.scrollTop = info_box.scrollHeight;
 
           idx++;
-          if (idx == total_cols) {
+          if (idx == len_col) {
             next_btn.innerHTML = "Done";
             next_btn.disabled = true;
           }

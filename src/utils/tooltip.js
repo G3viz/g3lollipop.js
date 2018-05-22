@@ -16,15 +16,15 @@ import d3 from 'd3';
 // Public - constructs a new tooltip
 //
 // Returns a tip
-export default function() {
-  var direction   = d3TipDirection,
-      offset      = d3TipOffset,
-      html        = d3TipHTML,
-      rootElement = document.body,
-      node        = initNode(),
-      svg         = null,
-      point       = null,
-      target      = null
+export default function () {
+  var direction = d3TipDirection,
+    offset = d3TipOffset,
+    html = d3TipHTML,
+    rootElement = document.body,
+    node = initNode(),
+    svg = null,
+    point = null,
+    target = null
 
   function tip(vis) {
     svg = getSVGNode(vis)
@@ -36,20 +36,20 @@ export default function() {
   // Public - show the tooltip on the screen
   //
   // Returns a tip
-  tip.show = function() {
+  tip.show = function () {
     var args = Array.prototype.slice.call(arguments)
     if (args[args.length - 1] instanceof SVGElement) target = args.pop()
 
     var content = html.apply(this, args),
-        poffset = offset.apply(this, args),
-        dir     = direction.apply(this, args),
-        nodel   = getNodeEl(),
-        i       = directions.length,
-        coords,
-        scrollTop  = document.documentElement.scrollTop ||
-      rootElement.scrollTop,
-        scrollLeft = document.documentElement.scrollLeft ||
-      rootElement.scrollLeft
+      poffset = offset.apply(this, args),
+      dir = direction.apply(this, args),
+      nodel = getNodeEl(),
+      i = directions.length,
+      coords,
+      scrollTop = document.documentElement.scrollTop ||
+        rootElement.scrollTop,
+      scrollLeft = document.documentElement.scrollLeft ||
+        rootElement.scrollLeft
 
     nodel.html(content)
       .style('opacity', 1).style('pointer-events', 'all')
@@ -66,7 +66,7 @@ export default function() {
   // Public - hide the tooltip
   //
   // Returns a tip
-  tip.hide = function() {
+  tip.hide = function () {
     var nodel = getNodeEl()
     nodel.style('opacity', 0).style('pointer-events', 'none')
     return tip
@@ -80,12 +80,12 @@ export default function() {
   //
   // Returns tip or attribute value
   // eslint-disable-next-line no-unused-vars
-  tip.attr = function(n, v) {
+  tip.attr = function (n, v) {
     if (arguments.length < 2 && typeof n === 'string') {
       return getNodeEl().attr(n)
     }
 
-    var args =  Array.prototype.slice.call(arguments)
+    var args = Array.prototype.slice.call(arguments)
     d3.selection.prototype.attr.apply(getNodeEl(), args)
     return tip
   }
@@ -98,7 +98,7 @@ export default function() {
   //
   // Returns tip or style property value
   // eslint-disable-next-line no-unused-vars
-  tip.style = function(n, v) {
+  tip.style = function (n, v) {
     if (arguments.length < 2 && typeof n === 'string') {
       return getNodeEl().style(n)
     }
@@ -114,7 +114,7 @@ export default function() {
   //     sw(southwest), ne(northeast) or se(southeast)
   //
   // Returns tip or direction
-  tip.direction = function(v) {
+  tip.direction = function (v) {
     if (!arguments.length) return direction
     direction = v == null ? v : functor(v)
 
@@ -126,7 +126,7 @@ export default function() {
   // v - Array of [x, y] offset
   //
   // Returns offset or
-  tip.offset = function(v) {
+  tip.offset = function (v) {
     if (!arguments.length) return offset
     offset = v == null ? v : functor(v)
 
@@ -138,7 +138,7 @@ export default function() {
   // v - String value of the tip
   //
   // Returns html value or tip
-  tip.html = function(v) {
+  tip.html = function (v) {
     if (!arguments.length) return html
     html = v == null ? v : functor(v)
 
@@ -150,7 +150,7 @@ export default function() {
   // v - root element of the tooltip
   //
   // Returns root node of tip
-  tip.rootElement = function(v) {
+  tip.rootElement = function (v) {
     if (!arguments.length) return rootElement
     rootElement = v == null ? v : functor(v)
 
@@ -160,7 +160,7 @@ export default function() {
   // Public: destroys the tooltip and removes it from the DOM
   //
   // Returns a tip
-  tip.destroy = function() {
+  tip.destroy = function () {
     if (node) {
       getNodeEl().remove()
       node = null
@@ -173,21 +173,21 @@ export default function() {
   function d3TipHTML() { return ' ' }
 
   var directionCallbacks = d3.map({
-        n:  directionNorth,
-        s:  directionSouth,
-        e:  directionEast,
-        w:  directionWest,
-        nw: directionNorthWest,
-        ne: directionNorthEast,
-        sw: directionSouthWest,
-        se: directionSouthEast
-      }),
-      directions = directionCallbacks.keys()
+    n: directionNorth,
+    s: directionSouth,
+    e: directionEast,
+    w: directionWest,
+    nw: directionNorthWest,
+    ne: directionNorthEast,
+    sw: directionSouthWest,
+    se: directionSouthEast
+  }),
+    directions = directionCallbacks.keys()
 
   function directionNorth() {
     var bbox = getScreenBBox(this)
     return {
-      top:  bbox.n.y - node.offsetHeight,
+      top: bbox.n.y - node.offsetHeight,
       left: bbox.n.x - node.offsetWidth / 2
     }
   }
@@ -195,7 +195,7 @@ export default function() {
   function directionSouth() {
     var bbox = getScreenBBox(this)
     return {
-      top:  bbox.s.y,
+      top: bbox.s.y,
       left: bbox.s.x - node.offsetWidth / 2
     }
   }
@@ -203,7 +203,7 @@ export default function() {
   function directionEast() {
     var bbox = getScreenBBox(this)
     return {
-      top:  bbox.e.y - node.offsetHeight / 2,
+      top: bbox.e.y - node.offsetHeight / 2,
       left: bbox.e.x
     }
   }
@@ -211,7 +211,7 @@ export default function() {
   function directionWest() {
     var bbox = getScreenBBox(this)
     return {
-      top:  bbox.w.y - node.offsetHeight / 2,
+      top: bbox.w.y - node.offsetHeight / 2,
       left: bbox.w.x - node.offsetWidth
     }
   }
@@ -219,7 +219,7 @@ export default function() {
   function directionNorthWest() {
     var bbox = getScreenBBox(this)
     return {
-      top:  bbox.nw.y - node.offsetHeight,
+      top: bbox.nw.y - node.offsetHeight,
       left: bbox.nw.x - node.offsetWidth
     }
   }
@@ -227,7 +227,7 @@ export default function() {
   function directionNorthEast() {
     var bbox = getScreenBBox(this)
     return {
-      top:  bbox.ne.y - node.offsetHeight,
+      top: bbox.ne.y - node.offsetHeight,
       left: bbox.ne.x
     }
   }
@@ -235,7 +235,7 @@ export default function() {
   function directionSouthWest() {
     var bbox = getScreenBBox(this)
     return {
-      top:  bbox.sw.y,
+      top: bbox.sw.y,
       left: bbox.sw.x - node.offsetWidth
     }
   }
@@ -243,7 +243,7 @@ export default function() {
   function directionSouthEast() {
     var bbox = getScreenBBox(this)
     return {
-      top:  bbox.se.y,
+      top: bbox.se.y,
       left: bbox.se.x
     }
   }
@@ -290,19 +290,19 @@ export default function() {
   //
   // Returns an Object {n, s, e, w, nw, sw, ne, se}
   function getScreenBBox(targetShape) {
-    var targetel   = target || d3.event.target; //targetShape
+    var targetel = target || d3.event.target; //targetShape
 
     while (targetel.getScreenCTM == null && targetel.parentNode != null) {
       targetel = targetel.parentNode
     }
 
-    var bbox       = {},
-        matrix     = targetel.getScreenCTM(),
-        tbbox      = targetel.getBBox(),
-        width      = tbbox.width,
-        height     = tbbox.height,
-        x          = tbbox.x,
-        y          = tbbox.y
+    var bbox = {},
+      matrix = targetel.getScreenCTM(),
+      tbbox = targetel.getBBox(),
+      width = tbbox.width,
+      height = tbbox.height,
+      x = tbbox.x,
+      y = tbbox.y
 
     point.x = x
     point.y = y
@@ -328,7 +328,7 @@ export default function() {
 
   // Private - replace D3JS 3.X d3.functor() function
   function functor(v) {
-    return typeof v === 'function' ? v : function() {
+    return typeof v === 'function' ? v : function () {
       return v
     }
   }

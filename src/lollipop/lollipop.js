@@ -55,8 +55,8 @@ export default function Lollipop(target, chartType, width) {
         margin: { left: 40, right: 20, top: 15, bottom: 25 },
         background: "transparent",
         transitionTime: 600,
-        legend: {
-            show: true,
+        legend: true,
+        legendOpt: {
             margin: {},
             interactive: true,
         },
@@ -177,7 +177,8 @@ export default function Lollipop(target, chartType, width) {
         _yUpperValueArray = [], _yValueMax,
         _xRange, _xScale, _xAxis, _xTicks, _domXAxis,
         _yRange, _yScale, _yAxis, _yValues, _domYAxis,
-        _popTooltip = null, //_domainTooltip = null,
+        _popTooltip = null,
+        _chartInit = false,
         _byFactor = false, _currentStates = {}, _lollipopLegend;
 
     var _domainBrush, _xScaleOrig, _domainZoom;
@@ -488,12 +489,12 @@ export default function Lollipop(target, chartType, width) {
 
     var _addLollipopLegend = function () {
         // register legend
-        if (!options.legend.show) return;
+        if (!options.legend) return;
 
         _lollipopLegend = legend(target, snvDataOpt.factor);
 
-        if ((Object.keys(options.legend.margin)).length == 0) {
-            options.legend.margin = {
+        if ((Object.keys(options.legendOpt.margin)).length == 0) {
+            options.legendOpt.margin = {
                 left: options.margin.left,
                 right: options.margin.right,
                 top: 2,
@@ -501,8 +502,8 @@ export default function Lollipop(target, chartType, width) {
             };
         }
 
-        _lollipopLegend.margin = options.legend.margin;
-        _lollipopLegend.interactive = options.legend.interactive;
+        _lollipopLegend.margin = options.legendOpt.margin;
+        _lollipopLegend.interactive = options.legendOpt.interactive;
 
         for (let _d in _currentStates) {
             _lollipopLegend.addSeries({
@@ -1084,6 +1085,8 @@ export default function Lollipop(target, chartType, width) {
         // chart animation transition time (ms)
         set transitionTime(_) { options.transitionTime = _; }, get transitionTime() { return options.transitionTime; },
 
+        set tooltip(_) { options.tooltip = _; }, get tooltip() { return options.tooltip; },
+
         // ylabel text
         set ylab(_) { lollipopOpt.ylab.text = _; }, get ylab() { return lollipopOpt.ylab.text; },
 
@@ -1094,9 +1097,9 @@ export default function Lollipop(target, chartType, width) {
         set axisLabelDy(_) { lollipopOpt.axisLabel.dy = _; }, get axisLabelDy() { return lollipopOpt.axisLabel.dy; },
 
         // legend settings (show legend or not / legend margin / interactive legend or not)
-        set showLegend(_) { options.legend.show = _; }, get showLegend() { return options.legend.show; },
-        set legendMargin(_) { options.legend.margin = _; }, get legendMargin() { return options.legend.margin; },
-        set legendInteractive(_) { options.legend.interactive = _; }, get legendInteractive() { return options.legend.interactive; },
+        set showLegend(_) { options.legend = _; }, get showLegend() { return options.legend; },
+        set legendMargin(_) { options.legendOpt.margin = _; }, get legendMargin() { return options.legendOpt.margin; },
+        set legendInteractive(_) { options.legendOpt.interactive = _; }, get legendInteractive() { return options.legendOpt.interactive; },
 
         // get lollipopTrack ID
         get lollipopTrackID() { return lollipopOpt.id; },
@@ -1154,6 +1157,41 @@ export default function Lollipop(target, chartType, width) {
         set zoom(_) { domainOpt.zoom = _; }, get zoom() { return domainOpt.zoom; },
     };
 
+    lollipop.setOptions = function (options) {
+        for (let _key in options) {
+            this.options[_key] = options[_key];
+        }
+    };
+
+    lollipop.getOptions = function (options) {
+        let _options = {};
+        let self = this;
+        options.forEach(function (opt) {
+            if (self.options[opt]) {
+                _options[opt] = self.options[opt];
+            }
+        });
+        return _options;
+    };
+
+    lollipop.destroy = function () {
+        _svg = d3.select(target);
+        _svg.attr("width", null).attr("height", null)
+            .attr("xmlns", null).attr("xmlns:xlink", null)
+            .classed(options.className, false)
+            .style("background-color", null);
+        _svg.selectAll("*").remove();
+
+        if (options.tooltip && _chartInit) {
+            _popTooltip.destroy();
+        }
+    }
+
+    lollipop.refresh = function () {
+        this.destroy();
+        this.draw(snvDataOpt, domainDataOpt);
+    };
+
     lollipop.data = {
         set snvData(_) { snvData = _; }, get snvData() { return snvData; },
         set domainData(_) { domainData = _; }, get domainData() { return domainData; },
@@ -1197,6 +1235,8 @@ export default function Lollipop(target, chartType, width) {
         if (domainOpt.brush) {
             _initBrush();
         }
+
+        _chartInit = true;
     };
 
     return lollipop;
