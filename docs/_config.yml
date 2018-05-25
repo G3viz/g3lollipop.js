@@ -1,14 +1,12 @@
 # Site settings
-title: Jekyll Doc Theme
+title: G3-lollipop viewer
 email: your-email@domain.com
 description: >
-  Jekyll Template for Project Websites
-  providing documentation and blog post pages.
+  Demo and Documentation for G3-lollipop Javascript Library
 
 baseurl: "/lollipop" # the subpath of your site, e.g. /blog/
-url: https://aksakalli.github.io/jekyll-doc-theme # the base hostname & protocol for your site
-git_address: https://github.com/aksakalli/jekyll-doc-theme
-git_edit_address: https://github.com/aksakalli/jekyll-doc-theme/blob/gh-pages
+url: "https://g3js.github.io" # the base hostname & protocol for your site
+git_address: https://g3js.github.io/docs
 
 # theme options from https://bootswatch.com/
 # comment out this to use default Bootstrap
