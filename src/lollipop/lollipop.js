@@ -59,6 +59,7 @@ export default function Lollipop(target, chartType, width) {
         legendOpt: {
             margin: {},
             interactive: true,
+            title: Undefined,
         },
     };
 
@@ -491,7 +492,7 @@ export default function Lollipop(target, chartType, width) {
         // register legend
         if (!options.legend) return;
 
-        _lollipopLegend = legend(target, snvDataOpt.factor);
+        _lollipopLegend = legend(target);
 
         if ((Object.keys(options.legendOpt.margin)).length == 0) {
             options.legendOpt.margin = {
@@ -504,6 +505,7 @@ export default function Lollipop(target, chartType, width) {
 
         _lollipopLegend.margin = options.legendOpt.margin;
         _lollipopLegend.interactive = options.legendOpt.interactive;
+        _lollipopLegend.title = options.legendOpt.title == Undefined? snvDataOpt.factor: options.legendOpt.title;
 
         for (let _d in _currentStates) {
             _lollipopLegend.addSeries({
@@ -826,7 +828,7 @@ export default function Lollipop(target, chartType, width) {
         }
 
         // parse each position
-        // use _currentState to record the current information for current 
+        // use _currentState to record the current information for current
         snvData.forEach(function (d) {
             // group by factor, group by y, sort
             //let _d = d.values.filter(function (d) { return d[snvOpt.factor] in _currentStates; });
@@ -1100,6 +1102,7 @@ export default function Lollipop(target, chartType, width) {
         set showLegend(_) { options.legend = _; }, get showLegend() { return options.legend; },
         set legendMargin(_) { options.legendOpt.margin = _; }, get legendMargin() { return options.legendOpt.margin; },
         set legendInteractive(_) { options.legendOpt.interactive = _; }, get legendInteractive() { return options.legendOpt.interactive; },
+        set legendTitle(_) { options.legendOpt.title = _; }, get legendTitle() { return options.legendOpt.title; },
 
         // get lollipopTrack ID
         get lollipopTrackID() { return lollipopOpt.id; },

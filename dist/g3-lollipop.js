@@ -269,7 +269,7 @@ var saveAs = saveAs || (function(view) {
 ));
 
 // ==========================================
-// g3.utils.output module 
+// g3.utils.output module
 // ==========================================
 function output () {
     // helper functions
@@ -1723,7 +1723,7 @@ function Lollipop(target, chartType, width) {
         }
 
         // parse each position
-        // use _currentState to record the current information for current 
+        // use _currentState to record the current information for current
         snvData.forEach(function (d) {
             // group by factor, group by y, sort
             //let _d = d.values.filter(function (d) { return d[snvOpt.factor] in _currentStates; });

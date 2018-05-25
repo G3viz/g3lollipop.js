@@ -189,7 +189,7 @@
     var next_btn = document.getElementById("next");
     var info_box = document.getElementById("info");
 
-    var _print = function (str) {
+    var _print = function(str) {
       return (typeof str === "object") ? JSON.stringify(str) : str;
     }
 
@@ -197,8 +197,8 @@
     q.defer(d3.tsv, snvFile);
     q.defer(d3.json, domainFile);
 
-    q.await(function (error, snvData, domainData) {
-      snvData.forEach(function (d) {
+    q.await(function(error, snvData, domainData) {
+      snvData.forEach(function(d) {
         d[snvOpt.x] = +d[snvOpt.x];
       });
 
@@ -206,7 +206,7 @@
       lollipop.data.snvData = snvData;
       lollipop.data.domainData = domainData;
 
-      next_btn.onclick = function (e) {
+      next_btn.onclick = function(e) {
         if (idx == 0) {
           next_btn.innerHTML = "Next";
         }
@@ -237,11 +237,11 @@
         }
       };
 
-      document.getElementById("save-as-png").onclick = function (e) {
+      document.getElementById("save-as-png").onclick = function(e) {
         g3.output("svg").toPNG('out_png');
       };
 
-      document.getElementById("save-as-svg").onclick = function (e) {
+      document.getElementById("save-as-svg").onclick = function(e) {
         g3.output('svg').toSVG('out_svg');
       };
     });
