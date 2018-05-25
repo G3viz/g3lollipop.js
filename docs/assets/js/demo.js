@@ -39,14 +39,12 @@ q.await(function (error, snvData, domainData) {
         legendTitle: "mutation class",
     });
     lollipop.draw(snvOpt, domainOpt);
+    document.getElementById("save-as-png-1").onclick = function (e) {
+        g3.output(target1).toPNG('out_png-1');
+    };
+
+    document.getElementById("save-as-svg-1").onclick = function (e) {
+        g3.output(target1).toSVG('out_svg-1');
+    };
+
 });
-
-/*
-document.getElementById("save-as-png-1").onclick = function (e) {
-    g3.output(target1).toPNG('out_png-1');
-};
-*/
-
-document.getElementById("save-as-svg-1").onclick = function (e) {
-    g3.output(target1).toSVG('out_svg-1');
-};
