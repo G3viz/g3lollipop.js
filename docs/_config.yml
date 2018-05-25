@@ -16,6 +16,7 @@ bootwatch: paper
 
 # Build settings
 markdown: kramdown
+remote_theme: aksakalli/jekyll-doc-theme
 highlighter: rouge
 gems:
   - jekyll-feed
