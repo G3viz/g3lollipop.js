@@ -182,7 +182,7 @@ export default function Lollipop(target, chartType, width) {
         _chartInit = false,
         _byFactor = false, _currentStates = {}, _lollipopLegend;
 
-    var _domainBrush, _xScaleOrig, _domainZoom;
+    var _domainBrush, _xScaleOrig, _domainZoom, _legendHeight;
     var _domainH, _domainW, _mainH, _mainW, _svgH, _svgW;
 
     var _colorPanel = function (name) {
@@ -531,6 +531,7 @@ export default function Lollipop(target, chartType, width) {
         });
 
         _lollipopLegend.draw();
+        _legendHeight = _lollipopLegend.height;
     };
 
     var _pieFun = function () {
@@ -1078,6 +1079,7 @@ export default function Lollipop(target, chartType, width) {
         set chartType(_) { if (_ && _ in ChartTypes) chartType = _; }, get chartType() { return chartType; },
         // get chart ID
         get chartID() { return options.chartID },
+        get height() { return +_svg.attr("height")},
 
         // chart margin (top / bottom / left / right)
         set margin(_) { options.margin = _; }, get margin() { return options.margin; },
@@ -1103,6 +1105,7 @@ export default function Lollipop(target, chartType, width) {
         set legendMargin(_) { options.legendOpt.margin = _; }, get legendMargin() { return options.legendOpt.margin; },
         set legendInteractive(_) { options.legendOpt.interactive = _; }, get legendInteractive() { return options.legendOpt.interactive; },
         set legendTitle(_) { options.legendOpt.title = _; }, get legendTitle() { return options.legendOpt.title; },
+        get legendHeight() { return _legendHeight;},
 
         // get lollipopTrack ID
         get lollipopTrackID() { return lollipopOpt.id; },

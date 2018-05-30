@@ -18,6 +18,8 @@ export default function (target, title, series) {
     title = title || false;
     series = series || [];
 
+    var height = 0;
+
     var labelFont = "normal 12px sans-serif", labelColor = "black",
         titleFont = "bold 12px sans-serif", titleColor = "black";
 
@@ -32,6 +34,7 @@ export default function (target, title, series) {
         set labelColor(_) { labelColor = _; }, get labelColor() { return labelColor; },
         set titleFont(_) { titleFont = _; }, get titleFont() { return titleFont; },
         set titleColor(_) { titleColor = _; }, get titleColor() { return titleColor; },
+        get height() { return height; },
         addSeries: function (datum) {
             // key : legend name
             // value: legend related information
@@ -169,7 +172,8 @@ export default function (target, title, series) {
                 .style("cursor", interactive ? "pointer" : "default")
                 .each(_addOneLegend);
 
-            _svg.attr("height", _height + margin.top + _curPos.y + _lineHeight / 2 + margin.bottom);
+            height = margin.top + _curPos.y + _lineHeight / 2 + margin.bottom;
+            +_svg.attr("height", height + _height);
         },
     }
 

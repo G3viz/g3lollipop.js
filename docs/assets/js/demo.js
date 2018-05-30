@@ -1,7 +1,7 @@
 var snvFile = "assets/data/TP53-msk_impact_2017.csv";
 var domainFile = "assets/data/TP53_pfam.json";
 
-var target1 = "#ex1";
+var target1 = "ex1";
 
 var snvOpt = {
     x: "AA_Position",
@@ -22,6 +22,8 @@ var domainOpt = {
     },
 };
 
+var _width, _height;
+
 var q = d3.queue();
 q.defer(d3.tsv, snvFile);
 q.defer(d3.json, domainFile);
@@ -31,7 +33,9 @@ q.await(function (error, snvData, domainData) {
         d[snvOpt.x] = +d[snvOpt.x];
     });
 
-    lollipop = g3.Lollipop(target1, "pie", 560);
+    _width = document.getElementById(target1).parentElement.clientWidth;
+
+    lollipop = g3.Lollipop("#"+target1, "pie", _width);
     lollipop.data.snvData = snvData;
     lollipop.data.domainData = domainData;
 
@@ -39,6 +43,7 @@ q.await(function (error, snvData, domainData) {
         legendTitle: "mutation class",
     });
     lollipop.draw(snvOpt, domainOpt);
+
     document.getElementById("save-as-png-1").onclick = function (e) {
         g3.output(target1).toPNG('out_png-1');
     };

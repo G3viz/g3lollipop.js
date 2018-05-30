@@ -14,11 +14,10 @@ theme: jekyll-theme-leap-day
 # you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
-title: G3-lollipop variation viewer
-email: your-email@example.com
-description: >- # this means to ignore newlines until "baseurl:"
-  Demo and documentation for G3-lollipop Javascript Library
-baseurl: "/" # the subpath of your site, e.g. /blog
+title: Lollipop-diagram genomic mutation viewer
+description: # this means to ignore newlines until "baseurl:"
+  Demo and documentation for G3-lollipop
+baseurl: "/lollipop" # the subpath of your site, e.g. /blog
 url: "https://g3js.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 github_username:  g3js
 
@@ -26,6 +25,8 @@ github_username:  g3js
 show_downloads: false
 markdown: kramdown
 theme: jekyll-theme-leap-day
+
+highlighter: pygments
 
 plugins:
   - jekyll-feed
