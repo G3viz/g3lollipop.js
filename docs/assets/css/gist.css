@@ -1,6 +1,7 @@
 .g3-panel {
     width: 100%;
     display: block;
+    border: 0.5px solid #5F9BE0;
     margin: 5px;
 }
 
@@ -11,7 +12,7 @@ button {
     padding: 5px 10px;
     color: #fff;
     text-decoration: none;
-    font-size: 0.9em;
+    font-size: 0.8em;
     margin: 5px 5px;
 }
 
