@@ -1,11 +1,15 @@
 .g3-panel {
     width: 100%;
     display: block;
-    border: 0.5px solid #5F9BE0;
     margin: 5px;
 }
 
+svg {
+    border: 0.5px solid #b4b4b4;
+}
+
 /* button */
+
 button {
     background: #76B3FA;
     border-radius: 20px;
@@ -17,6 +21,7 @@ button {
 }
 
 /* Hover state animation applied here */
+
 button:hover {
     -webkit-animation: hover 1200ms linear 2 alternate;
     animation: hover 1200ms linear 2 alternate;
