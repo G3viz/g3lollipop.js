@@ -41,6 +41,8 @@ q.await(function (error, snvData, domainData) {
 
     lollipop.setOptions({
         legendTitle: "mutation class",
+        domainTextFont: "italic small-caps normal 8px/80% Arial, Helvetica, sans-serif",
+        domainTextColor: "#d4d4d4",
     });
     lollipop.draw(snvOpt, domainOpt);
 
