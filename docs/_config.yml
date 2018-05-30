@@ -26,6 +26,8 @@ show_downloads: false
 markdown: kramdown
 theme: jekyll-theme-leap-day
 
+premalink: pretty
+
 plugins:
   - jekyll-feed
 
