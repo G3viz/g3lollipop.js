@@ -972,6 +972,7 @@ function Lollipop(target, chartType, width) {
     var lollipopOpt = {
         id: Prefix + "-main-" + uniqueID,
         defsId: Prefix + "-main-defs-" + uniqueID,
+        xAxisDefsId: Prefix + "-xAxis-defs-" + uniqueID,
         height: LollipopTrackHeightDefault,
         background: "rgb(244,244,244)",
         lollipopClassName: {
@@ -1880,6 +1881,7 @@ function Lollipop(target, chartType, width) {
 
         // add x axis
         _domXAxis = _mainViz.append("g")
+            .attr("clip-path", "url(#" + lollipopOpt.xAxisDefsId + ")")
             .attr("class", "axis axis--x")
             .attr("transform", "translate(0, " + (_mainH + domainOpt.height) + ")")
             .call(_xAxis);
@@ -1951,13 +1953,21 @@ function Lollipop(target, chartType, width) {
 
     var _addDefs = function () {
         // defs
-        _mainViz.append("defs").append("clipPath")
+        _mainViz.append("clipPath")
             .attr("id", lollipopOpt.defsId)
             .append("rect")
             .attr("width", _mainW)
             .attr("height", _mainH + domainOpt.margin.top);
+
+        _mainViz.append("clipPath")
+            .attr("id", lollipopOpt.xAxisDefsId)
+            .append("rect")
+            .attr("x", -5)
+            .attr("width", _mainW + 20) // TODO
+            .attr("height", 30);
+
         // defs
-        _domainViz.append("defs").append("clipPath")
+        _domainViz.append("clipPath")
             .attr("id", domainOpt.defsId)
             .append("rect")
             .attr("width", _domainW)
@@ -1980,7 +1990,7 @@ function Lollipop(target, chartType, width) {
         set chartType(_) { if (_ && _ in ChartTypes) chartType = _; }, get chartType() { return chartType; },
         // get chart ID
         get chartID() { return options.chartID },
-        get height() { return +_svg.attr("height")},
+        get height() { return +_svg.attr("height") },
 
         // chart margin (top / bottom / left / right)
         set margin(_) { options.margin = _; }, get margin() { return options.margin; },
@@ -2006,7 +2016,7 @@ function Lollipop(target, chartType, width) {
         set legendMargin(_) { options.legendOpt.margin = _; }, get legendMargin() { return options.legendOpt.margin; },
         set legendInteractive(_) { options.legendOpt.interactive = _; }, get legendInteractive() { return options.legendOpt.interactive; },
         set legendTitle(_) { options.legendOpt.title = _; }, get legendTitle() { return options.legendOpt.title; },
-        get legendHeight() { return _legendHeight;},
+        get legendHeight() { return _legendHeight; },
 
         // get lollipopTrack ID
         get lollipopTrackID() { return lollipopOpt.id; },

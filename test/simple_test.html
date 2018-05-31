@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="shortcut icon" href="../favicon.ico">
+  <link rel="stylesheet" media="screen" href="../css/style.min.css" />
+  <style>
+    .warp {
+      margin-left: 40px;
+    }
+
+    #svg-panel {
+      border: 2px solid black;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div id="ctrl-panel">
+      <span class="btn-group">
+        <button id="save-as-png">Save PNG</button>
+        <button id="save-as-svg">Save SVG</button>
+        <button id="next">Start</button>
+      </span>
+    </div>
+
+    <div class="console" id="info">
+    </div>
+
+    <div id="plot-panel">
+      <svg id="svg-panel">
+      </svg>
+    </div>
+  </div>
+
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <script src="../dist/g3-lollipop.js"></script>
+  <script>
+    var snvFile = "../data/snv/TP53-msk_impact_2017-parsed.tsv";
+    var domainFile = "../data/domain/TP53_pfam.json";
+
+    var snvOpt = {
+      x: "AA_Position",
+      y: "Protein_Change",
+      factor: "Mutation_Class",
+    };
+
+    var domainOpt = {
+      symbol: "hgnc_symbol",
+      name: "protein_name",
+      length: "length",
+      domainType: "pfam",
+      details: {
+        start: "pfam_start",
+        end: "pfam_end",
+        ac: "pfam_ac",
+        name: "pfam_id",
+      },
+    };
+
+    var q = d3.queue();
+    q.defer(d3.tsv, snvFile);
+    q.defer(d3.json, domainFile);
+
+    q.await(function (error, snvData, domainData) {
+      snvData.forEach(function (d) {
+        d[snvOpt.x] = +d[snvOpt.x];
+      });
+
+      lollipop = g3.Lollipop("svg", "pie", 800);
+      lollipop.data.snvData = snvData;
+      lollipop.data.domainData = domainData;
+
+      lollipop.draw(snvOpt, domainOpt);
+
+      document.getElementById("save-as-png").onclick = function (e) {
+        g3.output("svg").toPNG('out_png');
+      };
+
+      document.getElementById("save-as-svg").onclick = function (e) {
+        g3.output('svg').toSVG('out_svg');
+      };
+    });
+  </script>
+</body>
+
+</html>
