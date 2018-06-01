@@ -1,6 +1,6 @@
 # Genomic mutation lollipops
 
-[demo1](https://g3js.github.io/lollipop)
+[demo1](https://bl.ocks.org/phoeguo/583a12e04c6b9d7ca1825cdbdc62f531)
 
 ## Introduction
 

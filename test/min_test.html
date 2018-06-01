@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="shortcut icon" href="../favicon.ico">
+  <link rel="stylesheet" media="screen" href="../css/style.min.css" />
+  <style>
+    .warp {
+      margin-left: 40px;
+    }
+
+    #svg-panel {
+      border: 2px solid black;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div id="ctrl-panel">
+      <span class="btn-group">
+        <button id="save-as-png">Save PNG</button>
+        <button id="save-as-svg">Save SVG</button>
+        <button id="next">Start</button>
+      </span>
+    </div>
+
+    <div class="console" id="info">
+    </div>
+
+    <div id="plot-panel">
+      <svg id="svg-panel">
+      </svg>
+    </div>
+  </div>
+
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <script src="../src/data/data.js"></script>
+  <script src="../dist/g3-lollipop.min.js"></script>
+  <script>
+ uniprot("TP53");
+  </script>
+</body>
+
+</html>
