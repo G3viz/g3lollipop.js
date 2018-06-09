@@ -38,7 +38,7 @@ lollipop.draw(snvOpt, domainOpt);
 [Live demo](https://bl.ocks.org/phoeguo/583a12e04c6b9d7ca1825cdbdc62f531)
 
 
-<a href="https://bl.ocks.org/phoeguo/583a12e04c6b9d7ca1825cdbdc62f531"><img src="./docs/assets/img/screenshot1.png" alt="demo screenshot" width="260"/></a>
+<a href="https://bl.ocks.org/phoeguo/583a12e04c6b9d7ca1825cdbdc62f531"><img src="./docs/assets/img/screenshot1.png" alt="demo screenshot" width="500"/></a>
 
 ## Features
 
