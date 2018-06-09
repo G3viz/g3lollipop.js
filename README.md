@@ -1,16 +1,14 @@
-<p align="center">
-<span style="font-size:2.5em;">G3-lollipop</span>
+<h1 align="center">G3-lollipop</h1>
 
-<h4 align="center" style="color:steelblue">
+<h4 align="center" style="color:#4682b4">
 Easily generate interactive lollipop-style diagram to visulize genomic mutation data
 </h4>
-</p>
 
 ------
 
 ## Introduction
 
-G3-lollipop is a component of G3 (Gene|Genome|Genetics) javascirpt library, which generates an interactive lollipop-style diagram to visualize genomic mutation data.
+G3-lollipop is a component of G3 (Gene|Genome|Genetics) Javascirpt library, which generates an interactive lollipop-style diagram to visualize genomic mutation data.
 
 ## Quick start
 
@@ -39,7 +37,8 @@ lollipop.draw(snvOpt, domainOpt);
 ## Demo
 [Live demo](https://bl.ocks.org/phoeguo/583a12e04c6b9d7ca1825cdbdc62f531)
 
-<a href="https://bl.ocks.org/phoeguo/583a12e04c6b9d7ca1825cdbdc62f531"><img src="./docs/assets/img/screenshot1.png" alt="demo screenshot" style="width:240px;"/></a>
+
+<a href="https://bl.ocks.org/phoeguo/583a12e04c6b9d7ca1825cdbdc62f531"><img src="./docs/assets/img/screenshot1.png" alt="demo screenshot" width="260"/></a>
 
 ## Features
 
