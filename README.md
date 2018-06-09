@@ -2,7 +2,7 @@
 G3-lollipop
 </h1>
 
-<h4 align="center" color="bluesteel">
+<h4 align="center" style="color:steelblue">
 Easily generate interactive lollipop-style diagram to visulize genomic mutation data.
 </h4>
 
