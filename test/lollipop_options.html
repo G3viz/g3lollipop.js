@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" media="screen" href="../css/style.min.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
+        crossorigin="anonymous">
+    <style>
+        .warp {
+            margin-left: 40px;
+        }
+
+        #svg-panel {
+            border: 1px solid grey;
+        }
+
+        .console {
+            display: block;
+            width: 900px;
+            height: 200px;
+            margin: 10px 0px;
+            background-color: rgb(233, 233, 233);
+            color: #4d4d4d;
+            overflow-y: scroll;
+            padding: 10px;
+            font: normal 12px Arial;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <div id="ctrl-panel">
+            <span class="btn-group">
+                <button id="save-as-png">save PNG</button>
+                <button id="save-as-svg">save SVG</button>
+                <button id="next">Start</button>
+            </span>
+        </div>
+
+        <div class="console" id="info">
+        </div>
+
+        <div id="plot-panel">
+            <svg id="svg-panel">
+            </svg>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
+        crossorigin="anonymous"></script>
+
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="../dist/g3-lollipop.min.js"></script>
+    <script>
+        var snvFile = "../data/snv/TP53-msk_impact_2017-parsed.tsv";
+        var domainFile = "../data/domain/TP53_pfam.json";
+
+        var snvOpt = {
+            x: "AA_Position",
+            y: "Protein_Change",
+            factor: "Mutation_Class",
+        };
+
+        var domainOpt = {
+            symbol: "hgnc_symbol",
+            name: "protein_name",
+            length: "length",
+            domainType: "pfam",
+            details: {
+                start: "pfam_start",
+                end: "pfam_end",
+                ac: "pfam_ac",
+                name: "pfam_id",
+            },
+        };
+
+        var q = d3.queue();
+        q.defer(d3.tsv, snvFile);
+        q.defer(d3.json, domainFile);
+
+        q.await(function (error, snvData, domainData) {
+            snvData.forEach(function (d) {
+                d[snvOpt.x] = +d[snvOpt.x];
+            });
+
+            lollipop = g3.Lollipop("svg", "pie", 800);
+            lollipop.data.snvData = snvData;
+            lollipop.data.domainData = domainData;
+
+            next_btn.onclick = function (e) {
+                if (idx == 0) {
+                    next_btn.innerHTML = "Next";
+                }
+
+                if (idx < len_col) {
+                    lollipop.options.domainColorScheme = g3.scaleOrdinal(cols[idx]);
+                    lollipop.refresh(snvOpt, domainOpt);
+                    info = "Test " + (idx + 1) + "/" + len_col + ": color scheme = " +
+                        "<span style = \"color:firebrick;font-weight: bold;\">" + cols[idx] + "</span><br>";
+
+                    info_box.innerHTML += info;
+                    info_box.scrollTop = info_box.scrollHeight;
+
+                    idx++;
+                    if (idx == len_col) {
+                        next_btn.innerHTML = "Done";
+                        next_btn.disabled = true;
+                    }
+                }
+            };
+
+            document.getElementById("save-as-png").onclick = function (e) {
+                g3.output("svg").toPNG('out_png');
+            };
+
+            document.getElementById("save-as-svg").onclick = function (e) {
+                g3.output('svg').toSVG('out_svg');
+            };
+        });
+    </script>
+</body>
+
+</html>
