@@ -1,18 +1,20 @@
-<h1 align="center">
-G3-lollipop
-</h1>
+<p align="center">
+<span style="font-size:2.5em;">G3-lollipop</span>
 
 <h4 align="center" style="color:steelblue">
-Easily generate interactive lollipop-style diagram to visulize genomic mutation data.
+Easily generate interactive lollipop-style diagram to visulize genomic mutation data
 </h4>
+</p>
+
+------
 
 ## Introduction
 
 G3-lollipop is a component of G3 (Gene|Genome|Genetics) javascirpt library, which generates an interactive lollipop-style diagram to visualize genomic mutation data.
 
-### Quick start
+## Quick start
 
-Add library
+- Add library
 ```html
 <link rel="stylesheet" href="https://g3js.github.io/lollipop/assets/css/g3-styles.min.css">
 <script src="https://d3js.org/d3.v4.min.js"></script>
@@ -20,7 +22,8 @@ Add library
 
 <svg></svg>
 ```
-add lollipop chart
+
+- Create lollipop chart
 
 ```javascript
 // new lollipop chart
@@ -33,12 +36,13 @@ lollipop.data.domainData = domainData;
 lollipop.draw(snvOpt, domainOpt);
 ```
 
-### Demo
+## Demo
 [Live demo](https://bl.ocks.org/phoeguo/583a12e04c6b9d7ca1825cdbdc62f531)
 
-![Screenshot](./docs/assets/img/screenshot1.png)
+<a href="https://bl.ocks.org/phoeguo/583a12e04c6b9d7ca1825cdbdc62f531"><img src="./docs/assets/img/screenshot1.png" alt="demo screenshot" style="width:320px;"/></a>
 
 ## Features
+
 - Pop types: pie or circle
 - Rich chart options
 - Interactive chart legend
@@ -47,4 +51,4 @@ lollipop.draw(snvOpt, domainOpt);
 - Save lollipop-plot in SVG or PNG format
 - Over 20 color schemes
 
-# Options
+## API
