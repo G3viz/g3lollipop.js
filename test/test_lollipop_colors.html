@@ -2,29 +2,11 @@
 <html>
 
 <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="shortcut icon" href="../favicon.ico">
   <link rel="stylesheet" media="screen" href="../css/style.min.css" />
-  <style>
-    .warp {
-      margin-left: 40px;
-    }
-
-    #svg-panel {
-      border: 2px solid black;
-    }
-
-    .console {
-      display: block;
-      width: 900px;
-      height: 200px;
-      margin: 10px 0px;
-      background-color: rgb(233, 233, 233);
-      color: rgb(12, 12, 12);
-      overflow-y: scroll;
-      padding: 10px;
-      font: normal 12px Arial;
-    }
-  </style>
+  <link rel="stylesheet" media="screen" href="../css/gist.css" />
 </head>
 
 <body>
@@ -40,10 +22,7 @@
     <div class="console" id="info">
     </div>
 
-    <div id="plot-panel">
-      <svg id="svg-panel">
-      </svg>
-    </div>
+    <svg></svg>
   </div>
 
   <script src="https://d3js.org/d3.v4.min.js"></script>
@@ -90,6 +69,8 @@
       lollipop = g3.Lollipop("svg", "pie", 800);
       lollipop.data.snvData = snvData;
       lollipop.data.domainData = domainData;
+      lollipop.format.snvData = snvOpt;
+      lollipop.format.domainData = domainOpt;
 
       next_btn.onclick = function (e) {
         if (idx == 0) {
@@ -99,7 +80,8 @@
         if (idx < len_col) {
           lollipop.options.lollipopColorScheme = g3.scaleOrdinal(cols[idx]);
           lollipop.refresh(snvOpt, domainOpt);
-          info = "Test " + (idx + 1) + "/" + len_col + ": color scheme = " +
+          info = "<span style=\"color:firebrick;\">Test " + (idx + 1) + "/" + len_col +
+            "</span>: color scheme = " +
             "<span style = \"color:firebrick;font-weight: bold;\">" + cols[idx] + "</span><br>";
 
           info_box.innerHTML += info;

@@ -924,13 +924,13 @@ function Lollipop(target, chartType, width) {
     const Target = "svg", Width = 800;
     const LollipopTrackHeightDefault = 420, DomainTractHeightDefault = 30;
 
-    const SnvDataDefaultOpt = {
+    const SnvDataDefaultFormat = {
         x: "AA_Position",
         y: "Protein_Change",
         factor: "Mutation_Class",
     };
 
-    const DomainDataDefaultOpt = {
+    const DomainDataDefaultFormat = {
         symbol: "hgnc_symbol",
         name: "protein_name",
         length: "length",
@@ -1072,7 +1072,7 @@ function Lollipop(target, chartType, width) {
 
     // data and settings
     var snvData = [], domainData = {};
-    var snvDataOpt = SnvDataDefaultOpt, domainDataOpt = DomainDataDefaultOpt;
+    var snvDataFormat, domainDataFormat;
 
     /* private variables */
     // chart settings
@@ -1086,7 +1086,8 @@ function Lollipop(target, chartType, width) {
         _yRange, _yScale, _yAxis, _yValues, _domYAxis,
         _popTooltip = null,
         _chartInit = false,
-        _byFactor = false, _currentStates = {}, _lollipopLegend;
+        _byFactor = false,
+        _currentStates = {}, _lollipopLegend;
 
     var _domainBrush, _xScaleOrig, _domainZoom, _legendHeight;
     var _domainH, _domainW, _mainH, _mainW, _svgH, _svgW;
@@ -1112,11 +1113,11 @@ function Lollipop(target, chartType, width) {
     };
 
     var _getDomainStart = function (d) {
-        return _xScale(d[domainDataOpt.details.start]);
+        return _xScale(d[domainDataFormat.details.start]);
     };
 
     var _getDomainEnd = function (d) {
-        return _xScale(d[domainDataOpt.details.end]);
+        return _xScale(d[domainDataFormat.details.end]);
     };
 
     var _updateX = function () {
@@ -1174,7 +1175,7 @@ function Lollipop(target, chartType, width) {
         // draw domains
         let _domainG = _domainViz.append("g").attr("class", domainOpt.className.track)
             .selectAll(domainOpt.className.domain)
-            .data(domainData[domainDataOpt.domainType]).enter().append("g")
+            .data(domainData[domainDataFormat.domainType]).enter().append("g")
             .attr("clip-path", "url(#" + domainOpt.defsId + ")")
             .attr("class", domainOpt.className.domain);
 
@@ -1183,7 +1184,7 @@ function Lollipop(target, chartType, width) {
             .attr("y", domainOpt.domain.margin.top)
             .attr("height", _dH)
             .attr("width", function (d) { return _getDomainRectWidth(d); })
-            .attr("fill", function (d) { return domainOpt.domain.colorScheme(d[domainDataOpt.details.name]); });
+            .attr("fill", function (d) { return domainOpt.domain.colorScheme(d[domainDataFormat.details.name]); });
 
         _domainText = _domainG.append("text")
             .attr("x", function (d) { return (_getDomainStart(d) + _getDomainEnd(d)) / 2; })
@@ -1192,7 +1193,7 @@ function Lollipop(target, chartType, width) {
             .attr("text-anchor", "middle")
             .attr("fill", domainOpt.domain.label.color || "white")
             .style("font", domainOpt.domain.label.font)
-            .text(function (d) { return d[domainDataOpt.details.name]; });
+            .text(function (d) { return d[domainDataFormat.details.name]; });
 
         if (domainOpt.brush) {
             _domainBrush = d3.brushX()
@@ -1407,7 +1408,8 @@ function Lollipop(target, chartType, width) {
 
         _lollipopLegend.margin = options.legendOpt.margin;
         _lollipopLegend.interactive = options.legendOpt.interactive;
-        _lollipopLegend.title = (options.legendOpt.title === Undefined) ? snvDataOpt.factor : options.legendOpt.title;
+        _lollipopLegend.title = (options.legendOpt.title === Undefined) ? 
+            snvDataFormat.factor : options.legendOpt.title;
 
         for (let _d in _currentStates) {
             _lollipopLegend.addSeries({
@@ -1706,20 +1708,20 @@ function Lollipop(target, chartType, width) {
     };
 
     var _prepareData = function () {
-        if (!snvDataOpt.hasOwnProperty('x') || !snvDataOpt.hasOwnProperty('y')) {
+        if (!snvDataFormat.hasOwnProperty('x') || !snvDataFormat.hasOwnProperty('y')) {
             throw "No X or Y columns specified in data set";
         }
         // for the first time, summarize mutation factors and counts
         if (!_snvInit) {
             // => factor (or undefined): count
             _currentStates = d3.nest()
-                .key(d => d[snvDataOpt.factor])
+                .key(d => d[snvDataFormat.factor])
                 .rollup(function (d) { return +d.length; })
                 .object(snvData);
 
             // group by postion, sort
             snvData = d3.nest()
-                .key(d => +d[snvDataOpt.x])
+                .key(d => +d[snvDataFormat.x])
                 .entries(snvData)
                 .sort((a, b) => a.key - b.key);
 
@@ -1736,12 +1738,12 @@ function Lollipop(target, chartType, width) {
             // group by factor, group by y, sort
             //let _d = d.values.filter(function (d) { return d[snvOpt.factor] in _currentStates; });
             let _factorSummary = d3.nest()
-                .key(function (_) { return _[snvDataOpt.factor]; })
+                .key(function (_) { return _[snvDataFormat.factor]; })
                 .rollup(function (_) {
-                    let _d = _.filter(function (_) { return _[snvDataOpt.factor] in _currentStates; });
+                    let _d = _.filter(function (_) { return _[snvDataFormat.factor] in _currentStates; });
                     return {
                         count: +_d.length,
-                        byY: d3.nest().key(function (_) { return _[snvDataOpt.y]; })
+                        byY: d3.nest().key(function (_) { return _[snvDataFormat.y]; })
                             .rollup(function (_) { return +_.length; })
                             .entries(_d).sort(function (a, b) { return b.value - a.value; }),
                     };
@@ -2106,7 +2108,7 @@ function Lollipop(target, chartType, width) {
 
     lollipop.refresh = function () {
         this.destroy();
-        this.draw(snvDataOpt, domainDataOpt);
+        this.draw();
     };
 
     lollipop.data = {
@@ -2114,16 +2116,22 @@ function Lollipop(target, chartType, width) {
         set domainData(_) { domainData = _; }, get domainData() { return domainData; },
     };
 
-    lollipop.draw = function (snvOption, domainOption) {
-        snvDataOpt = snvOption || SnvDataDefaultOpt;
-        domainDataOpt = domainOption || DomainDataDefaultOpt;
+    lollipop.format = {
+        set snvData(_) { snvDataFormat = _; }, get snvData() { return snvDataFormat; },
+        set domainData(_) { domainDataFormat = _; }, get domainData() { return domainDataFormat; },
+    };
 
-        if (snvDataOpt.hasOwnProperty('factor')) {
+    lollipop.draw = function() {
+        // check data format
+        snvDataFormat = snvDataFormat || SnvDataDefaultFormat;
+        domainDataFormat = domainDataFormat || DomainDataDefaultFormat;
+
+        if (snvDataFormat.hasOwnProperty('factor')) {
             _byFactor = true;
         } else {
             _byFactor = false;
-            snvDataOpt.factor = Undefined;
-            snvData.forEach(function (d) { d[snvDataOpt.factor] = Undefined; });
+            lollipop.format.snvData.factor = snvDataFormat.factor = Undefined;
+            snvData.forEach(function (d) { d[snvDataFormat.factor] = Undefined; });
         }
 
         _calcOptions();

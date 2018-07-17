@@ -1,27 +1,35 @@
-<h1 align="center">G3-lollipop</h1>
-
-<h4 align="center" style="color:#4682b4">
-Easily generate interactive lollipop-style diagram to visulize genomic mutation data
-</h4>
-
-------
+<h1>G3-lollipop.js</h1>
 
 ## Introduction
+`G3-lollipop` is a `D3`-based Javascript library, which generates interactive 'lollipop-style' diagrams to effectively visualize every details of annotated mutations on protein structure.
+`G3-lillipop` takes annotated <a href="https://docs.gdc.cancer.gov/Encyclopedia/pages/Mutation_Annotation_Format/">MAF (Mutation Annotation Format)</a> files (with amino-acid change information) as input, and the generated plots can be saved locally in *png* or *svg* format for future use. For more information about MAF files, please read this <a href="https://www.biostars.org/p/69222/">post</a>. The Pfam composition is retrieved from <a href="http://pfam.xfam.org/help#tabview=tab9">Pfam</a> and <a href="https://www.uniprot.org/">UniProt</a> databases.
 
-G3-lollipop is a component of G3 (Gene|Genome|Genetics) Javascirpt library, which generates an interactive lollipop-style diagram to visualize genomic mutation data.
 
-## Quick start
+## Usage
 
-- Add libraries
+### Add libraries
+Add Javascript libraries (`GS-lollipop` and `D3`) and CSS
 ```html
 <link rel="stylesheet" href="https://g3js.github.io/lollipop/assets/css/g3-styles.min.css">
 <script src="https://d3js.org/d3.v4.min.js"></script>
 <script src="https://g3js.github.io/lollipop/assets/js/g3-lollipop.min.js"></script>
-
-<svg></svg>
 ```
 
-- An example of Mutation data in tab-delimited format
+### Mutation data preparation
+The input mutation data should be in <a href="https://docs.gdc.cancer.gov/Data/File_Formats/MAF_Format/">MAF files</a> or alternative user-defined tab-delimited file.  For either formats, the file is required to contain some mandatory columns as listed
+
+Column | Description | Examples
+| ------- | ------------- | -------- |
+| **Hugo_symbol** | HUGO symbol | TP53, BRCA1 |
+| **Amino_acid_change** | Amino Acid change | A915D, T3085fs | 
+| **Variant_Classification** | translational effects of mutations | Missense_Mutation, Frame_Shift_Ins |
+| **Chromosome** | Chromosome | chr1, chrX |
+| **Start_position** | mutation start position | 133647184 |
+| **End_position** | mutation end position | 133647185 |
+
+### *Variant_Classification* to *Variant_type*
+
+An example of Mutation data in tab-delimited format
 
 Protein_Change | Mutation_Type | Mutation_Class | AA_Position
 | ------------- |------------- | ----- |  ---- |

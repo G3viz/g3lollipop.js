@@ -35,18 +35,18 @@
   </div>
 
   <script src="https://d3js.org/d3.v4.min.js"></script>
-  <script src="../dist/g3-lollipop.min.js"></script>
+  <script src="../dist/g3-lollipop.js"></script>
   <script>
     var snvFile = "../data/snv/TP53-msk_impact_2017-parsed.tsv";
     var domainFile = "../data/domain/TP53_pfam.json";
 
-    var snvOpt = {
+    var snvDataFormat = {
       x: "AA_Position",
       y: "Protein_Change",
       factor: "Mutation_Class",
     };
 
-    var domainOpt = {
+    var domainDataFormat = {
       symbol: "hgnc_symbol",
       name: "protein_name",
       length: "length",
@@ -65,14 +65,17 @@
 
     q.await(function (error, snvData, domainData) {
       snvData.forEach(function (d) {
-        d[snvOpt.x] = +d[snvOpt.x];
+        d[snvDataFormat.x] = +d[snvDataFormat.x];
       });
 
       lollipop = g3.Lollipop("svg", "pie", 800);
       lollipop.data.snvData = snvData;
       lollipop.data.domainData = domainData;
+      
+      lollipop.format.snvData = snvDataFormat;
+      lollipop.format.domainData = domainDataFormat;
 
-      lollipop.draw(snvOpt, domainOpt);
+      lollipop.draw();
 
       document.getElementById("save-as-png").onclick = function (e) {
         g3.output("svg").toPNG('out_png');

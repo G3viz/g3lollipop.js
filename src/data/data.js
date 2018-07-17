@@ -8,13 +8,13 @@ function uniprot(symbol) {
     console.log(url);
 
     fetch(url, {
-        cache: 'default', // *default, no-cache, reload, force-cache, only-if-cached
-        method: 'GET',
-        "Content-type": "text/plain",
-    })
+            cache: 'default', // *default, no-cache, reload, force-cache, only-if-cached
+            method: 'GET',
+            "Content-type": "text/plain",
+        })
         .then(function (res) {
             if (res.status == 200) {
-                
+
                 console.log(res);
             } else {
                 console.log(res);
@@ -28,4 +28,4 @@ function uniprot(symbol) {
 
 // query data from Pfam
 
-// query data from 
+// query data from
