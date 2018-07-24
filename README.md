@@ -76,8 +76,8 @@ Protein_Change | Mutation_Type | Mutation_Class | AA_Position
 
 ```javascript
 var snvDataFormat = {
-    x: "AA_Position",          // (mandatory) mutation position
-    y: "Protein_Change",       // (mandatory) protein change type
+    x: "AA_Position",          // mutation position
+    y: "Protein_Change",       // protein change type
     factor: "Mutation_Class",  // (optional) if mutations are classified by cetern categories
 };
 
