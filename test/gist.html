@@ -1,0 +1,104 @@
+<!doctype html>
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" href="https://cdn.rawgit.com/G3js/lollipop/master/css/style.min.css">
+<link rel="stylesheet" href="https://cdn.rawgit.com/G3js/lollipop/master/css/gist.css">
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script src="https://cdn.rawgit.com/G3js/lollipop/master/dist/g3-lollipop.js"></script>
+
+<div>
+    <div>
+        <span class="btn-group">
+            <button id="save-as-png">save as PNG</button>
+            <button id="save-as-svg">save as SVG</button>
+        </span>
+    </div>
+
+    <div id="lollipop"></div>
+</div>
+
+<script>
+    /**
+        mutation data in MAF or TSV format:
+
+        Protein_Change	Mutation_Type	Mutation_Class	AA_Position
+        P13Lfs*2	Frame_Shift_Del	Truncating	13
+        L14Sfs*15	Frame_Shift_Ins	Truncating	14
+        Q16Rfs*28	Frame_Shift_Del	Truncating	16
+        T18Hfs*26	Frame_Shift_Del	Truncating	18
+        F19Kfs*24	Frame_Shift_Del	Truncating	19
+        S20Qfs*24	Frame_Shift_Del	Truncating	20
+        ...
+        */
+    var snvFile = "https://cdn.rawgit.com/G3js/lollipop/master/data/snv/TP53-msk_impact_2017-parsed.tsv";
+
+    // pfam domain data
+    var domainFile = "https://cdn.rawgit.com/G3js/lollipop/master/data/domain/TP53_pfam.json";
+
+    // mutation data format
+    var snvDataFormat = {
+        x: "AA_Position",
+        y: "Protein_Change",
+        factor: "Mutation_Class",
+    };
+
+    // pfam domain JSON information
+    var domainDataFormat = {
+        length: "length",
+        domainType: "pfam",
+        details: {
+            start: "pfam_start",
+            end: "pfam_end",
+            ac: "pfam_ac",
+            name: "pfam_id",
+        },
+    };
+
+    // read data in
+    var q = d3.queue();
+    q.defer(d3.tsv, snvFile);
+    q.defer(d3.json, domainFile);
+
+    q.await(function (error, snvData, domainData) {
+        // format data
+        snvData.forEach(function (d) {
+            d[snvDataFormat.x] = +d[snvDataFormat.x];
+        });
+
+        // new lollipop chart
+        lollipop = g3.Lollipop("lollipop");
+        // add data
+        lollipop.data.snvData = snvData;
+        lollipop.data.domainData = domainData;
+        // add data options
+        lollipop.format.snvData = snvDataFormat;
+        lollipop.format.domainData = domainDataFormat;
+
+        // add chart options
+        lollipop.setOptions({
+            background: "#f2f2f2",
+            chartType: "pie",
+            width: 640,
+            lollipopTrackHeight: 320,
+            annoHeight: 30,
+            legendTitle: "mutation class",
+            domainTextFont: "normal 10px/80% Arial, Helvetica, sans-serif",
+            domainTextColor: "white",
+        });
+        lollipop.draw();
+
+        var chartID = lollipop.options.chartID;
+        var output_chart_filename = "lollipop";
+
+        // button actions: download chart
+        document.getElementById("save-as-png").onclick = function (e) {
+            g3.output(chartID).toPNG(output_chart_filename);
+        };
+
+        document.getElementById("save-as-svg").onclick = function (e) {
+            g3.output(chartID).toSVG(output_chart_filename);
+        };
+
+    });
+</script>

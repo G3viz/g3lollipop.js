@@ -82,6 +82,7 @@ var snvDataFormat = {
 };
 
 var domainDataFormat = {
+    domainType: "pfam",       // key to the domain annotation entries
     length: "length",         // protein length
     details: {
         start: "pfam_start",  // protein domain start position
