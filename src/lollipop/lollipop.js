@@ -1032,10 +1032,10 @@ export default function Lollipop(target, chartType, width) {
         svg = d3.select("#" + target).append("svg");
         svg.attr("width", _svgW).attr("height", _svgH)
             .attr("xmlns", "http://www.w3.org/2000/svg")
-            .attr("xmlns:xlink", "http://www.w3.org/1999/xlink")
-            .attr("id", options.svgID);
+            .attr("xmlns:xlink", "http://www.w3.org/1999/xlink");
 
         svg.classed(options.className, true)
+            .attr("id", options.chartID)
             .style("background-color", options.background || "transparent");
 
         // viz region
