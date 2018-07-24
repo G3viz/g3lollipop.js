@@ -16,7 +16,7 @@ export default function Lollipop(target, chartType, width) {
 
     const ChartTypes = { "circle": 0, "pie": 1 };
     const ChartTypeDefault = "circle";
-    const Target = "svg", Width = 800;
+    const WidthDefault = 800;
     const LollipopTrackHeightDefault = 420, DomainTractHeightDefault = 30;
 
     const SnvDataDefaultFormat = {
@@ -39,8 +39,7 @@ export default function Lollipop(target, chartType, width) {
     };
 
     // public parameters
-    target = target || Target;
-    width = width || Width;
+    width = width || WidthDefault;
     chartType = chartType || ChartTypeDefault;
 
     if (!(chartType in ChartTypes)) {
@@ -49,7 +48,7 @@ export default function Lollipop(target, chartType, width) {
 
     var uniqueID = getUniqueID();
     var options = {
-        chartID: Prefix + "_" + uniqueID,
+        chartID: Prefix + "_chart_" + uniqueID,
         className: "g3-chart",
         tooltip: true,
         margin: { left: 40, right: 20, top: 15, bottom: 25 },
@@ -171,7 +170,8 @@ export default function Lollipop(target, chartType, width) {
 
     /* private variables */
     // chart settings
-    var _svg, _viz, _mainViz, _domainViz,
+    var svg;
+    var _viz, _mainViz, _domainViz,
         _lollipops, _popLines, _pops,
         _popYUpper, _popYLower, // lollipop viz components
         _domainRect, _domainText,
@@ -494,7 +494,7 @@ export default function Lollipop(target, chartType, width) {
         // register legend
         if (!options.legend) return;
 
-        _lollipopLegend = new legend(target);
+        _lollipopLegend = new legend(options.chartID);
 
         if ((Object.keys(options.legendOpt.margin)).length == 0) {
             options.legendOpt.margin = {
@@ -884,6 +884,7 @@ export default function Lollipop(target, chartType, width) {
             _yRange = d3.extent(_yValues);
         }
         // get yRange
+        _yRange[0] = Math.min(0, _yRange[0]);
         _yValueMax = _yRange[1] = _getYMaxAfterNice(_yRange[1] * lollipopOpt.yPaddingRatio);
     };
 
@@ -894,10 +895,10 @@ export default function Lollipop(target, chartType, width) {
         _yAxis = d3.axisLeft(_yScale).tickSize(-_mainW).ticks(9);
 
         // x
-        _xRange = [0, domainData["length"]];
+        _xRange = [0, domainData[domainDataFormat.length]];
         _xScale = d3.scaleLinear().domain(_xRange).range([0, _domainW]);
         _xScaleOrig = d3.scaleLinear().domain(_xRange).range([0, _domainW]);
-        _xTicks = _appendValueToDomain(_xScale.ticks(), domainData["length"], "aa");
+        _xTicks = _appendValueToDomain(_xScale.ticks(), domainData[domainDataFormat.length], "aa");
         _xAxis = d3.axisBottom(_xScale).tickValues(_xTicks)
             .tickFormat(function (_) { return this.parentNode.nextSibling ? _ : _ + " aa"; });
     };
@@ -1023,17 +1024,23 @@ export default function Lollipop(target, chartType, width) {
     };
 
     var _initViz = function () {
-        _svg = d3.select(target).attr("width", _svgW).attr("height", _svgH)
-            .attr("xmlns", "http://www.w3.org/2000/svg")
-            .attr("xmlns:xlink", "http://www.w3.org/1999/xlink");
+        if (!target) {
+            target = "g3_" + uniqueID;
+            d3.select("body").append("div").attr("id", target);
+        }
 
-        _svg.classed(options.className, true)
+        svg = d3.select("#" + target).append("svg");
+        svg.attr("width", _svgW).attr("height", _svgH)
+            .attr("xmlns", "http://www.w3.org/2000/svg")
+            .attr("xmlns:xlink", "http://www.w3.org/1999/xlink")
+            .attr("id", options.svgID);
+
+        svg.classed(options.className, true)
             .style("background-color", options.background || "transparent");
 
         // viz region
-        _viz = _svg.append("g")
-            .attr("transform", "translate(" + options.margin.left + "," + options.margin.top + ")")
-            .attr("id", options.chartID);
+        _viz = svg.append("g")
+            .attr("transform", "translate(" + options.margin.left + "," + options.margin.top + ")");
 
         // lollipop viz
         _mainViz = _viz.append("g").attr("id", lollipopOpt.id);
@@ -1091,7 +1098,7 @@ export default function Lollipop(target, chartType, width) {
         set chartType(_) { if (_ && _ in ChartTypes) chartType = _; }, get chartType() { return chartType; },
         // get chart ID
         get chartID() { return options.chartID },
-        get height() { return +_svg.attr("height") },
+        get height() { return +svg.attr("height") },
 
         // chart margin (top / bottom / left / right)
         set margin(_) { options.margin = _; }, get margin() { return options.margin; },
@@ -1193,12 +1200,8 @@ export default function Lollipop(target, chartType, width) {
     };
 
     lollipop.destroy = function () {
-        _svg = d3.select(target);
-        _svg.attr("width", null).attr("height", null)
-            .attr("xmlns", null).attr("xmlns:xlink", null)
-            .classed(options.className, false)
-            .style("background-color", null);
-        _svg.selectAll("*").remove();
+        svg.selectAll("*").remove();
+        svg.remove();
 
         if (options.tooltip && _chartInit) {
             _popTooltip.destroy();

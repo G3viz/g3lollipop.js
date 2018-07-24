@@ -75,22 +75,18 @@ Protein_Change | Mutation_Type | Mutation_Class | AA_Position
 - Data configuration
 
 ```javascript
-var snvOpt = {
-    x: "AA_Position",
-    y: "Protein_Change",
-    factor: "Mutation_Class",
+var snvDataFormat = {
+    x: "AA_Position",          // (mandatory) mutation position
+    y: "Protein_Change",       // (mandatory) protein change type
+    factor: "Mutation_Class",  // (optional) if mutations are classified by cetern categories
 };
 
-var domainOpt = {
-    symbol: "hgnc_symbol",
-    name: "protein_name",
-    length: "length",
-    domainType: "pfam",
+var domainDataFormat = {
+    length: "length",         // protein length
     details: {
-        start: "pfam_start",
-        end: "pfam_end",
-        ac: "pfam_ac",
-        name: "pfam_id",
+        start: "pfam_start",  // protein domain start position
+        end: "pfam_end",      // protein domain end position
+        name: "pfam_id",      // protein domain name
     },
 };
 ```
@@ -99,13 +95,17 @@ var domainOpt = {
 
 ```javascript
 // new lollipop chart
-lollipop = g3.Lollipop("svg");
+lollipop = g3.Lollipop("g3chart");
 
 // add data
 lollipop.data.snvData = snvData;
 lollipop.data.domainData = domainData;
 
-lollipop.draw(snvOpt, domainOpt);
+// specify data format
+lollipop.format.snvData = snvDataFormat;
+lollipop.format.domainData = domainDataFormat;
+
+lollipop.draw();
 ```
 
 ## Demo

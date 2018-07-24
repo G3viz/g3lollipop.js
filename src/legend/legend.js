@@ -14,11 +14,10 @@ export default function (target, title, series) {
             'legendMouseover',
             'legendMouseout');
 
-    target = target || "svg";
     title = title || false;
     series = series || [];
 
-    var height = 0;
+    var svg, height = 0;
 
     var labelFont = "normal 12px sans-serif", labelColor = "black",
         titleFont = "bold 12px sans-serif", titleColor = "black";
@@ -52,17 +51,17 @@ export default function (target, title, series) {
             });
         },
         destroy: function () {
-            d3.select(".g3-legend").selectAll("*").remove();
+            svg.select(".g3-legend").selectAll("*").remove();
         },
         draw: function () {
             series.forEach(d => d._status = true);
             //let _counter = series.length;
 
-            let _svg = d3.select(target),
-                _width = +_svg.attr("width"),
-                _height = +_svg.attr("height"),
+            svg = d3.select("#"+target);
+            let _width = +svg.attr("width"),
+                _height = +svg.attr("height"),
                 _totalW = _width - (margin.left || 0) - (margin.right || 0),
-                _wrap = _svg.append("g").attr("class", "g3-legend")
+                _wrap = svg.append("g").attr("class", "g3-legend")
                     .attr("transform", "translate(" + margin.left + "," + (_height + margin.top) + ")"),
                 _lineHeight = 16;
 
@@ -173,7 +172,7 @@ export default function (target, title, series) {
                 .each(_addOneLegend);
 
             height = margin.top + _curPos.y + _lineHeight / 2 + margin.bottom;
-            +_svg.attr("height", height + _height);
+            +svg.attr("height", height + _height);
         },
     }
 

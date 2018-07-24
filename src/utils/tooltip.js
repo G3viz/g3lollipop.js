@@ -3,15 +3,8 @@
  * Copyright (c) 2013-2017 Justin Palmer
  *
  * Tooltips for d3.js SVG visualizations
+ * modified
  */
-/*
-https://github.com/eligrey/FileSaver.js
-probably a small bug or incompatible with D3.v3
-modify targetShape to d3.event.target as shown
-
-function getScreenBBox(targetShape) {
-    var targetel = target || d3.event.target; //targetShape
-*/
 import d3 from 'd3';
 // Public - constructs a new tooltip
 //
@@ -27,10 +20,10 @@ export default function () {
     target = null
 
   function tip(vis) {
-    svg = getSVGNode(vis)
-    if (!svg) return
-    point = svg.createSVGPoint()
-    rootElement.appendChild(node)
+    svg = selectSVGNode(vis);
+    if (!svg) return;
+    point = svg.createSVGPoint();
+    rootElement.appendChild(node);
   }
 
   // Public - show the tooltip on the screen
@@ -47,9 +40,9 @@ export default function () {
       i = directions.length,
       coords,
       scrollTop = document.documentElement.scrollTop ||
-        rootElement.scrollTop,
+      rootElement.scrollTop,
       scrollLeft = document.documentElement.scrollLeft ||
-        rootElement.scrollLeft
+      rootElement.scrollLeft
 
     nodel.html(content)
       .style('opacity', 1).style('pointer-events', 'all')
@@ -168,20 +161,28 @@ export default function () {
     return tip
   }
 
-  function d3TipDirection() { return 'n' }
-  function d3TipOffset() { return [0, 0] }
-  function d3TipHTML() { return ' ' }
+  function d3TipDirection() {
+    return 'n'
+  }
+
+  function d3TipOffset() {
+    return [0, 0]
+  }
+
+  function d3TipHTML() {
+    return ' '
+  }
 
   var directionCallbacks = d3.map({
-    n: directionNorth,
-    s: directionSouth,
-    e: directionEast,
-    w: directionWest,
-    nw: directionNorthWest,
-    ne: directionNorthEast,
-    sw: directionSouthWest,
-    se: directionSouthEast
-  }),
+      n: directionNorth,
+      s: directionSouth,
+      e: directionEast,
+      w: directionWest,
+      nw: directionNorthWest,
+      ne: directionNorthEast,
+      sw: directionSouthWest,
+      se: directionSouthEast
+    }),
     directions = directionCallbacks.keys()
 
   function directionNorth() {
@@ -260,13 +261,6 @@ export default function () {
     return div.node()
   }
 
-  function getSVGNode(element) {
-    var svgNode = element.node()
-    if (!svgNode) return null
-    if (svgNode.tagName.toLowerCase() === 'svg') return svgNode
-    return svgNode.ownerSVGElement
-  }
-
   function getNodeEl() {
     if (node == null) {
       node = initNode()
@@ -324,6 +318,17 @@ export default function () {
     bbox.s = point.matrixTransform(matrix)
 
     return bbox
+  }
+
+  function selectSVGNode(element) {
+    var svgNode = element.node();
+    if (!svgNode) {
+      return null;
+    }
+    if (svgNode.tagName.toLowerCase() === 'svg') {
+      return svgNode;
+    };
+    return svgNode.ownerSVGElement;
   }
 
   // Private - replace D3JS 3.X d3.functor() function

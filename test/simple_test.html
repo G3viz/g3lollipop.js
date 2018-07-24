@@ -28,8 +28,6 @@
     </div>
 
     <div id="plot-panel">
-      <svg id="svg-panel">
-      </svg>
     </div>
   </div>
 
@@ -67,7 +65,7 @@
         d[snvDataFormat.x] = +d[snvDataFormat.x];
       });
 
-      lollipop = g3.Lollipop("svg", "pie", 800);
+      lollipop = g3.Lollipop("plot-panel");
       lollipop.data.snvData = snvData;
       lollipop.data.domainData = domainData;
       

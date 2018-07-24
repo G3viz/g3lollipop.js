@@ -14,7 +14,8 @@ function getTextWidth(text, font) {
 }
 
 function getUniqueID(left, right) {
-    left = left || 1e5; right = right || 1e6 - 1;
+    left = left || 1e5;
+    right = right || 1e6 - 1;
     return Math.floor(Math.random() * (right - left) + left);
 }
 
@@ -411,11 +412,10 @@ function legend (target, title, series) {
             'legendMouseover',
             'legendMouseout');
 
-    target = target || "svg";
     title = title || false;
     series = series || [];
 
-    var height = 0;
+    var svg, height = 0;
 
     var labelFont = "normal 12px sans-serif", labelColor = "black",
         titleFont = "bold 12px sans-serif", titleColor = "black";
@@ -449,17 +449,17 @@ function legend (target, title, series) {
             });
         },
         destroy: function () {
-            d3.select(".g3-legend").selectAll("*").remove();
+            svg.select(".g3-legend").selectAll("*").remove();
         },
         draw: function () {
             series.forEach(d => d._status = true);
             //let _counter = series.length;
 
-            let _svg = d3.select(target),
-                _width = +_svg.attr("width"),
-                _height = +_svg.attr("height"),
+            svg = d3.select("#"+target);
+            let _width = +svg.attr("width"),
+                _height = +svg.attr("height"),
                 _totalW = _width - (margin.left || 0) - (margin.right || 0),
-                _wrap = _svg.append("g").attr("class", "g3-legend")
+                _wrap = svg.append("g").attr("class", "g3-legend")
                     .attr("transform", "translate(" + margin.left + "," + (_height + margin.top) + ")"),
                 _lineHeight = 16;
 
@@ -570,7 +570,7 @@ function legend (target, title, series) {
                 .each(_addOneLegend);
 
             height = margin.top + _curPos.y + _lineHeight / 2 + margin.bottom;
-            +_svg.attr("height", height + _height);
+            +svg.attr("height", height + _height);
         },
     };
 
@@ -582,15 +582,8 @@ function legend (target, title, series) {
  * Copyright (c) 2013-2017 Justin Palmer
  *
  * Tooltips for d3.js SVG visualizations
+ * modified
  */
-/*
-https://github.com/eligrey/FileSaver.js
-probably a small bug or incompatible with D3.v3
-modify targetShape to d3.event.target as shown
-
-function getScreenBBox(targetShape) {
-    var targetel = target || d3.event.target; //targetShape
-*/
 // Public - constructs a new tooltip
 //
 // Returns a tip
@@ -605,8 +598,8 @@ function tooltip () {
     target = null;
 
   function tip(vis) {
-    svg = getSVGNode(vis);
-    if (!svg) return
+    svg = selectSVGNode(vis);
+    if (!svg) return;
     point = svg.createSVGPoint();
     rootElement.appendChild(node);
   }
@@ -625,9 +618,9 @@ function tooltip () {
       i = directions.length,
       coords,
       scrollTop = document.documentElement.scrollTop ||
-        rootElement.scrollTop,
+      rootElement.scrollTop,
       scrollLeft = document.documentElement.scrollLeft ||
-        rootElement.scrollLeft;
+      rootElement.scrollLeft;
 
     nodel.html(content)
       .style('opacity', 1).style('pointer-events', 'all');
@@ -746,20 +739,28 @@ function tooltip () {
     return tip
   };
 
-  function d3TipDirection() { return 'n' }
-  function d3TipOffset() { return [0, 0] }
-  function d3TipHTML() { return ' ' }
+  function d3TipDirection() {
+    return 'n'
+  }
+
+  function d3TipOffset() {
+    return [0, 0]
+  }
+
+  function d3TipHTML() {
+    return ' '
+  }
 
   var directionCallbacks = d3.map({
-    n: directionNorth,
-    s: directionSouth,
-    e: directionEast,
-    w: directionWest,
-    nw: directionNorthWest,
-    ne: directionNorthEast,
-    sw: directionSouthWest,
-    se: directionSouthEast
-  }),
+      n: directionNorth,
+      s: directionSouth,
+      e: directionEast,
+      w: directionWest,
+      nw: directionNorthWest,
+      ne: directionNorthEast,
+      sw: directionSouthWest,
+      se: directionSouthEast
+    }),
     directions = directionCallbacks.keys();
 
   function directionNorth() {
@@ -838,13 +839,6 @@ function tooltip () {
     return div.node()
   }
 
-  function getSVGNode(element) {
-    var svgNode = element.node();
-    if (!svgNode) return null
-    if (svgNode.tagName.toLowerCase() === 'svg') return svgNode
-    return svgNode.ownerSVGElement
-  }
-
   function getNodeEl() {
     if (node == null) {
       node = initNode();
@@ -904,6 +898,17 @@ function tooltip () {
     return bbox
   }
 
+  function selectSVGNode(element) {
+    var svgNode = element.node();
+    if (!svgNode) {
+      return null;
+    }
+    if (svgNode.tagName.toLowerCase() === 'svg') {
+      return svgNode;
+    }
+    return svgNode.ownerSVGElement;
+  }
+
   // Private - replace D3JS 3.X d3.functor() function
   function functor(v) {
     return typeof v === 'function' ? v : function () {
@@ -921,7 +926,7 @@ function Lollipop(target, chartType, width) {
 
     const ChartTypes = { "circle": 0, "pie": 1 };
     const ChartTypeDefault = "circle";
-    const Target = "svg", Width = 800;
+    const WidthDefault = 800;
     const LollipopTrackHeightDefault = 420, DomainTractHeightDefault = 30;
 
     const SnvDataDefaultFormat = {
@@ -944,8 +949,7 @@ function Lollipop(target, chartType, width) {
     };
 
     // public parameters
-    target = target || Target;
-    width = width || Width;
+    width = width || WidthDefault;
     chartType = chartType || ChartTypeDefault;
 
     if (!(chartType in ChartTypes)) {
@@ -954,7 +958,7 @@ function Lollipop(target, chartType, width) {
 
     var uniqueID = getUniqueID();
     var options = {
-        chartID: Prefix + "_" + uniqueID,
+        chartID: Prefix + "_chart_" + uniqueID,
         className: "g3-chart",
         tooltip: true,
         margin: { left: 40, right: 20, top: 15, bottom: 25 },
@@ -1076,7 +1080,8 @@ function Lollipop(target, chartType, width) {
 
     /* private variables */
     // chart settings
-    var _svg, _viz, _mainViz, _domainViz,
+    var svg;
+    var _viz, _mainViz, _domainViz,
         _lollipops, _popLines, _pops,
         _popYUpper, _popYLower, // lollipop viz components
         _domainRect, _domainText,
@@ -1395,7 +1400,7 @@ function Lollipop(target, chartType, width) {
         // register legend
         if (!options.legend) return;
 
-        _lollipopLegend = new legend(target);
+        _lollipopLegend = new legend(options.chartID);
 
         if ((Object.keys(options.legendOpt.margin)).length == 0) {
             options.legendOpt.margin = {
@@ -1785,6 +1790,7 @@ function Lollipop(target, chartType, width) {
             _yRange = d3.extent(_yValues);
         }
         // get yRange
+        _yRange[0] = Math.min(0, _yRange[0]);
         _yValueMax = _yRange[1] = _getYMaxAfterNice(_yRange[1] * lollipopOpt.yPaddingRatio);
     };
 
@@ -1795,10 +1801,10 @@ function Lollipop(target, chartType, width) {
         _yAxis = d3.axisLeft(_yScale).tickSize(-_mainW).ticks(9);
 
         // x
-        _xRange = [0, domainData["length"]];
+        _xRange = [0, domainData[domainDataFormat.length]];
         _xScale = d3.scaleLinear().domain(_xRange).range([0, _domainW]);
         _xScaleOrig = d3.scaleLinear().domain(_xRange).range([0, _domainW]);
-        _xTicks = _appendValueToDomain(_xScale.ticks(), domainData["length"], "aa");
+        _xTicks = _appendValueToDomain(_xScale.ticks(), domainData[domainDataFormat.length], "aa");
         _xAxis = d3.axisBottom(_xScale).tickValues(_xTicks)
             .tickFormat(function (_) { return this.parentNode.nextSibling ? _ : _ + " aa"; });
     };
@@ -1924,17 +1930,23 @@ function Lollipop(target, chartType, width) {
     };
 
     var _initViz = function () {
-        _svg = d3.select(target).attr("width", _svgW).attr("height", _svgH)
-            .attr("xmlns", "http://www.w3.org/2000/svg")
-            .attr("xmlns:xlink", "http://www.w3.org/1999/xlink");
+        if (!target) {
+            target = "g3_" + uniqueID;
+            d3.select("body").append("div").attr("id", target);
+        }
 
-        _svg.classed(options.className, true)
+        svg = d3.select("#" + target).append("svg");
+        svg.attr("width", _svgW).attr("height", _svgH)
+            .attr("xmlns", "http://www.w3.org/2000/svg")
+            .attr("xmlns:xlink", "http://www.w3.org/1999/xlink")
+            .attr("id", options.svgID);
+
+        svg.classed(options.className, true)
             .style("background-color", options.background || "transparent");
 
         // viz region
-        _viz = _svg.append("g")
-            .attr("transform", "translate(" + options.margin.left + "," + options.margin.top + ")")
-            .attr("id", options.chartID);
+        _viz = svg.append("g")
+            .attr("transform", "translate(" + options.margin.left + "," + options.margin.top + ")");
 
         // lollipop viz
         _mainViz = _viz.append("g").attr("id", lollipopOpt.id);
@@ -1992,7 +2004,7 @@ function Lollipop(target, chartType, width) {
         set chartType(_) { if (_ && _ in ChartTypes) chartType = _; }, get chartType() { return chartType; },
         // get chart ID
         get chartID() { return options.chartID },
-        get height() { return +_svg.attr("height") },
+        get height() { return +svg.attr("height") },
 
         // chart margin (top / bottom / left / right)
         set margin(_) { options.margin = _; }, get margin() { return options.margin; },
@@ -2094,12 +2106,8 @@ function Lollipop(target, chartType, width) {
     };
 
     lollipop.destroy = function () {
-        _svg = d3.select(target);
-        _svg.attr("width", null).attr("height", null)
-            .attr("xmlns", null).attr("xmlns:xlink", null)
-            .classed(options.className, false)
-            .style("background-color", null);
-        _svg.selectAll("*").remove();
+        svg.selectAll("*").remove();
+        svg.remove();
 
         if (options.tooltip && _chartInit) {
             _popTooltip.destroy();

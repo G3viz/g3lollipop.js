@@ -6,6 +6,7 @@ export function getTextWidth(text, font) {
 }
 
 export function getUniqueID(left, right) {
-    left = left || 1e5; right = right || 1e6 - 1;
+    left = left || 1e5;
+    right = right || 1e6 - 1;
     return Math.floor(Math.random() * (right - left) + left);
 }
