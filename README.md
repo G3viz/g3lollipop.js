@@ -1,22 +1,37 @@
-<h1>G3-lollipop.js</h1>
+# G3-lollipop.js
 
-## Introduction
-`G3-lollipop` is a `D3`-based Javascript library, which generates interactive 'lollipop-style' diagrams to effectively visualize every details of annotated mutations on protein structure.
-`G3-lillipop` takes annotated <a href="https://docs.gdc.cancer.gov/Encyclopedia/pages/Mutation_Annotation_Format/">MAF (Mutation Annotation Format)</a> files (with amino-acid change information) as input, and the generated plots can be saved locally in *png* or *svg* format for future use. For more information about MAF files, please read this <a href="https://www.biostars.org/p/69222/">post</a>. The Pfam composition is retrieved from <a href="http://pfam.xfam.org/help#tabview=tab9">Pfam</a> and <a href="https://www.uniprot.org/">UniProt</a> databases.
+Visualize genomic mutations using a `Loliipop-style` diagram
 
+## Get started
+`G3-lollipop` is a `D3`-based Javascript library. It takes annotated <a href="https://docs.gdc.cancer.gov/Encyclopedia/pages/Mutation_Annotation_Format/">MAF (Mutation Annotation Format)</a> or TSV (tabular-separated values) files as inputs, and generates an interactive 'lollipop-style' diagram to allow users to easily visualize every details of genomic mutations.
+
+## Examples
+[Live demo](https://bl.ocks.org/phoeguo/583a12e04c6b9d7ca1825cdbdc62f531)
+
+<a href="https://bl.ocks.org/phoeguo/583a12e04c6b9d7ca1825cdbdc62f531"><img src="./docs/assets/img/screenshot1.png" alt="demo screenshot" width="500"/></a>
+
+## Features
+
+- Rich chart options
+- Interactive chart legend
+- Zoom/brush to view data details
+- Save charts in SVG/PNG format
+- Over 20 color schemes
 
 ## Usage
 
 ### Add libraries
-Add Javascript libraries (`GS-lollipop` and `D3`) and CSS
 ```html
-<link rel="stylesheet" href="https://g3js.github.io/lollipop/assets/css/g3-styles.min.css">
+<!-- add CSS -->
+<link rel="stylesheet" href="https://cdn.rawgit.com/G3js/lollipop/master/css/style.min.css">
+
+<!-- D3 and G3-lollipop libraries -->
 <script src="https://d3js.org/d3.v4.min.js"></script>
-<script src="https://g3js.github.io/lollipop/assets/js/g3-lollipop.min.js"></script>
+<script src="https://rawgit.com/G3js/lollipop/master/dist/g3-lollipop.min.js"></script>
 ```
 
-### Mutation data preparation
-The input mutation data should be in <a href="https://docs.gdc.cancer.gov/Data/File_Formats/MAF_Format/">MAF files</a> or alternative user-defined tab-delimited file.  For either formats, the file is required to contain some mandatory columns as listed
+### Input data
+The input data includes annotated mutation data (in <a href="https://docs.gdc.cancer.gov/Data/File_Formats/MAF_Format/">MAF</a> or user-defined tab-delimited file.  For either formats, the file is required to contain some mandatory columns as listed
 
 Column | Description | Examples
 | ------- | ------------- | -------- |
@@ -108,21 +123,5 @@ lollipop.format.domainData = domainDataFormat;
 
 lollipop.draw();
 ```
-
-## Demo
-[Live demo](https://bl.ocks.org/phoeguo/583a12e04c6b9d7ca1825cdbdc62f531)
-
-
-<a href="https://bl.ocks.org/phoeguo/583a12e04c6b9d7ca1825cdbdc62f531"><img src="./docs/assets/img/screenshot1.png" alt="demo screenshot" width="500"/></a>
-
-## Features
-
-- Pop types: pie or circle
-- Rich chart options
-- Interactive chart legend
-- Zoom-in and zoom-out (using mouse or brush)
-- Label variation annotation (by clicking pops)
-- Save lollipop-plot in SVG or PNG format
-- Over 20 color schemes
 
 ## API

@@ -1015,6 +1015,7 @@ function Lollipop(target, chartType, width) {
             fontsizeToRadius: 1.4,
             padding: 5,
         },
+        popColorSchemeName: "accent",
         popColorScheme: scaleOrdinal("accent"),
         yPaddingRatio: 1.1,
         popParams: {
@@ -1059,6 +1060,7 @@ function Lollipop(target, chartType, width) {
             zoom: "main-viz-zoom",
         },
         domain: {
+            colorSchemeName: "category10",
             colorScheme: scaleOrdinal("category10"),
             margin: { top: 0, bottom: 0 },
             label: {
@@ -1997,19 +1999,19 @@ function Lollipop(target, chartType, width) {
     // getter and setter, e.g., lollipop.options.width; lollipop.options.snvData = [];
     lollipop.options = {
         // set target svg node
-        set target(_) { target = _; }, get target() { return target; },
+        set chartTarget(_) { target = _; }, get chartTarget() { return target; },
         // set chart width
-        set width(_) { width = _; }, get width() { return width; },
+        set chartWidth(_) { width = _; }, get chartWidth() { return width; },
         // set chart type (pie or circle)
         set chartType(_) { if (_ && _ in ChartTypes) chartType = _; }, get chartType() { return chartType; },
         // get chart ID
         get chartID() { return options.chartID },
-        get height() { return +svg.attr("height") },
+        get chartHeight() { return +svg.attr("height") },
 
         // chart margin (top / bottom / left / right)
-        set margin(_) { options.margin = _; }, get margin() { return options.margin; },
+        set chartMargin(_) { options.margin = _; }, get chartMargin() { return options.margin; },
         // chart background
-        set background(_) { options.background = _; }, get background() { return options.background; },
+        set chartBackground(_) { options.background = _; }, get charBackground() { return options.background; },
 
         // chart animation transition time (ms)
         set transitionTime(_) { options.transitionTime = _; }, get transitionTime() { return options.transitionTime; },
@@ -2017,7 +2019,7 @@ function Lollipop(target, chartType, width) {
         set tooltip(_) { options.tooltip = _; }, get tooltip() { return options.tooltip; },
 
         // ylabel text
-        set ylab(_) { lollipopOpt.ylab.text = _; }, get ylab() { return lollipopOpt.ylab.text; },
+        set yAxisLabel(_) { lollipopOpt.ylab.text = _; }, get yAxisLabel() { return lollipopOpt.ylab.text; },
 
         // axis settings (label font / color / alignment / y-adjustment)
         set axisLabelFont(_) { lollipopOpt.axisLabel.font = _; }, get axisLabelFont() { return lollipopOpt.axisLabel.font; },
@@ -2026,7 +2028,7 @@ function Lollipop(target, chartType, width) {
         set axisLabelDy(_) { lollipopOpt.axisLabel.dy = _; }, get axisLabelDy() { return lollipopOpt.axisLabel.dy; },
 
         // legend settings (show legend or not / legend margin / interactive legend or not)
-        set showLegend(_) { options.legend = _; }, get showLegend() { return options.legend; },
+        set legend(_) { options.legend = _; }, get legend() { return options.legend; },
         set legendMargin(_) { options.legendOpt.margin = _; }, get legendMargin() { return options.legendOpt.margin; },
         set legendInteractive(_) { options.legendOpt.interactive = _; }, get legendInteractive() { return options.legendOpt.interactive; },
         set legendTitle(_) { options.legendOpt.title = _; }, get legendTitle() { return options.legendOpt.title; },
@@ -2059,7 +2061,8 @@ function Lollipop(target, chartType, width) {
         set lollipopLabelMinFontSize(_) { lollipopOpt.popLabel.minFontSize = _; }, get lollipopLabelMinFontSize() { return lollipopOpt.popLabel.minFontSize; },
 
         // pop color scheme
-        set lollipopColorScheme(_) { lollipopOpt.popColorScheme = _; }, get lollipopColorScheme() { return lollipopOpt.popColorScheme; },
+        set lollipopColorScheme(_) { lollipopOpt.popColorSchemeName = _; lollipop.popColorScheme = scaleOrdinal(_); },
+        get lollipopColorScheme() { return lollipopOpt.popColorSchemeName;},
 
         // title related settings (text / font / color / alignment / y-adjustment)
         // note : font (font-style font-variant font-weight font-size/line-height font-family)
@@ -2079,7 +2082,8 @@ function Lollipop(target, chartType, width) {
         set annoBarFill(_) { domainOpt.bar.background = _; }, get annoBarFill() { return domainOpt.bar.background; },
         set annoBarMargin(_) { domainOpt.bar.margin = _; }, get annoBarMargin() { return domainOpt.bar.margin; },
 
-        set domainColorScheme(_) { domainOpt.domain.colorScheme = _; }, get domainColorScheme() { return domainOpt.domain.colorScheme; },
+        set domainColorScheme(_) { domainOpt.domain.colorSchemeName = _; domainOpt.domain.colorScheme = scaleOrdinal(_); }, 
+        get domainColorScheme() { return domainOpt.domain.colorSchemeName; },
         set domainMargin(_) { domainOpt.domain.margin = _; }, get domainMargin() { return domainOpt.domain.margin; },
         set domainTextFont(_) { domainOpt.domain.label.font = _; }, get domainTextFont() { return domainOpt.domain.label.font; },
         set domainTextColor(_) { domainOpt.domain.label.color = _; }, get domainTextColor() { return domainOpt.domain.label.color; },
