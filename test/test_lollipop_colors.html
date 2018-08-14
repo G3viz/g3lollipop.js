@@ -77,8 +77,8 @@
         }
 
         if (idx < len_col) {
-          lollipop.options.lollipopColorScheme = g3.scaleOrdinal(cols[idx]);
-          lollipop.refresh(snvOpt, domainOpt);
+          lollipop.options.lollipopColorScheme = cols[idx];
+          //lollipop.refresh(snvOpt, domainOpt);
           info = "<span style=\"color:firebrick;\">Test " + (idx + 1) + "/" + len_col +
             "</span>: color scheme = " +
             "<span style = \"color:firebrick;font-weight: bold;\">" + cols[idx] + "</span><br>";
