@@ -1,0 +1,1620 @@
+var domainData = {
+    "symbol": "APC",
+    "uniprot": "P25054",
+    "length": 2843,
+    "pfam": [{
+        "hmm.acc": "PF16689",
+        "hmm.name": "APC_N_CC",
+        "start": 4,
+        "end": 55,
+        "type": "Family"
+    }, {
+        "hmm.acc": "PF11414",
+        "hmm.name": "Suppressor_APC",
+        "start": 127,
+        "end": 207,
+        "type": "Family"
+    }, {
+        "hmm.acc": "PF00514",
+        "hmm.name": "Arm",
+        "start": 512,
+        "end": 553,
+        "type": "Repeat"
+    }, {
+        "hmm.acc": "PF00514",
+        "hmm.name": "Arm",
+        "start": 649,
+        "end": 689,
+        "type": "Repeat"
+    }, {
+        "hmm.acc": "PF16629",
+        "hmm.name": "Arm_APC_u3",
+        "start": 732,
+        "end": 1019,
+        "type": "Disordered"
+    }, {
+        "hmm.acc": "PF05972",
+        "hmm.name": "APC_15aa",
+        "start": 1020,
+        "end": 1034,
+        "type": "Motif"
+    }, {
+        "hmm.acc": "PF16630",
+        "hmm.name": "APC_u5",
+        "start": 1036,
+        "end": 1135,
+        "type": "Disordered"
+    }, {
+        "hmm.acc": "PF05972",
+        "hmm.name": "APC_15aa",
+        "start": 1136,
+        "end": 1150,
+        "type": "Motif"
+    }, {
+        "hmm.acc": "PF05972",
+        "hmm.name": "APC_15aa",
+        "start": 1155,
+        "end": 1169,
+        "type": "Motif"
+    }, {
+        "hmm.acc": "PF05972",
+        "hmm.name": "APC_15aa",
+        "start": 1172,
+        "end": 1186,
+        "type": "Motif"
+    }, {
+        "hmm.acc": "PF05923",
+        "hmm.name": "APC_r",
+        "start": 1257,
+        "end": 1280,
+        "type": "Motif"
+    }, {
+        "hmm.acc": "PF16633",
+        "hmm.name": "APC_u9",
+        "start": 1282,
+        "end": 1368,
+        "type": "Disordered"
+    }, {
+        "hmm.acc": "PF05923",
+        "hmm.name": "APC_r",
+        "start": 1371,
+        "end": 1393,
+        "type": "Motif"
+    }, {
+        "hmm.acc": "PF05923",
+        "hmm.name": "APC_r",
+        "start": 1486,
+        "end": 1509,
+        "type": "Motif"
+    }, {
+        "hmm.acc": "PF05924",
+        "hmm.name": "SAMP",
+        "start": 1567,
+        "end": 1588,
+        "type": "Motif"
+    }, {
+        "hmm.acc": "PF05923",
+        "hmm.name": "APC_r",
+        "start": 1637,
+        "end": 1660,
+        "type": "Motif"
+    }, {
+        "hmm.acc": "PF16634",
+        "hmm.name": "APC_u13",
+        "start": 1662,
+        "end": 1715,
+        "type": "Disordered"
+    }, {
+        "hmm.acc": "PF05924",
+        "hmm.name": "SAMP",
+        "start": 1716,
+        "end": 1737,
+        "type": "Motif"
+    }, {
+        "hmm.acc": "PF16635",
+        "hmm.name": "APC_u14",
+        "start": 1746,
+        "end": 1839,
+        "type": "Disordered"
+    }, {
+        "hmm.acc": "PF05923",
+        "hmm.name": "APC_r",
+        "start": 1841,
+        "end": 1865,
+        "type": "Motif"
+    }, {
+        "hmm.acc": "PF16636",
+        "hmm.name": "APC_u15",
+        "start": 1867,
+        "end": 1947,
+        "type": "Disordered"
+    }, {
+        "hmm.acc": "PF05923",
+        "hmm.name": "APC_r",
+        "start": 1949,
+        "end": 1972,
+        "type": "Motif"
+    }, {
+        "hmm.acc": "PF05923",
+        "hmm.name": "APC_r",
+        "start": 2008,
+        "end": 2030,
+        "type": "Motif"
+    }, {
+        "hmm.acc": "PF05924",
+        "hmm.name": "SAMP",
+        "start": 2031,
+        "end": 2052,
+        "type": "Motif"
+    }, {
+        "hmm.acc": "PF05956",
+        "hmm.name": "APC_basic",
+        "start": 2223,
+        "end": 2575,
+        "type": "Family"
+    }, {
+        "hmm.acc": "PF05937",
+        "hmm.name": "EB1_binding",
+        "start": 2670,
+        "end": 2843,
+        "type": "Family"
+    }]
+};
+
+var domainDataFormat = {
+    "length": "length",
+    "domainType": "pfam",
+    "details": {
+        "start": "start",
+        "end": "end",
+        "name": "hmm.name"
+    }
+};
+
+var plotOptions = {
+    "chartWidth": 1600,
+    "chartType": "circle",
+    "chartMargin": {
+        "left": 40,
+        "right": 20,
+        "top": 15,
+        "bottom": 25
+    },
+    "chartBackground": "transparent",
+    "transitionTime": 600,
+    "yAxisLabel": "# Mutations",
+    "axisLabelFont": "normal 12px Arial",
+    "axisLabelColor": "#4f4f4f",
+    "axisLabelAlignment": "middle",
+    "axisLabelDy": "-2em",
+    "legendMargin": {
+        "left": 10,
+        "right": 0,
+        "top": 5,
+        "bottom": 5
+    },
+    "legendInteractive": true,
+    "legendTitle": null,
+    "lollipopTrackHeight": 420,
+    "lollipopTrackBackground": "transparent",
+    "lollipopPopMinSize": 4,
+    "lollipopPopMaxSize": 4,
+    "lollipopPopInfoLimit": 4.1,
+    "lollipopPopInfoColor": "#EEE",
+    "lollipopLineColor": "grey",
+    "lollipopLineWidth": 0.5,
+    "lollipopCircleColor": "black",
+    "lollipopCircleWidth": 0.5,
+    "lollipopLabelRatio": 1.4,
+    "lollipopLabelMinFontSize": 10,
+    "lollipopColorScheme": "bottlerocket2",
+    "titleText": "",
+    "titleFont": "normal 16px Arial",
+    "titleColor": "#424242",
+    "titleAlignment": "middle",
+    "titleDy": "0.35em",
+    "annoHeight": 30,
+    "annoMargin": {
+        "top": 4,
+        "bottom": 0
+    },
+    "annoBackground": "transparent",
+    "annoBarFill": "#e5e3e1",
+    "annoBarMargin": {
+        "top": 5,
+        "bottom": 5
+    },
+    "domainColorScheme": "darjeeling2",
+    "domainMargin": {
+        "top": 0,
+        "bottom": 0
+    },
+    "domainTextFont": "normal 8px Arial",
+    "domainTextColor": "white",
+    "legend": true,
+    "tooltip": true,
+    "brush": true,
+    "zoom": true
+};
+
+var mutationDataFormat = {
+    "x": "AA_Position",
+    "y": "amino_acid_change",
+    "factor": "Mutation_Class"
+};
+
+var mutationData = [{
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.A2V",
+    "Mutation_Class": "Missense",
+    "AA_Position": 2
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Silent",
+    "amino_acid_change": "p.L16L",
+    "Mutation_Class": "Inframe",
+    "AA_Position": 16
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Silent",
+    "amino_acid_change": "p.K17K",
+    "Mutation_Class": "Inframe",
+    "AA_Position": 17
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Silent",
+    "amino_acid_change": "p.R24R",
+    "Mutation_Class": "Inframe",
+    "AA_Position": 24
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.D67N",
+    "Mutation_Class": "Missense",
+    "AA_Position": 67
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Splice_Site",
+    "amino_acid_change": "p.E74_splice",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 74
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.G84R",
+    "Mutation_Class": "Missense",
+    "AA_Position": 84
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.N125K",
+    "Mutation_Class": "Missense",
+    "AA_Position": 125
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.S130G",
+    "Mutation_Class": "Missense",
+    "AA_Position": 130
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.A146T",
+    "Mutation_Class": "Missense",
+    "AA_Position": 146
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.Y159C",
+    "Mutation_Class": "Missense",
+    "AA_Position": 159
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Nonsense_Mutation",
+    "amino_acid_change": "p.Q161*",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 161
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Nonsense_Mutation",
+    "amino_acid_change": "p.Q188*",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 188
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Silent",
+    "amino_acid_change": "p.I196I",
+    "Mutation_Class": "Inframe",
+    "AA_Position": 196
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.A199V",
+    "Mutation_Class": "Missense",
+    "AA_Position": 199
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Nonsense_Mutation",
+    "amino_acid_change": "p.R213*",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 213
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Nonsense_Mutation",
+    "amino_acid_change": "p.R216*",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 216
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Nonsense_Mutation",
+    "amino_acid_change": "p.R232*",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 232
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Nonsense_Mutation",
+    "amino_acid_change": "p.R232*",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 232
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Nonsense_Mutation",
+    "amino_acid_change": "p.R232*",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 232
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.R259W",
+    "Mutation_Class": "Missense",
+    "AA_Position": 259
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Nonsense_Mutation",
+    "amino_acid_change": "p.Q264*",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 264
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Nonsense_Mutation",
+    "amino_acid_change": "p.R302*",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 302
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Nonsense_Mutation",
+    "amino_acid_change": "p.E313*",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 313
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.H325R",
+    "Mutation_Class": "Missense",
+    "AA_Position": 325
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.S331L",
+    "Mutation_Class": "Missense",
+    "AA_Position": 331
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Nonsense_Mutation",
+    "amino_acid_change": "p.L360*",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 360
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.N363K",
+    "Mutation_Class": "Missense",
+    "AA_Position": 363
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.L407F",
+    "Mutation_Class": "Missense",
+    "AA_Position": 407
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.R414H",
+    "Mutation_Class": "Missense",
+    "AA_Position": 414
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Nonsense_Mutation",
+    "amino_acid_change": "p.E418*",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 418
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.G430A",
+    "Mutation_Class": "Missense",
+    "AA_Position": 430
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.M431I",
+    "Mutation_Class": "Missense",
+    "AA_Position": 431
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Silent",
+    "amino_acid_change": "p.E443E",
+    "Mutation_Class": "Inframe",
+    "AA_Position": 443
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Frame_Shift_Del",
+    "amino_acid_change": "p.A449fs",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 449
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Silent",
+    "amino_acid_change": "p.K455K",
+    "Mutation_Class": "Inframe",
+    "AA_Position": 455
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.G470R",
+    "Mutation_Class": "Missense",
+    "AA_Position": 470
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.G471E",
+    "Mutation_Class": "Missense",
+    "AA_Position": 471
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.Q473R",
+    "Mutation_Class": "Missense",
+    "AA_Position": 473
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.Y486C",
+    "Mutation_Class": "Missense",
+    "AA_Position": 486
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.M526L",
+    "Mutation_Class": "Missense",
+    "AA_Position": 526
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.A528V",
+    "Mutation_Class": "Missense",
+    "AA_Position": 528
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.L529R",
+    "Mutation_Class": "Missense",
+    "AA_Position": 529
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.V566I",
+    "Mutation_Class": "Missense",
+    "AA_Position": 566
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.E601D",
+    "Mutation_Class": "Missense",
+    "AA_Position": 601
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Nonsense_Mutation",
+    "amino_acid_change": "p.Q625*",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 625
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Silent",
+    "amino_acid_change": "p.N627N",
+    "Mutation_Class": "Inframe",
+    "AA_Position": 627
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Silent",
+    "amino_acid_change": "p.G635G",
+    "Mutation_Class": "Inframe",
+    "AA_Position": 635
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Silent",
+    "amino_acid_change": "p.N649N",
+    "Mutation_Class": "Inframe",
+    "AA_Position": 649
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Silent",
+    "amino_acid_change": "p.E650E",
+    "Mutation_Class": "Inframe",
+    "AA_Position": 650
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Frame_Shift_Del",
+    "amino_acid_change": "p.R657fs",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 657
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Silent",
+    "amino_acid_change": "p.H672H",
+    "Mutation_Class": "Inframe",
+    "AA_Position": 672
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Silent",
+    "amino_acid_change": "p.S673S",
+    "Mutation_Class": "Inframe",
+    "AA_Position": 673
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.S678G",
+    "Mutation_Class": "Missense",
+    "AA_Position": 678
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Nonsense_Mutation",
+    "amino_acid_change": "p.W685*",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 685
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Silent",
+    "amino_acid_change": "p.A697A",
+    "Mutation_Class": "Inframe",
+    "AA_Position": 697
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Silent",
+    "amino_acid_change": "p.L698L",
+    "Mutation_Class": "Inframe",
+    "AA_Position": 698
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.R727M",
+    "Mutation_Class": "Missense",
+    "AA_Position": 727
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.R727M",
+    "Mutation_Class": "Missense",
+    "AA_Position": 727
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.A766S",
+    "Mutation_Class": "Missense",
+    "AA_Position": 766
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.S770P",
+    "Mutation_Class": "Missense",
+    "AA_Position": 770
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.E771Q",
+    "Mutation_Class": "Missense",
+    "AA_Position": 771
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Nonsense_Mutation",
+    "amino_acid_change": "p.Q789*",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 789
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Frame_Shift_Del",
+    "amino_acid_change": "p.V800fs",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 800
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.D807G",
+    "Mutation_Class": "Missense",
+    "AA_Position": 807
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Nonsense_Mutation",
+    "amino_acid_change": "p.S811*",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 811
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Nonsense_Mutation",
+    "amino_acid_change": "p.E853*",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 853
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.R856C",
+    "Mutation_Class": "Missense",
+    "AA_Position": 856
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.R856H",
+    "Mutation_Class": "Missense",
+    "AA_Position": 856
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.N862K",
+    "Mutation_Class": "Missense",
+    "AA_Position": 862
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.N862K",
+    "Mutation_Class": "Missense",
+    "AA_Position": 862
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.P865L",
+    "Mutation_Class": "Missense",
+    "AA_Position": 865
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Nonsense_Mutation",
+    "amino_acid_change": "p.R876*",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 876
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.V894M",
+    "Mutation_Class": "Missense",
+    "AA_Position": 894
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.R924K",
+    "Mutation_Class": "Missense",
+    "AA_Position": 924
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.A927G",
+    "Mutation_Class": "Missense",
+    "AA_Position": 927
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.K993N",
+    "Mutation_Class": "Missense",
+    "AA_Position": 993
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.K993N",
+    "Mutation_Class": "Missense",
+    "AA_Position": 993
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.S1010G",
+    "Mutation_Class": "Missense",
+    "AA_Position": 1010
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.E1020K",
+    "Mutation_Class": "Missense",
+    "AA_Position": 1020
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Nonsense_Mutation",
+    "amino_acid_change": "p.K1030*",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 1030
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Nonsense_Mutation",
+    "amino_acid_change": "p.S1032*",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 1032
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.E1034D",
+    "Mutation_Class": "Missense",
+    "AA_Position": 1034
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.S1044L",
+    "Mutation_Class": "Missense",
+    "AA_Position": 1044
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Nonsense_Mutation",
+    "amino_acid_change": "p.S1068*",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 1068
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Frame_Shift_Del",
+    "amino_acid_change": "p.F1089fs",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 1089
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Nonsense_Mutation",
+    "amino_acid_change": "p.Q1096*",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 1096
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Frame_Shift_Ins",
+    "amino_acid_change": "p.R1105fs",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 1105
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Frame_Shift_Del",
+    "amino_acid_change": "p.R1105fs",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 1105
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Nonsense_Mutation",
+    "amino_acid_change": "p.R1114*",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 1114
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Nonsense_Mutation",
+    "amino_acid_change": "p.R1114*",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 1114
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.N1118K",
+    "Mutation_Class": "Missense",
+    "AA_Position": 1118
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.S1126R",
+    "Mutation_Class": "Missense",
+    "AA_Position": 1126
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.S1126R",
+    "Mutation_Class": "Missense",
+    "AA_Position": 1126
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Nonsense_Mutation",
+    "amino_acid_change": "p.Q1131*",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 1131
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Frame_Shift_Del",
+    "amino_acid_change": "p.E1157fs",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 1157
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.T1160K",
+    "Mutation_Class": "Missense",
+    "AA_Position": 1160
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.R1171C",
+    "Mutation_Class": "Missense",
+    "AA_Position": 1171
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.R1171C",
+    "Mutation_Class": "Missense",
+    "AA_Position": 1171
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.I1177M",
+    "Mutation_Class": "Missense",
+    "AA_Position": 1177
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Nonsense_Mutation",
+    "amino_acid_change": "p.S1196*",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 1196
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Nonsense_Mutation",
+    "amino_acid_change": "p.S1196*",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 1196
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Frame_Shift_Del",
+    "amino_acid_change": "p.F1197fs",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 1197
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.L1231V",
+    "Mutation_Class": "Missense",
+    "AA_Position": 1231
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.P1233L",
+    "Mutation_Class": "Missense",
+    "AA_Position": 1233
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Nonsense_Mutation",
+    "amino_acid_change": "p.S1278*",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 1278
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.T1292M",
+    "Mutation_Class": "Missense",
+    "AA_Position": 1292
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Nonsense_Mutation",
+    "amino_acid_change": "p.Q1303*",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 1303
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Frame_Shift_Del",
+    "amino_acid_change": "p.I1307fs",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 1307
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Frame_Shift_Del",
+    "amino_acid_change": "p.I1307fs",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 1307
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Nonsense_Mutation",
+    "amino_acid_change": "p.E1317*",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 1317
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Nonsense_Mutation",
+    "amino_acid_change": "p.Q1338*",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 1338
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Nonsense_Mutation",
+    "amino_acid_change": "p.Q1338*",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 1338
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.G1339R",
+    "Mutation_Class": "Missense",
+    "AA_Position": 1339
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Nonsense_Mutation",
+    "amino_acid_change": "p.S1344*",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 1344
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Nonsense_Mutation",
+    "amino_acid_change": "p.Q1367*",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 1367
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Nonsense_Mutation",
+    "amino_acid_change": "p.Q1367*",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 1367
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Nonsense_Mutation",
+    "amino_acid_change": "p.S1392*",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 1392
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.D1394H",
+    "Mutation_Class": "Missense",
+    "AA_Position": 1394
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.R1399C",
+    "Mutation_Class": "Missense",
+    "AA_Position": 1399
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.S1400L",
+    "Mutation_Class": "Missense",
+    "AA_Position": 1400
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Nonsense_Mutation",
+    "amino_acid_change": "p.Q1406*",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 1406
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Frame_Shift_Del",
+    "amino_acid_change": "p.G1416fs",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 1416
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Frame_Shift_Del",
+    "amino_acid_change": "p.G1416fs",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 1416
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Nonsense_Mutation",
+    "amino_acid_change": "p.Q1429*",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 1429
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Nonsense_Mutation",
+    "amino_acid_change": "p.Q1429*",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 1429
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Frame_Shift_Del",
+    "amino_acid_change": "p.Q1429fs",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 1429
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Frame_Shift_Del",
+    "amino_acid_change": "p.T1430fs",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 1430
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Frame_Shift_Del",
+    "amino_acid_change": "p.Q1444fs",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 1444
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Nonsense_Mutation",
+    "amino_acid_change": "p.R1450*",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 1450
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Nonsense_Mutation",
+    "amino_acid_change": "p.R1450*",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 1450
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Nonsense_Mutation",
+    "amino_acid_change": "p.R1450*",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 1450
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Nonsense_Mutation",
+    "amino_acid_change": "p.R1450*",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 1450
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Nonsense_Mutation",
+    "amino_acid_change": "p.R1450*",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 1450
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Frame_Shift_Del",
+    "amino_acid_change": "p.K1454fs",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 1454
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.T1459I",
+    "Mutation_Class": "Missense",
+    "AA_Position": 1459
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Frame_Shift_Del",
+    "amino_acid_change": "p.K1462fs",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 1462
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.R1463S",
+    "Mutation_Class": "Missense",
+    "AA_Position": 1463
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.S1465C",
+    "Mutation_Class": "Missense",
+    "AA_Position": 1465
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Frame_Shift_Del",
+    "amino_acid_change": "p.S1465fs",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 1465
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Frame_Shift_Del",
+    "amino_acid_change": "p.L1488fs",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 1488
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.L1488V",
+    "Mutation_Class": "Missense",
+    "AA_Position": 1488
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.L1489S",
+    "Mutation_Class": "Missense",
+    "AA_Position": 1489
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Nonsense_Mutation",
+    "amino_acid_change": "p.G1499*",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 1499
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Nonsense_Mutation",
+    "amino_acid_change": "p.K1543*",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 1543
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.S1545L",
+    "Mutation_Class": "Missense",
+    "AA_Position": 1545
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Nonsense_Mutation",
+    "amino_acid_change": "p.Q1549*",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 1549
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Nonsense_Mutation",
+    "amino_acid_change": "p.E1554*",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 1554
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Frame_Shift_Ins",
+    "amino_acid_change": "p.E1554fs",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 1554
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Frame_Shift_Ins",
+    "amino_acid_change": "p.E1554fs",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 1554
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Frame_Shift_Ins",
+    "amino_acid_change": "p.E1554fs",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 1554
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Frame_Shift_Ins",
+    "amino_acid_change": "p.E1554fs",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 1554
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Frame_Shift_Ins",
+    "amino_acid_change": "p.E1554fs",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 1554
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Frame_Shift_Ins",
+    "amino_acid_change": "p.E1554fs",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 1554
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Frame_Shift_Ins",
+    "amino_acid_change": "p.E1554fs",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 1554
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Frame_Shift_Ins",
+    "amino_acid_change": "p.E1554fs",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 1554
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Frame_Shift_Ins",
+    "amino_acid_change": "p.E1554fs",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 1554
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Frame_Shift_Ins",
+    "amino_acid_change": "p.E1554fs",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 1554
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Frame_Shift_Ins",
+    "amino_acid_change": "p.E1554fs",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 1554
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Frame_Shift_Del",
+    "amino_acid_change": "p.E1554fs",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 1554
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Frame_Shift_Del",
+    "amino_acid_change": "p.E1554fs",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 1554
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.K1561N",
+    "Mutation_Class": "Missense",
+    "AA_Position": 1561
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.S1567L",
+    "Mutation_Class": "Missense",
+    "AA_Position": 1567
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.D1571Y",
+    "Mutation_Class": "Missense",
+    "AA_Position": 1571
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Nonsense_Mutation",
+    "amino_acid_change": "p.E1577*",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 1577
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Frame_Shift_Ins",
+    "amino_acid_change": "p.A1591fs",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 1591
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.S1656Y",
+    "Mutation_Class": "Missense",
+    "AA_Position": 1656
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.D1688H",
+    "Mutation_Class": "Missense",
+    "AA_Position": 1688
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.R1788C",
+    "Mutation_Class": "Missense",
+    "AA_Position": 1788
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Frame_Shift_Ins",
+    "amino_acid_change": "p.R1790fs",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 1790
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Nonsense_Mutation",
+    "amino_acid_change": "p.S1795*",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 1795
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.D1810E",
+    "Mutation_Class": "Missense",
+    "AA_Position": 1810
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Nonsense_Mutation",
+    "amino_acid_change": "p.S1811*",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 1811
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.N1815K",
+    "Mutation_Class": "Missense",
+    "AA_Position": 1815
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Frame_Shift_Ins",
+    "amino_acid_change": "p.L1816fs",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 1816
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.S1857L",
+    "Mutation_Class": "Missense",
+    "AA_Position": 1857
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.S1890L",
+    "Mutation_Class": "Missense",
+    "AA_Position": 1890
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.R1920G",
+    "Mutation_Class": "Missense",
+    "AA_Position": 1920
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.S1973C",
+    "Mutation_Class": "Missense",
+    "AA_Position": 1973
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.E1991D",
+    "Mutation_Class": "Missense",
+    "AA_Position": 1991
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Frame_Shift_Ins",
+    "amino_acid_change": "p.P2048fs",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 2048
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.G2070D",
+    "Mutation_Class": "Missense",
+    "AA_Position": 2070
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "In_Frame_Ins",
+    "amino_acid_change": "p.2122_2123insA",
+    "Mutation_Class": "Inframe",
+    "AA_Position": 2122
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "In_Frame_Ins",
+    "amino_acid_change": "p.2122_2123insA",
+    "Mutation_Class": "Inframe",
+    "AA_Position": 2122
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "In_Frame_Ins",
+    "amino_acid_change": "p.2122_2123insA",
+    "Mutation_Class": "Inframe",
+    "AA_Position": 2122
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.S2134C",
+    "Mutation_Class": "Missense",
+    "AA_Position": 2134
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.G2145V",
+    "Mutation_Class": "Missense",
+    "AA_Position": 2145
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.L2150V",
+    "Mutation_Class": "Missense",
+    "AA_Position": 2150
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Nonsense_Mutation",
+    "amino_acid_change": "p.R2166*",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 2166
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Nonsense_Mutation",
+    "amino_acid_change": "p.R2166*",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 2166
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.R2166Q",
+    "Mutation_Class": "Missense",
+    "AA_Position": 2166
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.L2168I",
+    "Mutation_Class": "Missense",
+    "AA_Position": 2168
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.L2198F",
+    "Mutation_Class": "Missense",
+    "AA_Position": 2198
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Nonsense_Mutation",
+    "amino_acid_change": "p.R2204*",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 2204
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Nonsense_Mutation",
+    "amino_acid_change": "p.R2204*",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 2204
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.G2211C",
+    "Mutation_Class": "Missense",
+    "AA_Position": 2211
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Nonsense_Mutation",
+    "amino_acid_change": "p.R2237*",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 2237
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Frame_Shift_Del",
+    "amino_acid_change": "p.K2248fs",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 2248
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.S2260N",
+    "Mutation_Class": "Missense",
+    "AA_Position": 2260
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.S2307L",
+    "Mutation_Class": "Missense",
+    "AA_Position": 2307
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.I2329V",
+    "Mutation_Class": "Missense",
+    "AA_Position": 2329
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.R2333K",
+    "Mutation_Class": "Missense",
+    "AA_Position": 2333
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.L2342F",
+    "Mutation_Class": "Missense",
+    "AA_Position": 2342
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.L2345I",
+    "Mutation_Class": "Missense",
+    "AA_Position": 2345
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Frame_Shift_Ins",
+    "amino_acid_change": "p.G2362fs",
+    "Mutation_Class": "Truncating",
+    "AA_Position": 2362
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.L2384I",
+    "Mutation_Class": "Missense",
+    "AA_Position": 2384
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.A2388V",
+    "Mutation_Class": "Missense",
+    "AA_Position": 2388
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.G2409E",
+    "Mutation_Class": "Missense",
+    "AA_Position": 2409
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.R2439P",
+    "Mutation_Class": "Missense",
+    "AA_Position": 2439
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.P2448S",
+    "Mutation_Class": "Missense",
+    "AA_Position": 2448
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.F2462S",
+    "Mutation_Class": "Missense",
+    "AA_Position": 2462
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.P2467L",
+    "Mutation_Class": "Missense",
+    "AA_Position": 2467
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.P2482L",
+    "Mutation_Class": "Missense",
+    "AA_Position": 2482
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.T2514I",
+    "Mutation_Class": "Missense",
+    "AA_Position": 2514
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.W2547C",
+    "Mutation_Class": "Missense",
+    "AA_Position": 2547
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.E2550Q",
+    "Mutation_Class": "Missense",
+    "AA_Position": 2550
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.V2561L",
+    "Mutation_Class": "Missense",
+    "AA_Position": 2561
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.S2562G",
+    "Mutation_Class": "Missense",
+    "AA_Position": 2562
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.S2569R",
+    "Mutation_Class": "Missense",
+    "AA_Position": 2569
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "In_Frame_Del",
+    "amino_acid_change": "p.E2617del",
+    "Mutation_Class": "Inframe",
+    "AA_Position": 2617
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.F2620C",
+    "Mutation_Class": "Missense",
+    "AA_Position": 2620
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.S2625I",
+    "Mutation_Class": "Missense",
+    "AA_Position": 2625
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.T2635P",
+    "Mutation_Class": "Missense",
+    "AA_Position": 2635
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.R2714C",
+    "Mutation_Class": "Missense",
+    "AA_Position": 2714
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.R2714C",
+    "Mutation_Class": "Missense",
+    "AA_Position": 2714
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.E2737G",
+    "Mutation_Class": "Missense",
+    "AA_Position": 2737
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.S2768R",
+    "Mutation_Class": "Missense",
+    "AA_Position": 2768
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.D2796G",
+    "Mutation_Class": "Missense",
+    "AA_Position": 2796
+}, {
+    "Hugo_Symbol": "APC",
+    "Variant_Classification": "Missense_Mutation",
+    "amino_acid_change": "p.R2816Q",
+    "Mutation_Class": "Missense",
+    "AA_Position": 2816
+}];
