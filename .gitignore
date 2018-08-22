@@ -3,3 +3,4 @@ package-lock.json
 data/.Rhistory
 run_server.sh
 gist/
+test/
