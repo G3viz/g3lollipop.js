@@ -2101,6 +2101,7 @@ function Lollipop(target, chartType, width) {
     lollipop.getOptions = function (options) {
         let _options = {};
         let self = this;
+        options = options || {};
         options.forEach(function (opt) {
             if (self.options[opt]) {
                 _options[opt] = self.options[opt];
