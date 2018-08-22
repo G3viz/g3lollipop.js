@@ -184,7 +184,8 @@ export default function Lollipop(target, chartType, width) {
         _popTooltip = null,
         _chartInit = false,
         _byFactor = false,
-        _currentStates = {}, _lollipopLegend;
+        _initStates = {}, _currentStates = {},
+        _lollipopLegend;
 
     var _domainBrush, _xScaleOrig, _domainZoom, _legendHeight;
     var _domainH, _domainW, _mainH, _mainW, _svgH, _svgW;
@@ -815,10 +816,11 @@ export default function Lollipop(target, chartType, width) {
         // for the first time, summarize mutation factors and counts
         if (!_snvInit) {
             // => factor (or undefined): count
-            _currentStates = d3.nest()
+            _initStates = d3.nest()
                 .key(d => d[snvDataFormat.factor])
                 .rollup(function (d) { return +d.length; })
                 .object(snvData);
+            _currentStates = Object.create(_initStates);
 
             // group by postion, sort
             snvData = d3.nest()
@@ -1155,7 +1157,7 @@ export default function Lollipop(target, chartType, width) {
         set lollipopLabelMinFontSize(_) { lollipopOpt.popLabel.minFontSize = _; }, get lollipopLabelMinFontSize() { return lollipopOpt.popLabel.minFontSize; },
 
         // pop color scheme
-        set lollipopColorScheme(_) { lollipopOpt.popColorSchemeName = _; lollipop.popColorScheme = scaleOrdinal(_); },
+        set lollipopColorScheme(_) { lollipopOpt.popColorSchemeName = _; lollipopOpt.popColorScheme = scaleOrdinal(_); },
         get lollipopColorScheme() { return lollipopOpt.popColorSchemeName;},
 
         // title related settings (text / font / color / alignment / y-adjustment)
@@ -1215,6 +1217,9 @@ export default function Lollipop(target, chartType, width) {
 
     lollipop.refresh = function () {
         this.destroy();
+
+        // reset states
+        _currentStates = Object.create(_initStates);
         this.draw();
     };
 
