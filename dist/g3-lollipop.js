@@ -1430,7 +1430,13 @@ function Lollipop(target, chartType, width) {
         }
 
         _lollipopLegend.dispatch.on("legendClick", function (key, selected) {
+            console.log(key + " => " + selected);
+
+            console.log("before delete : " + JSON.stringify(_currentStates));
+
             !selected ? delete _currentStates[key] : _currentStates[key] = selected;
+
+            console.log("after delete: " + JSON.stringify(_currentStates));
 
             _prepareData();
             // calculate y range based on the current yValues
@@ -1726,7 +1732,8 @@ function Lollipop(target, chartType, width) {
                 .key(d => d[snvDataFormat.factor])
                 .rollup(function (d) { return +d.length; })
                 .object(snvData);
-            _currentStates = Object.create(_initStates);
+            
+            _currentStates = JSON.parse(JSON.stringify(_initStates));
 
             // group by postion, sort
             snvData = d3.nest()
@@ -2125,7 +2132,7 @@ function Lollipop(target, chartType, width) {
         this.destroy();
 
         // reset states
-        _currentStates = Object.create(_initStates);
+        _currentStates = JSON.parse(JSON.stringify(_initStates));
         this.draw();
     };
 
