@@ -524,13 +524,7 @@ export default function Lollipop(target, chartType, width) {
         }
 
         _lollipopLegend.dispatch.on("legendClick", function (key, selected) {
-            console.log(key + " => " + selected);
-
-            console.log("before delete : " + JSON.stringify(_currentStates));
-
             !selected ? delete _currentStates[key] : _currentStates[key] = selected;
-
-            console.log("after delete: " + JSON.stringify(_currentStates));
 
             _prepareData();
             // calculate y range based on the current yValues
