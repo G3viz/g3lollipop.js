@@ -28,7 +28,7 @@ The input of takes annotated
 
 <!-- D3 and G3-lollipop libraries -->
 <script src="https://d3js.org/d3.v4.min.js"></script>
-<script src="https://rawgit.com/G3js/lollipop/master/dist/g3-lollipop.min.js"></script>
+<script src="https://s3-us-west-2.amazonaws.com/cdsjsd3/g3-lollipop.min.js"></script>
 ```
 
 ### Input data
