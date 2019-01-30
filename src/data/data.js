@@ -14,7 +14,6 @@ function uniprot(symbol) {
         })
         .then(function (res) {
             if (res.status == 200) {
-
                 console.log(res);
             } else {
                 console.log(res);

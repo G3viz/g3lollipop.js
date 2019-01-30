@@ -21,14 +21,15 @@
         "url": "https://github.com/G3js/g3-lollipop.git"
     },
     "scripts": {
-        "pretest": "rm -rf dist/g3-lollipop.* && rollup --config ./rollup.config.js",
-        "build": "uglifyjs -b beautify=false dist/g3-lollipop.js -c -m -o dist/g3-lollipop.min.js",
+        "pretest": "rm -rf dist/g3-lollipop.* && rm -rf dist/g3-utils.* && rollup --config ./rollup.config.js && rollup --config ./rollup.config.output.js",
+        "build": "uglifyjs -b beautify=false dist/g3-lollipop.js -c -m -o dist/g3-lollipop.min.js &&  uglifyjs -b beautify=false dist/g3-utils.js -c -m -o dist/g3-utils.min.js",
         "cssmin": "rm -rf css/style.min.css && uglifycss --ugly-comments css/style.css --output css/style.min.css"
     },
     "dependencies": {
         "blob": "0.0.4",
         "d3": "^4.12.0",
-        "file-saver": "git+https://github.com/eligrey/FileSaver.js.git"
+        "file-saver": "git+https://github.com/eligrey/FileSaver.js.git",
+        "rollup-plugin-multi-entry": "^2.1.0"
     },
     "devDependencies": {
         "eslint": "4",
