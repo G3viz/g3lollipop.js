@@ -24,11 +24,11 @@ The input of takes annotated
 ### Add libraries
 ```html
 <!-- add CSS -->
-<link rel="stylesheet" href="https://cdn.rawgit.com/G3js/lollipop/master/css/style.min.css">
+<link rel="stylesheet" href="https://s3-us-west-2.amazonaws.com/cdsjsd3/css/g3-lollipop.min.css">
 
 <!-- D3 and G3-lollipop libraries -->
 <script src="https://d3js.org/d3.v4.min.js"></script>
-<script src="https://s3-us-west-2.amazonaws.com/cdsjsd3/g3-lollipop.min.js"></script>
+<script src="https://s3-us-west-2.amazonaws.com/cdsjsd3/js/g3-lollipop.min.js"></script>
 ```
 
 ### Input data

@@ -2,12 +2,12 @@ import resolve from 'rollup-plugin-node-resolve';
 
 export default {
     external: ["d3"],
-    input: 'output.js',
+    input: 'g3utils-slim.js',
     output: {
         extend: true,
-        file: "dist/g3-utils.js",
+        file: "dist/g3-utils-slim.js",
         format: "umd",
-        name: "g3utils",
+        name: "g3slim",
         indent: false,
         globals: {
             "d3": "d3"

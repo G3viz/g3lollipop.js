@@ -21,9 +21,9 @@
         "url": "https://github.com/G3js/g3-lollipop.git"
     },
     "scripts": {
-        "pretest": "rm -rf dist/g3-lollipop.* && rm -rf dist/g3-utils.* && rollup --config ./rollup.config.js && rollup --config ./rollup.config.output.js",
-        "build": "uglifyjs -b beautify=false dist/g3-lollipop.js -c -m -o dist/g3-lollipop.min.js &&  uglifyjs -b beautify=false dist/g3-utils.js -c -m -o dist/g3-utils.min.js",
-        "cssmin": "rm -rf css/style.min.css && uglifycss --ugly-comments css/style.css --output css/style.min.css"
+        "pretest": "rm -rf dist/g3-lollipop.* && rm -rf dist/g3-utils.* && rm -rf dist/g3-utils-slim.* && rollup --config ./rollup.config.js && rollup --config ./rollup.config.utils.js && rollup --config ./rollup.config.slim.js",
+        "build": "uglifyjs -b beautify=false dist/g3-lollipop.js -c -m -o dist/g3-lollipop.min.js && uglifyjs -b beautify=false dist/g3-utils.js -c -m -o dist/g3-utils.min.js && uglifyjs -b beautify=false dist/g3-utils-slim.js -c -m -o dist/g3-utils-slim.min.js",
+        "cssmin": "rm -rf css/style.min.css && uglifycss --ugly-comments css/style.css --output css/g3-lollipop.min.css"
     },
     "dependencies": {
         "blob": "0.0.4",
