@@ -28,7 +28,6 @@
     "dependencies": {
         "blob": "0.0.4",
         "d3": "^4.12.0",
-        "file-saver": "git+https://github.com/eligrey/FileSaver.js.git",
         "rollup-plugin-multi-entry": "^2.1.0"
     },
     "devDependencies": {

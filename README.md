@@ -17,7 +17,7 @@ The input of takes annotated
 - Interactive chart legend
 - Zoom/brush to view data details
 - Save charts in SVG/PNG format
-- Over 20 color schemes
+- Over 30 color schemes
 
 ## Usage
 
