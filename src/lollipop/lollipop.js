@@ -1108,7 +1108,7 @@ export default function Lollipop(target, chartType, width) {
         // chart margin (top / bottom / left / right)
         set chartMargin(_) { options.margin = _; }, get chartMargin() { return options.margin; },
         // chart background
-        set chartBackground(_) { options.background = _; }, get charBackground() { return options.background; },
+        set chartBackground(_) { options.background = _; }, get chartBackground() { return options.background; },
 
         // chart animation transition time (ms)
         set transitionTime(_) { options.transitionTime = _; }, get transitionTime() { return options.transitionTime; },
