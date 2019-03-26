@@ -162,7 +162,14 @@ export default function Lollipop(target, chartType, width) {
             background: "#e5e3e1",
             margin: { top: 2, bottom: 2 }
         },
-        brush: true,
+        brush: {
+            enabled: true,
+            fill: "#666",
+            opacity: 0.2,
+            stroke: "#969696",
+            strokeWidth: 1,
+            handler: "#333"
+        },
         zoom: true,
     };
 
@@ -312,9 +319,24 @@ export default function Lollipop(target, chartType, width) {
         }
 
         if (domainOpt.brush) {
-            _domainViz.append("g")
+            var _brush = _domainViz.append("g")
                 .attr("class", domainOpt.className.brush)
+                /*
+                .attr("fill", domainOpt.brush.fill)
+                .attr("fill-opacity", domainOpt.brush.opacity)
+                .attr("stroke", domainOpt.brush.stroke)
+                .attr("stroke-width", domainOpt.brush.strokeWidth)
+                */
                 .call(_domainBrush);
+
+            _brush.selectAll("rect.selection")
+                .attr("fill", domainOpt.brush.fill)
+                .attr("fill-opacity", domainOpt.brush.opacity)
+                .attr("stroke", domainOpt.brush.stroke)
+                .attr("stroke-width", domainOpt.brush.strokeWidth);
+
+            _brush.selectAll("rect.handle")
+                .attr("fill", domainOpt.brush.handler);
         }
         if (domainOpt.zoom) {
             _mainViz.append("rect")
@@ -1185,7 +1207,13 @@ export default function Lollipop(target, chartType, width) {
         set domainTextFont(_) { domainOpt.domain.label.font = _; }, get domainTextFont() { return domainOpt.domain.label.font; },
         set domainTextColor(_) { domainOpt.domain.label.color = _; }, get domainTextColor() { return domainOpt.domain.label.color; },
 
-        set brush(_) { domainOpt.brush = _; }, get brush() { return domainOpt.brush; },
+        set brush(_) { domainOpt.brush.enabled = _; }, get brush() { return domainOpt.brush.enabled; },
+        set brushBackground(_) { domainOpt.brush.fill = _; }, get brushBackground() { return domainOpt.brush.fill; },
+        set brushOpacity(_) { domainOpt.brush.opacity = _; }, get brushOpacity() { return domainOpt.brush.opacity; },
+        set brushBorderColor(_) { domainOpt.brush.stroke = _; }, get brushBorderColor() { return domainOpt.brush.stroke; },
+        set brushBorderWidth(_) { domainOpt.brush.strokeWdith = _; }, get brushBorderWidth() { return domainOpt.brush.strokeWidth; },
+        set brushHandler(_) { domainOpt.brush.handler = _; }, get brushHandler() { return domainOpt.brush.handler; }, 
+
         set zoom(_) { domainOpt.zoom = _; }, get zoom() { return domainOpt.zoom; },
     };
 
