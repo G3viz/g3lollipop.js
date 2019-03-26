@@ -168,7 +168,7 @@ export default function Lollipop(target, chartType, width) {
             opacity: 0.2,
             stroke: "#969696",
             strokeWidth: 1,
-            handler: "#333"
+            handler: "#666"
         },
         zoom: true,
     };
