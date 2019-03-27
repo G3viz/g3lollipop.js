@@ -1248,7 +1248,7 @@ function Lollipop(target, chartType, width) {
                 .on("zoom", _mainVizZoomed);
         }
 
-        if (domainOpt.brush) {
+        if (domainOpt.brush.enabled) {
             var _brush = _domainViz.append("g")
                 .attr("class", domainOpt.className.brush)
                 /*
