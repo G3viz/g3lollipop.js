@@ -1003,7 +1003,7 @@ function Lollipop(target, chartType, width) {
         defsId: Prefix + "-main-defs-" + uniqueID,
         xAxisDefsId: Prefix + "-xAxis-defs-" + uniqueID,
         height: LollipopTrackHeightDefault,
-        background: "rgb(244,244,244)",
+        background: "rgb(233,233,233)",
         lollipopClassName: {
             group: "lollipop",
             line: "lollipopLine",
@@ -1067,6 +1067,9 @@ function Lollipop(target, chartType, width) {
         },
         ylab: {
             text: "# of mutations",
+            lineColor: "#c4c8ca",
+            lineWidth: 1,
+            lineStyle: "dash",
         },
     };
 
@@ -1916,7 +1919,13 @@ function Lollipop(target, chartType, width) {
         g.call(_yAxis);
 
         s.select(".domain").remove();
-        s.selectAll(".tick line").filter(Number).attr("stroke", "#aaa").attr("stroke-dasharray", "2,2");
+        let __tickLine = s.selectAll(".tick line").filter(Number)
+            .attr("stroke", lollipopOpt.ylab.lineColor)
+            .attr("stroke-width", lollipopOpt.ylab.lineWidth);
+        if(lollipopOpt.ylab.lineStyle == "dash"){
+            __tickLine.attr("stroke-dasharray", "3,3");
+        }
+
         s.selectAll(".tick text").attr("x", -2).attr("dy", 2);
         if (s !== g) g.selectAll(".tick text").attrTween("x", null).attrTween("dy", null);
     };
@@ -2082,6 +2091,10 @@ function Lollipop(target, chartType, width) {
 
         // ylabel text
         set yAxisLabel(_) { lollipopOpt.ylab.text = _; }, get yAxisLabel() { return lollipopOpt.ylab.text; },
+        // y-axis line color
+        set yAxisLineColor(_) { lollipopOpt.ylab.lineColor = _; }, get yAxisLineColor() { return lollipopOpt.ylab.lineColor; },
+        set yAxisLineWidth(_) { lollipopOpt.ylab.lineWidth = _; }, get yAxisLineWidth() { return lollipopOpt.ylab.lineWidth; },
+        set yAxisLineStyle(_) { lollipopOpt.ylab.lineStyle = _; }, get yAxisLineStyle() { return lollipopOpt.ylab.lineStyle; },
 
         // axis settings (label font / color / alignment / y-adjustment)
         set axisLabelFont(_) { lollipopOpt.axisLabel.font = _; }, get axisLabelFont() { return lollipopOpt.axisLabel.font; },

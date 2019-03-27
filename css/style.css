@@ -17,7 +17,7 @@
     line-height: 1;
     padding: 3px;
     color: rgb(52, 52, 52);
-    background: rgba(233, 233, 233, 0.9);
+    background: rgba(233, 233, 233, 0.8);
     border: 1px solid rgb(166, 166, 166);
     border-radius: 6px;
     box-shadow: 3px 3px rgb(202, 202, 202);
@@ -82,9 +82,11 @@
 
 .axis path,
 .axis line {
+    /*
     fill: none;
     stroke: #c4c8ca;
     stroke-width: 1;
+    */
     shape-rendering: crispEdges;
 }
 
