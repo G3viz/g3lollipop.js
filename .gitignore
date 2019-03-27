@@ -7,3 +7,4 @@ gist/
 test/
 docs/
 .DS_store
+copy_to_g3viz.sh

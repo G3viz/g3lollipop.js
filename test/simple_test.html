@@ -82,11 +82,11 @@
 			var chartID = lollipop.options.chartID;
 
       document.getElementById("save-as-png").onclick = function (e) {
-        g3.output().toPNG(chartID, 'out_png');
+        g3.output().toPNG('out_png', chartID);
       };
 
       document.getElementById("save-as-svg").onclick = function (e) {
-        g3.output().toSVG(chartID, 'out_svg');
+        g3.output().toSVG('out_svg', chartID);
       };
     });
   </script>

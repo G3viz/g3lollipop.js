@@ -235,7 +235,7 @@ export default function Lollipop(target, chartType, width) {
 
     var _updateX = function () {
         _xScale.domain(_xRange);
-        _domXAxis.call(_xAxis);
+        _domXAxis.call(_xReAxis);
 
         // update domains
         _domainRect
@@ -984,12 +984,22 @@ export default function Lollipop(target, chartType, width) {
         });
     };
 
+    var _xReAxis = function (g) {
+        var s = g.selection ? g.selection() : g;
+        g.call(_xAxis);
+
+        s.select(".domain").remove();
+        s.selectAll(".tick line")
+            .attr("stroke", "#c4c8ca")
+            .attr("stroke-width", 1);
+    };
+
     var _yReAxis = function (g) {
         var s = g.selection ? g.selection() : g;
         g.call(_yAxis);
 
         s.select(".domain").remove();
-        let __tickLine = s.selectAll(".tick line").filter(Number)
+        let __tickLine = s.selectAll(".tick line")//.filter(Number)
             .attr("stroke", lollipopOpt.ylab.lineColor)
             .attr("stroke-width", lollipopOpt.ylab.lineWidth);
         if(lollipopOpt.ylab.lineStyle == "dash"){
@@ -1031,7 +1041,7 @@ export default function Lollipop(target, chartType, width) {
             .attr("clip-path", "url(#" + lollipopOpt.xAxisDefsId + ")")
             .attr("class", "axis axis--x")
             .attr("transform", "translate(0, " + (_mainH + domainOpt.height) + ")")
-            .call(_xAxis);
+            .call(_xReAxis);
     };
 
     var _addBackground = function (g, bgColor, height, width) {

@@ -80,6 +80,15 @@
     font-size: 10px;
 }
 
+/*
+.axis--x path,
+.axis--x line {
+    fill: none;
+    stroke: #c4c8ca;
+    stroke-width: 1;
+}
+*/
+
 .axis path,
 .axis line {
     /*
