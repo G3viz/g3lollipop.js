@@ -54,6 +54,7 @@ export default function Lollipop(target, chartType, width) {
         margin: { left: 40, right: 20, top: 15, bottom: 25 },
         background: "transparent",
         transitionTime: 600,
+        highlightTextAngle: 90,
         legend: true,
         legendOpt: {
             margin: {},
@@ -131,7 +132,7 @@ export default function Lollipop(target, chartType, width) {
             alignment: "middle",
         },
         ylab: {
-            text: "mutations",
+            text: "# of mutations",
         },
     };
 
@@ -490,6 +491,7 @@ export default function Lollipop(target, chartType, width) {
             let _font = lollipopOpt.popLabel["font-weight"] + " " + _fontSize + " " + lollipopOpt.popLabel["font-family"];
             // text length in dimention
             let _txtLen = getTextWidth(_dominant.entry, _font);
+            _txtLen = Math.max(0, _txtLen * Math.sin(options.highlightTextAngle / 180 * Math.PI));
 
             // note: y axis 0 is at top-left cornor
             let _txtH = d._currentState.radius + lollipopOpt.popLabel.padding + _txtLen;
@@ -511,7 +513,7 @@ export default function Lollipop(target, chartType, width) {
                 .attr("text-anchor", "end");
 
             // text rotation
-            txtHolder.transition().duration(options.transitionTime).attr("transform", "rotate(90)");
+            txtHolder.transition().duration(options.transitionTime).attr("transform", "rotate("+options.highlightTextAngle+")");
         }
     };
 
@@ -901,7 +903,8 @@ export default function Lollipop(target, chartType, width) {
     };
 
     var _getYMaxAfterNice = function (yMax) {
-        return d3.scaleLinear().domain([0, yMax]).range([_mainH, 0]).nice().domain()[1];
+//        return d3.scaleLinear().domain([0, yMax]).range([_mainH, 0]).nice().domain()[1];
+        return d3.scaleLinear().domain([0, yMax]).nice().domain()[1];
     };
 
     var _calcYRange = function () {
@@ -912,14 +915,20 @@ export default function Lollipop(target, chartType, width) {
         }
         // get yRange
         _yRange[0] = Math.min(0, _yRange[0]);
-        _yValueMax = _yRange[1] = _getYMaxAfterNice(_yRange[1] * lollipopOpt.yPaddingRatio);
+        // add lollipopOpt.popParams.rMax
+
+//        lollipopOpt.popParams.rMax / _mainH
+//        _yValueMax = _yRange[1] = _getYMaxAfterNice(_yRange[1] * lollipopOpt.yPaddingRatio);
+        _yValueMax = _yRange[1] = _getYMaxAfterNice(
+            _yRange[1] * (lollipopOpt.yPaddingRatio + lollipopOpt.popParams.rMax / _mainH)
+        );
     };
 
     var _calcAxis = function () {
         // y
         _calcYRange();
         _yScale = d3.scaleLinear().domain(_yRange).range([_mainH, 0]);
-        _yAxis = d3.axisLeft(_yScale).tickSize(-_mainW).ticks(9);
+        _yAxis = d3.axisLeft(_yScale).tickSize(-_mainW).ticks(9).tickFormat(d3.format("d"));
 
         // x
         _xRange = [0, domainData[domainDataFormat.length]];
@@ -1135,6 +1144,10 @@ export default function Lollipop(target, chartType, width) {
         // chart animation transition time (ms)
         set transitionTime(_) { options.transitionTime = _; }, get transitionTime() { return options.transitionTime; },
 
+        // highlight text angle
+        set highlightTextAngle(_) { options.highlightTextAngle = _; }, get highlightTextAngle() { return options.highlightTextAngle; },
+
+        // if enable tooltip
         set tooltip(_) { options.tooltip = _; }, get tooltip() { return options.tooltip; },
 
         // ylabel text
@@ -1163,9 +1176,11 @@ export default function Lollipop(target, chartType, width) {
         // pop circle size (min / max)
         set lollipopPopMinSize(_) { lollipopOpt.popParams.rMin = _; }, get lollipopPopMinSize() { return lollipopOpt.popParams.rMin; },
         set lollipopPopMaxSize(_) { lollipopOpt.popParams.rMax = _; }, get lollipopPopMaxSize() { return lollipopOpt.popParams.rMax; },
+
         // pop cicle text (radius cutoff to show info, info text color)
         set lollipopPopInfoLimit(_) { lollipopOpt.popParams.addNumRCutoff = _; }, get lollipopPopInfoLimit() { return lollipopOpt.popParams.addNumRCutoff; },
         set lollipopPopInfoColor(_) { lollipopOpt.popText.fill = _; }, get lollipopPopInfoColor() { return lollipopOpt.popText.fill; },
+        set lollipopPopInfoDy(_) { lollipopOpt.popText.dy = _; }, get lollipopPopInfoDy() { return lollipopOpt.popText.dy; },
 
         // lollipop line (color / width)
         set lollipopLineColor(_) { lollipopOpt.lollipopLine.stroke = _; }, get lollipopLineColor() { return lollipopOpt.lollipopLine.stroke; },
