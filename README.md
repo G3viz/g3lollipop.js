@@ -1,8 +1,12 @@
-# lollipop.js
+# g3-lollipop.js
 
-`lollipop.js` is Javascript library to visualize genmomic mutations using a *loliipop* diagram
+`g3-lollipop.js` is JavaScript library to visualize genetic mutation data using a loliipop-diagram.
+[g3viz](https://github.com/G3viz/g3viz) is the *R*-interface of this `g3-lollipop.js` package.
+It provides more functionality and is easy-to-use.
 
-## Usage
+
+
+## Quick start
 
 The input of takes annotated 
 <a href="https://docs.gdc.cancer.gov/Encyclopedia/pages/Mutation_Annotation_Format/">MAF (Mutation Annotation Format)</a> or TSV (tabular-separated values) files as inputs, and generates an interactive 'lollipop-style' diagram to allow users to easily visualize every details of genomic mutations.
