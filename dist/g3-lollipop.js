@@ -1876,7 +1876,7 @@ function Lollipop(target, chartType, width) {
         // y
         _calcYRange();
         _yScale = d3.scaleLinear().domain(_yRange).range([_mainH, 0]);
-        _yAxis = d3.axisLeft(_yScale).tickSize(-_mainW).ticks(9).tickFormat(d3.format("d"));
+        _yAxis = d3.axisLeft(_yScale).tickSize(-_mainW).ticks(6).tickFormat(d3.format("d"));
 
         // x
         _xRange = [0, domainData[domainDataFormat.length]];
