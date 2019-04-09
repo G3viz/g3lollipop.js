@@ -29,7 +29,8 @@
 The input genetic mutation data should be an array of [JSON](https://www.json.org/) objects. For example,
 
 ```javascript
-var mutation_data = [{
+var mutation_data = [
+    {
         "Hugo_Symbol": "PIK3CA",
         "Variant_Classification": "Silent",
         "HGVSp_Short": "p.F70F",
@@ -59,7 +60,8 @@ var mutation_data = [{
         "HGVSp_Short": "p.R88Q",
         "Mutation_Class": "Missense",
         "AA_Position": 88
-}];
+    }
+];
 ```
 
 In addition, users need to specify data columns for the _x_, _y_, and _factor_ values.  The default settings are
