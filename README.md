@@ -30,35 +30,35 @@ The input genetic mutation data should be an array of [JSON](https://www.json.or
 
 ```javascript
 var mutation_data = [{
-    "Hugo_Symbol": "PIK3CA",
-    "Variant_Classification": "Silent",
-    "HGVSp_Short": "p.F70F",
-    "Mutation_Class": "Inframe",
-    "AA_Position": 70
-}, {
-    "Hugo_Symbol": "PIK3CA",
-    "Variant_Classification": "Missense_Mutation",
-    "HGVSp_Short": "p.E81K",
-    "Mutation_Class": "Missense",
-    "AA_Position": 81
-}, {
-    "Hugo_Symbol": "PIK3CA",
-    "Variant_Classification": "Missense_Mutation",
-    "HGVSp_Short": "p.E81K",
-    "Mutation_Class": "Missense",
-    "AA_Position": 81
-}, {
-    "Hugo_Symbol": "PIK3CA",
-    "Variant_Classification": "Missense_Mutation",
-    "HGVSp_Short": "p.F83S",
-    "Mutation_Class": "Missense",
-    "AA_Position": 83
-}, {
-    "Hugo_Symbol": "PIK3CA",
-    "Variant_Classification": "Missense_Mutation",
-    "HGVSp_Short": "p.R88Q",
-    "Mutation_Class": "Missense",
-    "AA_Position": 88
+        "Hugo_Symbol": "PIK3CA",
+        "Variant_Classification": "Silent",
+        "HGVSp_Short": "p.F70F",
+        "Mutation_Class": "Inframe",
+        "AA_Position": 70
+    }, {
+        "Hugo_Symbol": "PIK3CA",
+        "Variant_Classification": "Missense_Mutation",
+        "HGVSp_Short": "p.E81K",
+        "Mutation_Class": "Missense",
+        "AA_Position": 81
+    }, {
+        "Hugo_Symbol": "PIK3CA",
+        "Variant_Classification": "Missense_Mutation",
+        "HGVSp_Short": "p.E81K",
+        "Mutation_Class": "Missense",
+        "AA_Position": 81
+    }, {
+        "Hugo_Symbol": "PIK3CA",
+        "Variant_Classification": "Missense_Mutation",
+        "HGVSp_Short": "p.F83S",
+        "Mutation_Class": "Missense",
+        "AA_Position": 83
+    }, {
+        "Hugo_Symbol": "PIK3CA",
+        "Variant_Classification": "Missense_Mutation",
+        "HGVSp_Short": "p.R88Q",
+        "Mutation_Class": "Missense",
+        "AA_Position": 88
 }];
 ```
 
