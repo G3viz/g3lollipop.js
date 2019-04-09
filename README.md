@@ -76,7 +76,9 @@ var mutation_data_default_settings = {
 
 ### 3.2 Protein domain information
 
-[Pfam](https://pfam.xfam.org/) domains are commonly used for structural annotation in genetic mutation lollipop diagrams.  For exmaple,
+[Pfam](https://pfam.xfam.org/) domains are commonly used for structural annotation in genetic mutation lollipop diagrams.
+
+For exmaple,
 
 ```javascript
 var pfam_data = {  
@@ -123,7 +125,9 @@ var pfam_data_default_settings = {
 
 ### 3.3 Generate `g3-lollipop` chart
 
-To generate `g3-lollipop` chart, we first need to create a lollipop object, set chart options, and draw the chart.  For example,
+To generate `g3-lollipop` chart, we first need to create a lollipop object, set chart options, and draw the chart.
+
+For example,
 
 ```javascript
 // create in "g3lollipop" div
@@ -150,7 +154,7 @@ lollipop.draw();
 
 ```javascript
 lollipop.options.chartMargin = {
-    left: 40, right: 40, top: 30, bottom: 25
+    "left": 40, "right": 40, "top": 30, "bottom": 25
 };
 lollipop.options.titleFont = "normal 20px Sans";
 lollipop.options.titleColor = "steelblue";
