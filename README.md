@@ -2,6 +2,8 @@
 
 **Date: 2019-04-06**
 
+**Version: 0.5.0**
+
 ### Table of Contents
 * [1. Introduction](#1-introduction)
 * [2. Install](#2-install)
