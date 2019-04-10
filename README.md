@@ -223,7 +223,7 @@ The full list of `g3-lollipop` chart options
 | Option 	| Description 	|
 |------------------------------	|---------------------------------------------------------------------------------------------------------------------------------	|
 | chartTarget   | chart target DIV id.   |
-| chartID   | (getter only) get chart SVG unique id. |
+| chartID   | (getter only) unique id of chart SVG element |
 | chartWidth 	| chart width in px.  Default `800`. 	|
 | chartHeight   | (getter only) chart height in px. |
 | chartType 	| pop type, `pie` or `circle`.  Default `pie`. 	|
@@ -235,13 +235,14 @@ The full list of `g3-lollipop` chart options
 
 | Option 	| Description 	|
 |------------------------------	|---------------------------------------------------------------------------------------------------------------------------------	|
-| lollipopTrackHeight 	| height of lollipop track. Default `420`. 	|
+| lollipopTrackID   | (getter only) unique id of lollipop track. |
+| lollipopTrackHeight 	| height of lollipop track in px. Default `420`. 	|
 | lollipopTrackBackground 	| background of lollipop track. Default `rgb(244,244,244)`. 	|
 | lollipopPopMinSize 	| lollipop pop minimal size in px. Default `2`. 	|
 | lollipopPopMaxSize 	| lollipop pop maximal size in px. Default `12`. 	|
-| lollipopPopInfoLimit 	| threshold of lollipop pop size to show count information in middle of pop. Default `8`. 	|
-| lollipopPopInfoColor 	| lollipop pop information text color. Default `#EEE`. 	|
-| lollipopPopInfoDy 	| y-axis direction text adjustment of lollipop pop information. Default `-0.35em`. 	|
+| lollipopPopInfoLimit 	| threshold of lollipop pop size to show counts in middle of pop. Default `8`. 	|
+| lollipopPopInfoColor 	| text color of lollipop pop counts. Default `#EEE`. 	|
+| lollipopPopInfoDy 	| y-axis direction text adjustment of lollipop pop counts. Default `-0.35em`. 	|
 | lollipopLineColor 	| lollipop line color. Default `rgb(42,42,42)`. 	|
 | lollipopLineWidth 	| lollipop line width. Default `0.5`. 	|
 | lollipopCircleColor 	| lollipop circle border color. Default `wheat`. 	|
@@ -255,11 +256,12 @@ The full list of `g3-lollipop` chart options
 
 | Option | Description |
 |------------------------------	|---------------------------------------------------------------------------------------------------------------------------------	|
+| annoID    | (getter only) unique id of protein domain annotation track. |
 | annoHeight 	| height of protein structure annotation track. Default `30`. 	|
 | annoMargin 	| margin of protein structure annotation track in JSON format. Default ```{"top": 4, "bottom": 0}```. 	|
 | annoBackground 	| background of protein structure annotation track. Default `transparent`. 	|
 | annoBarFill 	| background of protein bar in protein structure annotation track. Default `#E5E3E1`. 	|
-| annoBarMargin 	| margin of protein bar in protein structure annotation track. Default ```{"top": 2, "bottom": 2)```. 	|
+| annoBarMargin 	| margin of protein bar in protein structure annotation track. Default ```{"top": 2, "bottom": 2}```. 	|
 | domainColorScheme 	| color scheme of protein domains. Default `category10`.  Check [color schemes](#35-color-palettes) for details. 	|
 | domainMargin 	| margin of protein domains. Default ```{"top": 0, "bottom": 0}```. 	|
 | domainTextFont 	| domain label text font in shorthand format. Default `normal 11px Arial`. 	|
@@ -270,14 +272,14 @@ The full list of `g3-lollipop` chart options
 | Option | Description |
 |------------------------------	|---------------------------------------------------------------------------------------------------------------------------------	|
 | yAxisLabel 	| Y-axis label text.  Default `# of mutations`. 	|
-| axisLabelFont 	| css font style shorthand (font-style font-variant font-weight font-size/line-height font-family).  Default `normal 12px Arial`. 	|
-| axisLabelColor 	| axis label text color.  Default `#4f4f4f`. 	|
-| axisLabelAlignment 	| axis label text alignment (start/end/middle). Default `middle` 	|
-| axisLabelDy 	| text adjustment of axis label text.  Default `-2em`. 	|
 | yAxisLineColor 	| color of y-axis in-chart lines (ticks). Default `#c4c8ca`. 	|
 | yAxisLineStyle 	| style of y-axis in-chart lines (ticks), `dash` or `line`. Default `dash`. 	|
 | yAxisLineWidth 	| width of y-axis in-chart lines (ticks). Default `1`. 	|
 | yMaxRangeRatio 	| ratio of y-axis range to data value range.  Default `1.1`. 	|
+| axisLabelFont 	| css font style shorthand (font-style font-variant font-weight font-size/line-height font-family).  Default `normal 12px Arial`. 	|
+| axisLabelColor 	| axis label text color.  Default `#4f4f4f`. 	|
+| axisLabelAlignment 	| axis label text alignment (start/end/middle). Default `middle` 	|
+| axisLabelDy 	| text adjustment of axis label text.  Default `-2em`. 	|
 
 * Chart title
 
@@ -293,16 +295,17 @@ The full list of `g3-lollipop` chart options
 
 | Option | Description |
 |------------------------------	|---------------------------------------------------------------------------------------------------------------------------------	|
-| legend 	| if show legend. Default `TRUE`. 	|
-| legendMargin 	| legend margin in _list_ format. Default `list(left = 10, right = 0, top = 5, bottom = 5)`. 	|
-| legendInteractive 	| legend interactive mode. Default `TRUE`. 	|
+| legend 	| if show legend. Default `true`. 	|
+| legendMargin 	| legend margin in *JSON* format. Default ```{"left": 10, "right": 0, "top": 5, "bottom": 5}```. 	|
+| legendInteractive 	| legend interactive mode. Default `true`. 	|
 | legendTitle 	| legend title.  |
+| legendHeight  | (getter only) height of legend in px. |
 
 * Brush selection tool
 
 | Option | Description |
 |------------------------------	|---------------------------------------------------------------------------------------------------------------------------------	|
-| brush 	| if show brush. Default `TRUE`. 	|
+| brush 	| if show brush. Default `true`. 	|
 | brushBackground 	| background color of selection brush. Default `#666`. 	|
 | brushOpacity 	| background opacity of selection brush. Default `0.2`. 	|
 | brushBorderColor 	| border color of selection brush. Default `#969696`. 	|
@@ -313,8 +316,8 @@ The full list of `g3-lollipop` chart options
 
 | Option | Description |
 |------------------------------	|---------------------------------------------------------------------------------------------------------------------------------	|
-| tooltip 	| if show tooltip. Default `TRUE`. 	|
-| zoom 	| if enable zoom feature. Default `TRUE`. 	|
+| tooltip 	| if show tooltip. Default `true`. 	|
+| zoom 	| if enable zoom feature. Default `true`. 	|
 
 <br/>	
 <div align="right">	
