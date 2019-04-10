@@ -106,7 +106,7 @@ var mutation_data_default_settings = {
 
 ### 3.2 Protein domain information
 
-[Pfam](https://pfam.xfam.org/) domains are commonly used for protein functional annotation in genetic mutation lollipop diagrams.
+[Pfam](https://pfam.xfam.org/) domains are commonly used for protein structural annotation in genetic mutation lollipop diagrams.
 
 For exmaple,
 
