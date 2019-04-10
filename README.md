@@ -260,7 +260,7 @@ The full list of `g3-lollipop` chart options
 | annoBackground 	| background of protein structure annotation track. Default `transparent`. 	|
 | annoBarFill 	| background of protein bar in protein structure annotation track. Default `#E5E3E1`. 	|
 | annoBarMargin 	| margin of protein bar in protein structure annotation track. Default ```{"top": 2, "bottom": 2)```. 	|
-| domain.color.scheme 	| color scheme of protein domains. Default `category10`.  Check [color schemes](#35-color-palettes) for details. 	|
+| domainColorScheme 	| color scheme of protein domains. Default `category10`.  Check [color schemes](#35-color-palettes) for details. 	|
 | domainMargin 	| margin of protein domains. Default ```{"top": 0, "bottom": 0}```. 	|
 | domainTextFont 	| domain label text font in shorthand format. Default `normal 11px Arial`. 	|
 | domainTextColor 	| domain label text color. Default `#F2F2F2`. 	|
