@@ -1,4 +1,17 @@
-# g3-lollipop.js: Interactively visualize genetic mutations using a lollipop-diagram
+# <a name="top"></a>g3-lollipop.js: Interactively visualize genetic mutations using a lollipop-diagram
+
+**Date: 2019-04-06**
+
+### Table of Contents
+* [1. Introduction](#1-introduction)
+* [2. Install](#2-install)
+* [3. Usage](#3-usage)
+    * [3.1 Genetic mutation data](#31-genetic-mutation-data)
+    * [3.2 Protein domain information](#32-protein-domain-information)
+    * [3.3 Generate g3-lollipop chart](#33-generate-g3-lollipop-chart)
+    * [3.4 Lollipop chart options](#34-lollipop-chart-options)
+    * [3.5 Color schemes](#35-color-palettes)
+    * [3.6 Export chart](#36-export-chart)
 
 ## 1. Introduction
 
@@ -6,10 +19,15 @@
 
 * Demos of `g3-lollipop.js`: [[demo1](https://bl.ocks.org/phoeguo/583a12e04c6b9d7ca1825cdbdc62f531)] [[demo2](https://bl.ocks.org/phoeguo/302a0ff5729f6aa773c33d4bfd3061c4)] [[demo3](https://bl.ocks.org/phoeguo/60f804c6683de30650e36ee912304754)]
 
-* Demos for color-schemes: [[demo1](https://bl.ocks.org/phoeguo/2868503a074a6441b5ae6d987f150d48)]  [[demo2](https://bl.ocks.org/phoeguo/de79b9ce9bda958173af9891ab7aec93)]
+* Demos for color palettes: [[demo1](https://bl.ocks.org/phoeguo/2868503a074a6441b5ae6d987f150d48)]  [[demo2](https://bl.ocks.org/phoeguo/de79b9ce9bda958173af9891ab7aec93)]  [[dome3](https://bl.ocks.org/phoeguo/81dffe0c7c6c8caae06f6a5f60c70d19)]
 
 * Introduction of `g3viz` *R*-package: [[introduction](https://g3viz.github.io/g3viz/)] [[chart themes](https://g3viz.github.io/g3viz/chart_themes.html)]
 
+<br/>	
+<div align="right">	
+    <b><a href="#top">↥ back to top</a></b>	
+</div>	
+<br/>
 
 ## 2. Install
 
@@ -21,6 +39,12 @@
 <script src="https://d3js.org/d3.v4.min.js"></script>
 <script src="https://s3-us-west-2.amazonaws.com/cdsjsd3/g3-viz/0.5.0/g3-lollipop.min.js"></script>
 ```
+
+<br/>	
+<div align="right">	
+    <b><a href="#top">↥ back to top</a></b>	
+</div>	
+<br/>
 
 ## 3. Usage
 
@@ -74,6 +98,12 @@ var mutation_data_default_settings = {
 };
 ```
 
+<br/>	
+<div align="right">	
+    <b><a href="#top">↥ back to top</a></b>	
+</div>	
+<br/>
+
 ### 3.2 Protein domain information
 
 [Pfam](https://pfam.xfam.org/) domains are commonly used for structural annotation in genetic mutation lollipop diagrams.
@@ -122,6 +152,12 @@ var pfam_data_default_settings = {
     },
 };
 ```
+
+<br/>	
+<div align="right">	
+    <b><a href="#top">↥ back to top</a></b>	
+</div>	
+<br/>
 
 ### 3.3 Generate `g3-lollipop` chart
 
@@ -211,7 +247,7 @@ The full list of `g3-lollipop` chart options
 | lollipopCircleWidth 	| lollipop circle border width. Default `0.5`. 	|
 | lollipopLabelRatio 	| lollipop click-out label font size to circle size ratio. Default `1.4`. 	|
 | lollipopLabelMinFontSize 	| lollipop click-out label minimal font size. Default `10`. 	|
-| lollipopColorScheme 	| color scheme to fill lollipop pops. Default `accent`. Check [color schemes](#schemes) for details. 	|
+| lollipopColorScheme 	| color scheme to fill lollipop pops. Default `accent`. Check [color schemes](#35-color-schemes) for details. 	|
 | highlightTextAngle 	| the rotation angle of on-click highlight text in degree.  Default `90`. 	|
 
 * Protein doamin annotation track
@@ -223,7 +259,7 @@ The full list of `g3-lollipop` chart options
 | annoBackground 	| background of protein structure annotation track. Default `transparent`. 	|
 | annoBarFill 	| background of protein bar in protein structure annotation track. Default `#E5E3E1`. 	|
 | annoBarMargin 	| margin of protein bar in protein structure annotation track. Default ```{"top": 2, "bottom": 2)```. 	|
-| domain.color.scheme 	| color scheme of protein domains. Default `category10`.  Check [color schemes](#schemes) for details. 	|
+| domain.color.scheme 	| color scheme of protein domains. Default `category10`.  Check [color schemes](#35-color-schemes) for details. 	|
 | domainMargin 	| margin of protein domains. Default ```{"top": 0, "bottom": 0}```. 	|
 | domainTextFont 	| domain label text font in shorthand format. Default `normal 11px Arial`. 	|
 | domainTextColor 	| domain label text color. Default `#F2F2F2`. 	|
@@ -278,3 +314,59 @@ The full list of `g3-lollipop` chart options
 |------------------------------	|---------------------------------------------------------------------------------------------------------------------------------	|
 | tooltip 	| if show tooltip. Default `TRUE`. 	|
 | zoom 	| if enable zoom feature. Default `TRUE`. 	|
+
+<br/>	
+<div align="right">	
+    <b><a href="#top">↥ back to top</a></b>	
+</div>	
+<br/>
+
+### 3.5 Color palettes
+
+`g3-lollipop` package includes 37 built-in color schemes for categorical data.  These color palettes can be used for lollipops ([demo1](https://bl.ocks.org/phoeguo/2868503a074a6441b5ae6d987f150d48)) or protein domains ([demo2](https://bl.ocks.org/phoeguo/de79b9ce9bda958173af9891ab7aec93)).  The full list of these palettes are shown in this [dome](https://bl.ocks.org/phoeguo/81dffe0c7c6c8caae06f6a5f60c70d19).
+
+<br/>	
+<div align="right">	
+    <b><a href="#top">↥ back to top</a></b>	
+</div>	
+<br/>
+
+### 3.6 Export chart
+
+`g3-lollipop` package includes built-in functions to export the resultant chart in PNG or vector-based SVG file.
+
+For example,
+HTML code
+```html
+<div>
+    <span class="btn-group">
+        <button id="save-as-png">save as PNG</button>
+        <button id="save-as-svg">save as SVG</button>
+    </span>
+</div>
+
+<div id="g3-lollipop"></div>
+```
+JavaScript code
+```javascript
+// get chart div id
+var chartID = lollipop.options.chartID;
+
+// set default filename
+var output_chart_filename = "g3-lollipop";
+
+// button actions: download chart
+document.getElementById("save-as-png").onclick = function (e) {
+    g3.output().toPNG(output_chart_filename, chartID);
+};
+
+document.getElementById("save-as-svg").onclick = function (e) {
+    g3.output().toSVG(output_chart_filename, chartID);
+};
+```
+
+<br/>	
+<div align="right">	
+    <b><a href="#top">↥ back to top</a></b>	
+</div>	
+<br/>
