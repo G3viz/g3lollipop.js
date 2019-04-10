@@ -1,8 +1,6 @@
 # <a name="top"></a>g3-lollipop.js: Interactively visualize genetic mutations using a lollipop-diagram
 
-**Date: 2019-04-06**
-
-**Version: 0.5.0**
+**Date: 2019-04-06 (version 0.5.0)**
 
 ### Table of Contents
 * [1. Introduction](#1-introduction)
