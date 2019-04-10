@@ -324,7 +324,7 @@ The full list of `g3-lollipop` chart options
 
 ### 3.5 Color palettes
 
-`g3-lollipop` package includes 37 built-in color schemes for categorical data.  These color palettes can be used for lollipops ([demo1](https://bl.ocks.org/phoeguo/2868503a074a6441b5ae6d987f150d48)) or protein domains ([demo2](https://bl.ocks.org/phoeguo/de79b9ce9bda958173af9891ab7aec93)).  The full list of these palettes are shown in this [dome](https://bl.ocks.org/phoeguo/81dffe0c7c6c8caae06f6a5f60c70d19).
+`g3-lollipop` package includes 37 built-in color palettes for categorical data.  These color palettes can be used for lollipops ([demo1](https://bl.ocks.org/phoeguo/2868503a074a6441b5ae6d987f150d48)) or protein domains ([demo2](https://bl.ocks.org/phoeguo/de79b9ce9bda958173af9891ab7aec93)).  The full list of these palettes are shown in this [dome](https://bl.ocks.org/phoeguo/81dffe0c7c6c8caae06f6a5f60c70d19).
 
 <br/>	
 <div align="right">	
