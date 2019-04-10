@@ -296,7 +296,7 @@ The full list of `g3-lollipop` chart options
 | legend 	| if show legend. Default `TRUE`. 	|
 | legendMargin 	| legend margin in _list_ format. Default `list(left = 10, right = 0, top = 5, bottom = 5)`. 	|
 | legendInteractive 	| legend interactive mode. Default `TRUE`. 	|
-| legendTitle 	| legend title. If `NA`, use factor name as `factor.col`. Default is `NA`. 	|
+| legendTitle 	| legend title.  |
 
 * Brush selection tool
 
