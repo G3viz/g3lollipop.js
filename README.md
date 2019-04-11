@@ -249,7 +249,7 @@ The full list of `g3-lollipop` chart options
 | lollipopCircleWidth 	| lollipop circle border width. Default `0.5`. 	|
 | lollipopLabelRatio 	| lollipop click-out label font size to circle size ratio. Default `1.4`. 	|
 | lollipopLabelMinFontSize 	| lollipop click-out label minimal font size. Default `10`. 	|
-| lollipopColorScheme 	| color scheme to fill lollipop pops. Default `accent`. Check [color schemes](#35-color-palettes) for details. 	|
+| lollipopColorScheme 	| color scheme to fill lollipop pops. Default `accent`. Check [color palettes](#35-color-palettes) for details. 	|
 | highlightTextAngle 	| the rotation angle of on-click highlight text in degree.  Default `90`. 	|
 
 * Protein doamin annotation track
@@ -262,7 +262,7 @@ The full list of `g3-lollipop` chart options
 | annoBackground 	| background of protein structure annotation track. Default `transparent`. 	|
 | annoBarFill 	| background of protein bar in protein structure annotation track. Default `#E5E3E1`. 	|
 | annoBarMargin 	| margin of protein bar in protein structure annotation track. Default ```{"top": 2, "bottom": 2}```. 	|
-| domainColorScheme 	| color scheme of protein domains. Default `category10`.  Check [color schemes](#35-color-palettes) for details. 	|
+| domainColorScheme 	| color scheme of protein domains. Default `category10`.  Check [color palettes](#35-color-palettes) for details. 	|
 | domainMargin 	| margin of protein domains. Default ```{"top": 0, "bottom": 0}```. 	|
 | domainTextFont 	| domain label text font in shorthand format. Default `normal 11px Arial`. 	|
 | domainTextColor 	| domain label text color. Default `#F2F2F2`. 	|
