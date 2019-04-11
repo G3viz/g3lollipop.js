@@ -10,7 +10,7 @@
     * [3.2 Protein domain information](#32-protein-domain-information)
     * [3.3 Generate g3-lollipop chart](#33-generate-g3-lollipop-chart)
     * [3.4 Lollipop chart options](#34-lollipop-chart-options)
-    * [3.5 Color schemes](#35-color-palettes)
+    * [3.5 Color palettes](#35-color-palettes)
     * [3.6 Export chart](#36-export-chart)
 
 ## 1. Introduction
@@ -29,7 +29,7 @@
 </div>	
 <br/>
 
-## 2. Install
+## 2. Installation
 
 ```html
 <!-- (optional) css  -->
