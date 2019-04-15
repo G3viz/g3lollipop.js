@@ -67,19 +67,21 @@
       lollipop = g3.Lollipop("plot-panel");
       lollipop.data.snvData = snvData;
       lollipop.data.domainData = domainData;
-      
+
       lollipop.format.snvData = snvDataFormat;
       lollipop.format.domainData = domainDataFormat;
-			
+
       lollipop.options.highlightTextAngle = 75;
       lollipop.options.lollipopPopInfoDy = "0.35em";
-//      lollipop.options.yAxisLineColor = "white";
-//      lollipop.options.yAxisLineStyle = "dash";
-//      lollipop.options.yAxisLineWidth = 2;
+      lollipop.options.brush = false;
+      lollipop.options.zoom = true;
+      //      lollipop.options.yAxisLineColor = "white";
+      //      lollipop.options.yAxisLineStyle = "dash";
+      //      lollipop.options.yAxisLineWidth = 2;
 
       lollipop.draw();
 
-			var chartID = lollipop.options.chartID;
+      var chartID = lollipop.options.chartID;
 
       document.getElementById("save-as-png").onclick = function (e) {
         g3.output().toPNG('out_png', chartID);

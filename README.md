@@ -249,7 +249,7 @@ The full list of `g3-lollipop` chart options
 | lollipopCircleWidth 	| lollipop circle border width. Default `0.5`. 	|
 | lollipopLabelRatio 	| lollipop click-out label font size to circle size ratio. Default `1.4`. 	|
 | lollipopLabelMinFontSize 	| lollipop click-out label minimal font size. Default `10`. 	|
-| lollipopColorScheme 	| color scheme to fill lollipop pops. Default `accent`. Check [color palettes](#35-color-palettes) for details. 	|
+| lollipopColorScheme 	| color scheme to fill lollipop pops. Default `accent`. Check [color palettes ](#35-color-palettes) for details. 	|
 | highlightTextAngle 	| the rotation angle of on-click highlight text in degree.  Default `90`. 	|
 
 * Protein doamin annotation track

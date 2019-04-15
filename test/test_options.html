@@ -4,28 +4,31 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="stylesheet" media="screen" href="../css/style.min.css" />
+    <link rel="stylesheet" media="screen" href="../css/style.css" />
     <link rel="stylesheet" media="screen" href="../css/gist.css" />
 </head>
 
 <body>
     <span class="btn-group">
-        <button id="save-as-png">save PNG</button>
-        <button id="save-as-svg">save SVG</button>
+        <button id="save-as-png" disabled>save PNG</button>
+        <button id="save-as-svg" disabled>save SVG</button>
         <button id="next_btn">Next</button>
     </span>
 
     <div class="console" id="info">
     </div>
 
-    <svg></svg>
+    <div id="lollipop"></div>
 
     <script src="https://d3js.org/d3.v4.min.js"></script>
-    <script src="../dist/g3-lollipop.min.js"></script>
+    <script src="../dist/g3-lollipop.js"></script>
 
     <script>
         var snvFile = "../data/snv/TP53-msk_impact_2017-parsed.tsv";
         var domainFile = "../data/domain/TP53_pfam.json";
+
+        var svg_btn = document.getElementById("save-as-svg");
+        var png_btn = document.getElementById("save-as-png");
 
         var snvOpt = {
             x: "AA_Position",
@@ -137,8 +140,8 @@
         // go thru options
         var idx = 0;
         var n_test = tests.length;
-        var cur_setting, info;
-        var lollipop;
+        var cur_setting, info, _init = false;
+        var lollipop, chartID;
         var next_btn = document.getElementById("next_btn");
         var info_box = document.getElementById("info");
 
@@ -155,31 +158,34 @@
                 d[snvOpt.x] = +d[snvOpt.x];
             });
 
+
             next_btn.onclick = function (e) {
-                if (idx == 0) {
-                    next_btn.innerHTML = "Next";
-                }
-
                 if (idx < n_test) {
-                    d3.select("svg").selectAll("*").remove();
-
-                    lollipop = new g3.Lollipop("svg", "pie", 800);
-                    lollipop.data.snvData = snvData;
-                    lollipop.data.domainData = domainData;
-                    lollipop.format.snvData = snvOpt;
-                    lollipop.format.domainData = domainOpt;
-
                     cur_setting = tests[idx];
-                    for (let _key in cur_setting) {
-                        lollipop.options[_key] = cur_setting[_key];
-                    }
 
                     info = "<span style=\"color:firebrick;\">Test " + (idx + 1) +
                         "</span><br></div><div class=\"cur\">" + _print(cur_setting) + "</div>";
                     info_box.innerHTML += info;
                     info_box.scrollTop = info_box.scrollHeight;
 
+                    if (!_init) {
+                        svg_btn.disabled = false;
+                        png_btn.disabled = false;
+
+                        _init = true;
+
+                    } else {
+                        lollipop.destroy();
+                    }
+
+                    lollipop = new g3.Lollipop("lollipop", "pie", 800);
+                    lollipop.data.snvData = snvData;
+                    lollipop.data.domainData = domainData;
+                    lollipop.format.snvData = snvOpt;
+                    lollipop.format.domainData = domainOpt;
+                    lollipop.setOptions(cur_setting);
                     lollipop.draw();
+                    chartID = lollipop.options.chartID;
 
                     idx++;
                     if (idx == n_test) {
@@ -189,12 +195,12 @@
                 }
             };
 
-            document.getElementById("save-as-png").onclick = function (e) {
-                g3.utils.output("svg").toPNG('out_png');
+            png_btn.onclick = function (e) {
+                g3.output().toPNG('out_png', chartID);
             };
 
-            document.getElementById("save-as-svg").onclick = function (e) {
-                g3.utils.output('svg').toSVG('out_svg');
+            svg_btn.onclick = function (e) {
+                g3.output().toSVG('out_svg', chartID);
             };
         });
     </script>

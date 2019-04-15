@@ -1,163 +1,165 @@
 <!doctype html>
+<html>
 
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<link rel="stylesheet" href="https://cdn.rawgit.com/G3js/lollipopJS/aa03b01a/css/style.min.css">
-<link rel="stylesheet" href="https://cdn.rawgit.com/G3js/lollipopJS/aa03b01a/css/gist.css">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" media="screen" href="../css/style.css" />
+    <link rel="stylesheet" media="screen" href="../css/gist.css" />
+</head>
 
-<div>
+<body>
     <div>
-        <span class="btn-group">
-            <button id="save-as-png">save as PNG</button>
-            <button id="save-as-svg">save as SVG</button>
-            <button id="prev-btn" disabled>Prev</button>
-            <button id="next-btn">Start</button>
-        </span>
+        <div>
+            <span class="btn-group">
+                <button id="save-as-png" disabled>save as PNG</button>
+                <button id="save-as-svg" disabled>save as SVG</button>
+                <button id="prev-btn" disabled>Prev</button>
+                <button id="next-btn">Start</button>
+            </span>
+        </div>
+
+        <div class="console" id="info-box"></div>
+
+        <div id="lollipop"></div>
     </div>
 
-    <div class="console" id="info-box"></div>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="../dist/g3-lollipop.js"></script>
 
-    <div id="lollipop"></div>
-</div>
+    <script>
+        var snvFile = "../data/snv/TP53-msk_impact_2017-parsed.tsv";
+        var domainFile = "../data/domain/TP53_pfam.json";
 
-<script src="https://d3js.org/d3.v4.min.js"></script>
-<script src="https://cdn.rawgit.com/G3js/lollipopJS/master/dist/g3-lollipop.min.js"></script>
+        // mutation data format
+        var snvDataFormat = {
+            x: "AA_Position",
+            y: "Protein_Change",
+            factor: "Mutation_Class",
+        };
 
-<!--
-<script src="../dist/g3-lollipop.min.js"></script>
+        // pfam domain JSON information
+        var domainDataFormat = {
+            symbol: "hgnc_symbol",
+            name: "protein_name",
+            length: "length",
+            domainType: "pfam",
+            details: {
+                start: "pfam_start",
+                end: "pfam_end",
+                ac: "pfam_ac",
+                name: "pfam_id",
+            },
+        };
 
-    <script src="https://cdn.rawgit.com/G3js/lollipopJS/master/dist/g3-lollipop.min.js"></script>
--->
+        // read data in
+        var q = d3.queue();
+        q.defer(d3.tsv, snvFile);
+        q.defer(d3.json, domainFile);
 
-<script>
-    // mutation data in TSV (tabular-separated value) format
-    var snvFile = "https://cdn.rawgit.com/G3js/lollipop/master/data/snv/TP53-msk_impact_2017-parsed.tsv";
+        var _cols = g3.listPalettes();
+        var _prev_btn = document.getElementById('prev-btn');
+        var _next_btn = document.getElementById('next-btn');
+        var _info_box = document.getElementById("info-box");
+        var png_btn = document.getElementById("save-as-png");
+        var svg_btn = document.getElementById("save-as-svg");
 
-    // pfam domain data
-    var domainFile = "https://cdn.rawgit.com/G3js/lollipop/master/data/domain/TP53_pfam.json";
+        // new lollipop chart
+        lollipop = g3.Lollipop("lollipop");
 
-    // mutation data format
-    var snvDataFormat = {
-        x: "AA_Position",
-        y: "Protein_Change",
-        factor: "Mutation_Class",
-    };
+        q.await(function (error, snvData, domainData) {
+            // format data
+            snvData.forEach(function (d) {
+                d[snvDataFormat.x] = +d[snvDataFormat.x];
+            });
 
-    // pfam domain JSON information
-    var domainDataFormat = {
-        symbol: "hgnc_symbol",
-        name: "protein_name",
-        length: "length",
-        domainType: "pfam",
-        details: {
-            start: "pfam_start",
-            end: "pfam_end",
-            ac: "pfam_ac",
-            name: "pfam_id",
-        },
-    };
+            // add data
+            lollipop.data.snvData = snvData;
+            lollipop.data.domainData = domainData;
 
-    // read data in
-    var q = d3.queue();
-    q.defer(d3.tsv, snvFile);
-    q.defer(d3.json, domainFile);
+            // add data options
+            lollipop.format.snvData = snvDataFormat;
+            lollipop.format.domainData = domainDataFormat;
 
-    var _cols = g3.listPalettes();
-    var _prev_btn = document.getElementById('prev-btn');
-    var _next_btn = document.getElementById('next-btn');
-    var _info_box = document.getElementById("info-box");
+            lollipop.options.chartMargin = {
+                left: 40,
+                right: 40,
+                top: 30,
+                bottom: 25
+            };
+            lollipop.options.titleFont = "normal 20px Sans";
+            lollipop.options.titleColor = "steelblue";
+            lollipop.options.titleAlignment = "middle";
+            lollipop.options.titleDy = "0.3em";
 
-    // new lollipop chart
-    lollipop = g3.Lollipop("lollipop");
+            var _idx = -1;
+            var _init = false;
 
-    q.await(function (error, snvData, domainData) {
-        // format data
-        snvData.forEach(function (d) {
-            d[snvDataFormat.x] = +d[snvDataFormat.x];
+            var updateLollipop = function () {
+                if (_idx < 0 || _idx > _cols.length) {
+                    return;
+                }
+
+                var cur_col_scheme = _cols[_idx];
+
+                lollipop.options.domainColorScheme = cur_col_scheme;
+                lollipop.options.titleText = "Domain color scheme: " + cur_col_scheme;
+
+                if (!_init) {
+                    _next_btn.innerHTML = "Next";
+                    lollipop.draw();
+                    _init = true;
+                } else {
+                    lollipop.refresh();
+                }
+
+                info = "<span style=\"color:steelblue;\">Color " +
+                    (_idx + 1) + "/" + _cols.length + "</span>: color scheme " +
+                    "<span style = \"color:firebrick;font-weight: bold;\">" + cur_col_scheme +
+                    "</span><br>";
+
+                _info_box.innerHTML += info;
+                _info_box.scrollTop = _info_box.scrollHeight;
+            };
+
+            var checkButtons = function () {
+                _prev_btn.disabled = (_idx > 0) ? false : true;
+                _next_btn.disabled = (_idx < _cols.length - 1) ? false : true;
+            }
+
+            _prev_btn.onclick = function (e) {
+                _idx--;
+
+                checkButtons();
+                updateLollipop();
+            };
+
+            _next_btn.onclick = function (e) {
+                png_btn.disabled = false;
+                svg_btn.disabled = false;
+                _idx++;
+
+                checkButtons();
+                updateLollipop();
+            };
+
+            // get chart div id
+            var chartID = lollipop.options.chartID;
+
+            // set default filename
+            var output_chart_filename = "lollipop";
+
+            // button actions: download chart
+            png_btn.onclick = function (e) {
+                g3.output().toPNG(output_chart_filename, chartID);
+            };
+
+            svg_btn.onclick = function (e) {
+                g3.output().toSVG(output_chart_filename, chartID);
+            };
+
         });
+    </script>
+</body>
 
-
-        // add data
-        lollipop.data.snvData = snvData;
-        lollipop.data.domainData = domainData;
-
-        // add data options
-        lollipop.format.snvData = snvDataFormat;
-        lollipop.format.domainData = domainDataFormat;
-
-        lollipop.options.chartMargin = {
-            left: 40,
-            right: 40,
-            top: 30,
-            bottom: 25
-        };
-        lollipop.options.titleFont = "normal 20px Sans";
-        lollipop.options.titleColor = "steelblue";
-        lollipop.options.titleAlignment = "middle";
-        lollipop.options.titleDy = "0.3em";
-
-        var _idx = -1;
-        var _init = false;
-
-        var updateLollipop = function () {
-            if (_idx < 0 || _idx > _cols.length) {
-                return;
-            }
-
-            var cur_col_scheme = _cols[_idx];
-
-            lollipop.options.lollipopColorScheme = cur_col_scheme;
-            lollipop.options.titleText = "Lollipop color scheme: " + cur_col_scheme;
-
-            if (!_init) {
-                _next_btn.innerHTML = "Next";
-                lollipop.draw();
-                _init = true;
-            } else {
-                lollipop.refresh();
-            }
-
-            info = "<span style=\"color:steelblue;\">Color " +
-                (_idx + 1) + "/" + _cols.length + "</span>: color scheme " +
-                "<span style = \"color:firebrick;font-weight: bold;\">" + cur_col_scheme + "</span><br>";
-
-            _info_box.innerHTML += info;
-            _info_box.scrollTop = _info_box.scrollHeight;
-        };
-
-        var checkButtons = function () {
-            _prev_btn.disabled = (_idx > 0) ? false : true;
-            _next_btn.disabled = (_idx < _cols.length - 1) ? false : true;
-        }
-
-        _prev_btn.onclick = function (e) {
-            _idx--;
-
-            checkButtons();
-            updateLollipop();
-        };
-
-        _next_btn.onclick = function (e) {
-            _idx++;
-
-            checkButtons();
-            updateLollipop();
-        };
-
-        // get chart div id
-        var chartID = lollipop.options.chartID;
-
-        // set default filename
-        var output_chart_filename = "lollipop";
-
-        // button actions: download chart
-        document.getElementById("save-as-png").onclick = function (e) {
-            g3.output(chartID).toPNG(output_chart_filename);
-        };
-
-        document.getElementById("save-as-svg").onclick = function (e) {
-            g3.output(chartID).toSVG(output_chart_filename);
-        };
-
-    });
-</script>
+</html>
